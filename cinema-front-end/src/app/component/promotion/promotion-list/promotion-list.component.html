@@ -1,0 +1,126 @@
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12">
+    <div class="row m-0 text-center">
+      <h2 class=" text-light">Danh sách khuyến mãi</h2>
+    </div>
+    <div class="row m-0">
+      <div class="col col-lg-6 col-md-12 col-sm-12">
+      </div>
+      <div class="col col-lg-3"></div>
+      <div class="col col-lg-3"></div></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-3 p-1 ms-0 ps-0">
+          <button class="button btnGreen" style="height: 39px">
+            Thêm mới
+          </button>
+        </div>
+        <div class="col-1"></div>
+        <div class="col-2"></div>
+        <div class="col-2"></div>
+        <div class="col-1"></div>
+        <div class="col-3 p-1 pe-0">
+          <form class="d-flex">
+            <input class="form-control me-2" type="search" placeholder="Tìm tên khuyến mãi"
+                   aria-label="Search">
+            <button class="button btnGreen" style="height: 38px" type="submit">
+              Tìm
+            </button>
+          </form>
+        </div>
+      </div>
+      <div class="row table-responsive-sm table-responsive-lg table-responsive-xxl">
+        <table class="table table-sm " id="table-id" style="text-align: center">
+          <thead>
+          <tr class="bg bg-warning">
+            <th>Tiêu đề
+              <button onclick="sortTable(0)" class="btn btn-sm">
+                <i class="fa-sharp fa-solid fa-sort"></i>
+              </button>
+            </th>
+            <th>
+              Thời gian bắt đầu
+            </th>
+            <th>
+              Thời gian kết thúc
+            </th>
+            <th>
+              Mức giảm giá
+            </th>
+            <th>
+              Chi tiết
+            </th>
+            <th>Sửa</th>
+            <th>Xóa</th>
+          </tr>
+          </thead>
+          <tbody class="text-black bg-body">
+          <tr>
+            <td>Khuyến mãi năm mới</td>
+            <td>02/03/2025</td>
+            <td>10/03/2025</td>
+            <td>10%</td>
+            <td>
+              <button class="button btnBlue" onclick="showDetail()">
+                <!--                                            <i class="fa-sharp fa-solid fa-circle-info"></i> -->
+                Chi tiết
+              </button>
+            </td>
+            <td>
+              <button class="button btnYellow">
+                <!--                                            <i class="fa-solid fa-pen"></i>-->
+                Chỉnh sửa
+              </button>
+            </td>
+            <td>
+              <button class="button btnRed" onclick="deleteObj()">
+                <!--                                            <i class="fa-solid fa-trash"></i>-->
+                Xóa
+              </button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="row">
+        <div class="col-2 ms-0 p-0">
+          <div class="container p-0 text-center">
+            <span class="fw-bold text-light"></span>
+            <select class="form-select form-select-sm" name="state" id="maxRows">
+              <option value="5">Chọn số lượng hiển thị</option>
+              <option value="5000">Hiển thị tất cả</option>
+              <option value="10">10</option>
+              <option value="15">15</option>
+              <option value="20">20</option>
+              <option value="50">50</option>
+              <option value="70">70</option>
+              <option value="100">100</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-3"></div>
+        <div class="col-4"></div>
+        <div class="col-3">
+          <div class='pagination-container'>
+            <div class="row">
+              <nav>
+                <ul class="pagination">
+                  <li data-page="prev">
+                    <button class="btn bg-light text-bg-info btnBlue">
+                      <i class="fa-solid fa-backward" style="color: #0a53be"></i>
+                    </button>
+                  </li>
+                  <li data-page="next" id="prev">
+                    <button class="btn bg-light text-bg-info btnBlue">
+                      <i class="fa-solid fa-forward" style="color: #0a53be"></i>
+                    </button>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

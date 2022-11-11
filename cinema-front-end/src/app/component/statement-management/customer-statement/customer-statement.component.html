@@ -1,0 +1,31 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-2"></div>
+    <div class="col-8" >
+      <div class="row">
+        <div class="col-8">
+          <h2 align="center" class="p-3">DANH SÁCH THÀNH VIÊN TÍCH CỰC NHẤT</h2>
+        </div>
+        <div class="col-4">
+          <div class="form-group container d-flex" style="transform: translateY(20px)"  [formGroup]="timeGroup">
+            <label style="width: 40%;height: 100%;transform: translateY(5px)" class="fw-bold">Thời gian</label>
+            <select class="form-select" id="time" formControlName="time" (change)="find()">
+              <option [value]="0">Tất cả</option>
+              <option [value]="1">1 tháng</option>
+              <option [value]="6">6 tháng</option>
+              <option [value]="12">1 năm</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-outline-primary my-3" (click)="display()">{{btnView}}</button>
+      <div class="row table-responsive">
+        <p id="display"></p>
+      </div>
+      <div class="chart-container">
+        <canvas  id="MyChart" >{{ chart }}</canvas>
+      </div>
+    </div>
+    <div class="col-2"></div>
+  </div>
+</div>

@@ -1,0 +1,74 @@
+
+<div class="limiter">
+  <div class="container-login100">
+    <div class="wrap-login100 p-l-20 p-r-20 p-t-5 p-b-30">
+      <div class="row">
+        <div class="col-lg-4">
+          <img class="p-l-10" src="assets/images/cinema.png" style="width: 200px;height: 150px">
+        </div>
+        <div class="col-lg-8 p-t-50" >   <span style="font-size: 40px;margin-left: 8%;font-family: 'Times New Roman'">
+						ĐĂNG NHẬP
+					</span>
+        </div>
+      </div>
+      <form class="login100-form validate-form"  [formGroup] = "formGroup" (ngSubmit)="onSubmit()">
+        <div class="wrap-input100 validate-input m-b-23" data-validate="Username is reauired">
+          <label class="label-input100">Tên đăng nhập:</label>
+          <input class="input100" type="text" formControlName="username" >
+          <span class="focus-input100" data-symbol="&#xf206;"></span>
+        </div>
+
+        <div class="wrap-input100 validate-input" data-validate="Password is required">
+          <span class="label-input100">Mật khẩu:</span>
+          <input class="input100" type="password" formControlName="password">
+          <span class="focus-input100" data-symbol="&#xf190;"></span>
+        </div>
+
+        <div class="p-b-10 p-t-10" style="font-family: Times New Roman;font-size: 18px">
+          <label>
+            <input style="background: rebeccapurple" type="checkbox" formControlName="rememberMe" checked="checked"> Lưu mật
+            khẩu
+          </label>
+          <a  style="text-decoration: none" href="#">
+            <span class="the-a" style="font-family: Times New Roman;margin-left: 36%;font-size: 18px">Quên mật khẩu?</span>
+          </a>
+        </div>
+
+        <div class="p-b-30" style="font-family: Times New Roman;font-size: 18px">
+          <span style="font-family: Times New Roman;font-size: 18px;color: #666666">Bạn chưa có tài khoản?</span>
+          <a style="text-decoration: none"  href="#">
+            <span class="the-a" style="font-family: Times New Roman;font-size: 18px;">Đăng ký?</span>
+          </a>
+        </div>
+
+        <button class="btn btn-primary btn-outline-primary gmail-btn" href="/users/googleauth" role="button"
+                style="text-transform:none;border-radius: 30px" >
+          <span style="font-size: 20px;font-family: Times New Roman">Đăng nhập </span>
+        </button>
+
+        <div class="txt1 text-center p-t-10 p-b-10">
+						<span>
+							Hoặc đăng nhập bằng
+						</span>
+        </div>
+
+        <a href="#">
+          <button class="btn btn-primary  gmail-btn m-b-10"
+                  style="text-transform:none;border-radius: 30px">
+            <img class="m-b-8" width="20px" alt="Google sign-in"
+                 src="https://cdn-icons-png.flaticon.com/512/2504/2504739.png"/>
+            <span style="font-size: 20px">Đăng nhập Gmail</span>
+          </button>
+        </a>
+
+
+        <button class="btn  thoat-btn" href="/users/googleauth"
+                style="text-transform:none;border-radius: 30px" >
+          <span style="font-size: 20px">Thoát</span>
+        </button>
+
+
+      </form>
+    </div>
+  </div>
+</div>
