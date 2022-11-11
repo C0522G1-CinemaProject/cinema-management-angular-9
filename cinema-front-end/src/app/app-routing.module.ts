@@ -8,7 +8,7 @@ import {PromotionModule} from './component/promotion/promotion.module';
 import {RegisterModule} from './component/register/register.module';
 import {RoomModule} from './component/room/room.module';
 import {TicketModule} from './component/ticket/ticket.module';
-import {StatementManagementModule} from './component/statement-management/statement-management.module';
+
 import {DecentralizationModule} from './component/decentralization/decentralization.module';
 
 /*không được xóa canActivate*/
@@ -57,10 +57,7 @@ const routes: Routes = [
     /*không được xóa canActivate*/
     // canActivate: [AuthGuard]
   },
-  {
-    path: 'statement', loadChildren: () => StatementManagementModule
 
-  },
   {
     path: 'login', loadChildren: () => DecentralizationModule
   }
