@@ -3,11 +3,15 @@ import { CommonModule } from '@angular/common';
 
 import { PromotionRoutingModule } from './promotion-routing.module';
 import { PromotionListComponent } from './promotion-list/promotion-list.component';
+import { PromotionDetailComponent } from './promotion-detail/promotion-detail.component';
+import { PromotionListFrontComponent } from './promotion-list-front/promotion-list-front.component';
 
 
 @NgModule({
   declarations: [
-    PromotionListComponent
+    PromotionListComponent,
+    PromotionDetailComponent,
+    PromotionListFrontComponent
   ],
   imports: [
     CommonModule,

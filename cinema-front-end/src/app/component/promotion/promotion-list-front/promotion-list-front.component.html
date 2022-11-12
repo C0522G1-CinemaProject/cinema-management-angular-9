@@ -1,0 +1,23 @@
+<div class=" mt-4 mb-4 container">
+  <h2 class="mt-5 text-center">KHUYẾN MÃI</h2>
+  <div class="mt-2 d-flex row">
+    <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12" *ngFor="let pro of promotionList" >
+      <ul>
+        <li class="booking-card"
+            style="background-image: url({{pro.image}})">
+          <div class="book-container">
+            <div class="content text-center wrapCss">
+              <button type="submit" class="button btnYellow" routerLink="/detail/{{pro.id}}">Xem chi tiết</button>
+            </div>
+          </div>
+          <div class="informations-container">
+            <h2 class="title">{{pro.name}}</h2>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="content text-center wrapCss">
+    <button type="submit" class="button btnBlue" (click)="loadMore()">Xem thêm</button>
+  </div>
+</div>
