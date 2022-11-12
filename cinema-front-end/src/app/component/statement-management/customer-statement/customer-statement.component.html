@@ -22,7 +22,7 @@
       <div class="row table-responsive">
         <p id="display"></p>
       </div>
-      <div class="chart-container">
+      <div class="chart-container" *ngIf="btnView==='Xem bảng số liệu'">
         <canvas  id="MyChart" >{{ chart }}</canvas>
       </div>
     </div>

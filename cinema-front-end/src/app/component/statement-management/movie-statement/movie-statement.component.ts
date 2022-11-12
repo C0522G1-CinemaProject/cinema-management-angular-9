@@ -1,10 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {Chart} from 'chart.js';
+import * as Chart from 'chart.js';
+
 import {IMovieStatementDto} from '../../../dto/i-movie-statement-dto';
-// @ts-ignore
-import {BehaviorSubject, Observable} from 'rxjs/dist/types';
+
 import {StatementService} from '../statement.service';
+import {BehaviorSubject, Observable} from 'rxjs';
 
 @Component({
   selector: 'app-movie-statement',
@@ -13,13 +14,15 @@ import {StatementService} from '../statement.service';
 })
 export class MovieStatementComponent implements OnInit {
 
-  btnView = '';
+  btnView = 'Xem biểu đồ';
   numberMonth = 0;
   labelCharts: string[] = [];
   dataCharts: number[] = [];
   listMovieTop$: Observable<Array<IMovieStatementDto>>;
   timeGroup!: FormGroup;
-  chart: Chart;
+  chart: any;
+  canvas: any;
+  ctx: any;
 
   constructor(private fbuilder: FormBuilder,
               private statement: StatementService) {
@@ -31,6 +34,49 @@ export class MovieStatementComponent implements OnInit {
       time: [this.numberMonth]
     });
     this.getList(this.numberMonth);
+    /*  this.canvas = document.getElementById('myChart');
+      console.log(this.canvas);
+      this.ctx = this.canvas.getContext('2d');*/
+
+    this.chart = new Chart('myChart', {
+      type: 'bar',
+      data: {
+        // tslint:disable-next-line:max-line-length
+        labels: ['USA', 'Spain', 'Italy', 'France', 'Germany', 'UK', 'Turkey', 'Iran', 'China', 'Russia', 'Brazil', 'Belgium', 'Canada', 'Netherlands', 'Switzerland', 'India', 'Portugal', 'Peru', 'Ireland', 'Sweden', 'USA', 'Spain', 'Italy', 'France', 'Germany', 'UK', 'Turkey', 'Iran', 'China', 'Russia', 'Brazil', 'Belgium', 'Canada', 'Netherlands',],
+        datasets: [{
+          label: 'Total cases.',
+          // tslint:disable-next-line:max-line-length
+          data: [886789, 213024, 189973, 158183, 153129, 138078, 101790, 87026, 82804, 62773, 50036, 42797, 42110, 35729, 28496, 23502, 22353, 20914, 17607, 16755, 886789, 213024, 189973, 158183, 153129, 138078, 101790, 87026, 82804, 62773, 50036, 42797, 42110, 35729],
+          backgroundColor: 'red',
+          hoverBackgroundColor: 'blue',
+          hoverBorderColor: 'white',
+          hoverBorderWidth: 3,
+          borderColor: '#666',
+          borderWidth: 2
+        }]
+      },
+      options: {
+        scales: {
+          yAxes: [{
+            beginAtZero: true,
+            ticks: {
+              callback(value, index, values) {
+                return value + ' VND';
+              }
+            }
+          }]
+        },
+        legend: {
+          display: true
+        },
+        responsive: true,
+        indexAxis: 'x',
+        aspectRatio: 1.8,
+        display: true
+      }
+    });
+    console.log(this.chart);
+    // this.createChart();
   }
 
   display() {
@@ -57,8 +103,8 @@ export class MovieStatementComponent implements OnInit {
     this.labelCharts = [];
     this.dataCharts = [];
 
-    // @ts-ignore
-    for (const item: IMovieStatementDto of value) {
+
+    for (const item of value) {
       if (item.name != null) {
         this.labelCharts.push(item.name);
       } else {
@@ -80,7 +126,7 @@ export class MovieStatementComponent implements OnInit {
 
   createChart() {
 
-    this.chart = new Chart('MyChart', {
+    this.chart = new Chart('myChart', {
       type: 'bar',
 
       data: {
@@ -95,17 +141,23 @@ export class MovieStatementComponent implements OnInit {
         ]
       },
       options: {
+        scales: {
+          yAxes: [{
+            beginAtZero: true,
+            ticks: {
+              callback(value, index, values) {
+                return value + ' VND';
+              }
+            }
+          }]
+        },
+        legend: {
+          display: true
+        },
+        responsive: true,
         indexAxis: 'x',
         aspectRatio: 2.5,
-        scales: {
-          y: {
-            beginAtZero: true,
-            title: {
-              display: true,
-              text: 'VND'
-            }
-          }
-        }
+        display: true
       }
     });
   }

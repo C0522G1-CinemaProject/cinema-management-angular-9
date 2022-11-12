@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-// @ts-ignore
-import {Observable} from "rxjs/dist/types";
-import {IMovieStatementDto} from "../../dto/i-movie-statement-dto";
-import {environment} from "../../../environments/environment";
+import {HttpClient} from '@angular/common/http';
+
+
+import {IMovieStatementDto} from '../../dto/i-movie-statement-dto';
+import {environment} from '../../../environments/environment';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'

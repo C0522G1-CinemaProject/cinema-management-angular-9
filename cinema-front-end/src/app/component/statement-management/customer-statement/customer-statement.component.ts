@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {Chart} from 'chart.js';
-import {IMovieStatementDto} from '../../../dto/i-movie-statement-dto';
+import * as Chart from 'chart.js';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {ICustomerStatementDto} from '../../../dto/i-customer-statement-dto';
 import {StatementService} from '../statement.service';
@@ -17,7 +16,7 @@ export class CustomerStatementComponent implements OnInit {
   numberMonth = 0;
 
   timeGroup!: FormGroup;
-  chart: Chart;
+  chart: any;
   listCustomerTop$: Observable<Array<ICustomerStatementDto>>;
   private labelCharts: string[];
   private dataCharts: number[];
@@ -41,6 +40,7 @@ export class CustomerStatementComponent implements OnInit {
       this.btnView = 'Xem biểu đồ';
     }
   }
+
   getList(numberMonth: number) {
     this.statement.listCustomerTop(this.numberMonth).subscribe((value: Array<ICustomerStatementDto>) => {
       this.listCustomerTop$ = new BehaviorSubject<Array<ICustomerStatementDto>>(value);
@@ -57,8 +57,8 @@ export class CustomerStatementComponent implements OnInit {
     this.labelCharts = [];
     this.dataCharts = [];
 
-    // @ts-ignore
-    for (const item: ICustomerStatementDto of value) {
+
+    for (const item of value) {
       if (item.name != null) {
         this.labelCharts.push(item.name);
       } else {
