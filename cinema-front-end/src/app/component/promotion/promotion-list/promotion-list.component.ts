@@ -12,9 +12,8 @@ import {PromotionService} from '../../../service/promotion.service';
   styleUrls: ['./promotion-list.component.css']
 })
 export class PromotionListComponent implements OnInit {
-  page = 0;
+  pageNumber = 1;
   pageSize = 4;
-  totalElements = 5;
   promotionList$: Observable<IPromotion[]>;
   total$: Observable<number>;
   promotionIdDelete: number;
@@ -31,7 +30,7 @@ export class PromotionListComponent implements OnInit {
   }
 
   paginate() {
-    this.promotionService.paginate(this.page, this.pageSize).subscribe(data => {
+    this.promotionService.paginate(this.pageNumber, this.pageSize).subscribe(data => {
       console.log(data);
       this.promotionList$ = new BehaviorSubject<IPromotion[]>(data.content);
       this.total$ = new BehaviorSubject<number>(data.totalElements);
@@ -54,16 +53,30 @@ export class PromotionListComponent implements OnInit {
             'Đã xóa!',
             'Khuyến mãi đã  bị xóa',
             'success'
-          )
+          );
           this.paginate();
           this.router.navigateByUrl('promotion/list');
-        });}
+        });
+      }
     });
 
 
   }
 
-  showInfo() {
+  getInfoPromotion(id: number, name: string): void {
+    this.promotionIdDelete = id;
+    this.promotionNameDelete = name;
+    this.deletePromotion();
+  }
 
+  showdetail(imgUrl: string, detail: string) {
+    swal.fire({
+      title: 'Chương trình khuyến mãi!',
+      text: detail,
+      imageUrl: imgUrl,
+      imageWidth: 400,
+      imageHeight: 200,
+      imageAlt: 'Custom image',
+    });
   }
 }
