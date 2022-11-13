@@ -52,22 +52,28 @@ export class AuthService {
   //   }, this.httpOptions);
   // }
 
-  // verifyPassword(code: string): Observable<any> {
-  //   return this.http.post(AUTH_API + 'verify-password', {
-  //     code: code
-  //   }, this.httpOptions);
-  // }
-
-  resetPassword(username: string): Observable<any> {
-    return this.http.post(AUTH_API + 'reset-password', {
-      username: username,
+  verifyPassword(code: string): Observable<any> {
+    return this.http.post(AUTH_API + 'verify-password', {
+      code
     }, this.httpOptions);
   }
 
+  forgotPassword(email): Observable<any> {
+    return this.http.get(AUTH_API + 'forgot-password?email=' + email, this.httpOptions);
+  }
+
   doResetPassword(password: string, code: string): Observable<any> {
-    return this.http.post(AUTH_API + 'do-reset-password', {
-      password: password,
-      code: code
+    return this.http.post(AUTH_API + 'do-forgot-password', {
+      password,
+      code
+    }, this.httpOptions);
+  }
+
+  resetPassword(resetPassRequest): Observable<any> {
+    return this.http.post(AUTH_API + 'comfirm-reset-password', {
+      password: resetPassRequest.password,
+      confirmPassword: resetPassRequest.confirmPassword,
+      token: resetPassRequest.token
     }, this.httpOptions);
   }
 }
