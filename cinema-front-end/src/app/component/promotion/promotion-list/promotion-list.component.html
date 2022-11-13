@@ -1,13 +1,15 @@
+<div class="container container-lg container-md container-sm container-xl">
 <div class="row">
   <div class="col-lg-12 col-md-12 col-sm-12">
-    <div class="row m-0 text-center">
-      <h2 class=" text-light">Danh sách khuyến mãi</h2>
+    <div class="row m-0  text-center">
+      <h2 class="text-light">Danh sách khuyến mãi</h2>
     </div>
     <div class="row m-0">
       <div class="col col-lg-6 col-md-12 col-sm-12">
       </div>
       <div class="col col-lg-3"></div>
-      <div class="col col-lg-3"></div></div>
+      <div class="col col-lg-3"></div>
+    </div>
     <div class="container">
       <div class="row">
         <div class="col-3 p-1 ms-0 ps-0">
@@ -31,37 +33,27 @@
       </div>
       <div class="row table-responsive-sm table-responsive-lg table-responsive-xxl">
         <table class="table table-sm " id="table-id" style="text-align: center">
-          <thead>
-          <tr class="bg bg-warning">
-            <th>Tiêu đề
-              <button onclick="sortTable(0)" class="btn btn-sm">
-                <i class="fa-sharp fa-solid fa-sort"></i>
-              </button>
-            </th>
-            <th>
-              Thời gian bắt đầu
-            </th>
-            <th>
-              Thời gian kết thúc
-            </th>
-            <th>
-              Mức giảm giá
-            </th>
-            <th>
-              Chi tiết
-            </th>
+          <thead class="bg bg-warning">
+          <tr>
+            <th>STT</th>
+            <th>Tiêu đề</th>
+            <th>Thời gian bắt đầu</th>
+            <th>Thời gian kết thúc</th>
+            <th>Mức giảm giá (%)</th>
+            <th>Chi tiết</th>
             <th>Sửa</th>
             <th>Xóa</th>
           </tr>
           </thead>
-          <tbody class="text-black bg-body">
-          <tr>
-            <td>Khuyến mãi năm mới</td>
-            <td>02/03/2025</td>
-            <td>10/03/2025</td>
-            <td>10%</td>
+          <tbody class="text-black  bg-light">
+          <tr *ngFor="let promotion of (promotionList$ | async); index as i">
+            <td>{{i + 1}}</td>
+            <td class="text-left">{{promotion.name}}</td>
+            <td>{{promotion.startTime}}</td>
+            <td>{{promotion.endTime}}</td>
+            <td>{{promotion.discount}}</td>
             <td>
-              <button class="button btnBlue" onclick="showDetail()">
+              <button class="button btnBlue" (click)="showInfo()">
                 <!--                                            <i class="fa-sharp fa-solid fa-circle-info"></i> -->
                 Chi tiết
               </button>
@@ -73,7 +65,7 @@
               </button>
             </td>
             <td>
-              <button class="button btnRed" onclick="deleteObj()">
+              <button class="button btnRed" (click)="deletePromotion()">
                 <!--                                            <i class="fa-solid fa-trash"></i>-->
                 Xóa
               </button>
@@ -84,43 +76,34 @@
       </div>
       <div class="row">
         <div class="col-2 ms-0 p-0">
-          <div class="container p-0 text-center">
-            <span class="fw-bold text-light"></span>
-            <select class="form-select form-select-sm" name="state" id="maxRows">
-              <option value="5">Chọn số lượng hiển thị</option>
-              <option value="5000">Hiển thị tất cả</option>
-              <option value="10">10</option>
-              <option value="15">15</option>
-              <option value="20">20</option>
-              <option value="50">50</option>
-              <option value="70">70</option>
-              <option value="100">100</option>
+          <div class="d-flex justify-content-between ms-0 p-0">
+            <select class="form-select" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="paginate()">
+              <option [ngValue]="4"> Hiển thị 4 dòng</option>
+              <option [ngValue]="8">Hiển thị 8 dòng</option>
+              <option [ngValue]="16">Hiển thị 16 dòng</option>
+              <option [ngValue]="60">Hiển thị 60 dòng</option>
             </select>
           </div>
         </div>
-        <div class="col-3"></div>
         <div class="col-4"></div>
+        <div class="col-3"></div>
         <div class="col-3">
           <div class='pagination-container'>
             <div class="row">
-              <nav>
-                <ul class="pagination">
-                  <li data-page="prev">
-                    <button class="btn bg-light text-bg-info btnBlue">
-                      <i class="fa-solid fa-backward" style="color: #0a53be"></i>
-                    </button>
-                  </li>
-                  <li data-page="next" id="prev">
-                    <button class="btn bg-light text-bg-info btnBlue">
-                      <i class="fa-solid fa-forward" style="color: #0a53be"></i>
-                    </button>
-                  </li>
-                </ul>
-              </nav>
+              <ngb-pagination
+                [collectionSize]="(total$ | async)!"
+                [(page)]="page"
+                [maxSize]="4"
+                [rotate]="true"
+                [ellipses]="false"
+                [boundaryLinks]="true"
+                (pageChange)="paginate()">
+              </ngb-pagination>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
 </div>
