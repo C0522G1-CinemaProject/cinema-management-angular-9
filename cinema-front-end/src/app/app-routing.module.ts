@@ -10,6 +10,9 @@ import {RoomModule} from './component/room/room.module';
 import {TicketModule} from './component/ticket/ticket.module';
 
 import {DecentralizationModule} from './component/decentralization/decentralization.module';
+import {PromotionListComponent} from './component/promotion/promotion-list/promotion-list.component';
+import {PromotionCreateComponent} from './component/promotion/promotion-create/promotion-create.component';
+import {PromotionEditComponent} from './component/promotion/promotion-edit/promotion-edit.component';
 
 /*không được xóa canActivate*/
 const routes: Routes = [
