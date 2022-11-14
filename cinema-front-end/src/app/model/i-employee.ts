@@ -1,3 +1,4 @@
+// @ts-ignore
 import {IUser} from './IUser';
 
 export interface IEmployee {
