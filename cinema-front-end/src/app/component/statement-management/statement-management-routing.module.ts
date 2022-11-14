@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {MovieStatementComponent} from "./movie-statement/movie-statement.component";
-import {CustomerStatementComponent} from "./customer-statement/customer-statement.component";
+import {MovieStatementComponent} from './movie-statement/movie-statement.component';
+import {CustomerStatementComponent} from './customer-statement/customer-statement.component';
 
 const routes: Routes = [
-  {  path:"statement/movie", component:MovieStatementComponent},
-  {  path:"statement/customer", component:CustomerStatementComponent}
+  {  path: 'movie', component: MovieStatementComponent},
+  {  path: 'customer', component: CustomerStatementComponent}
 ];
 
 @NgModule({

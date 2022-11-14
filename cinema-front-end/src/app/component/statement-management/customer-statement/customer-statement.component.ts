@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {Chart} from 'chart.js';
-import {IMovieStatementDto} from '../../../dto/i-movie-statement-dto';
+import * as Chart from 'chart.js';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {ICustomerStatementDto} from '../../../dto/i-customer-statement-dto';
 import {StatementService} from '../statement.service';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-customer-statement',
@@ -13,34 +13,57 @@ import {StatementService} from '../statement.service';
 })
 export class CustomerStatementComponent implements OnInit {
 
-  btnView: string | undefined;
+  btnView = 'Xem biểu đồ';
+  action: boolean;
   numberMonth = 0;
-
+  labelCharts: string[] = [];
+  dataCharts: number[] = [];
   timeGroup!: FormGroup;
   chart: Chart;
   listCustomerTop$: Observable<Array<ICustomerStatementDto>>;
-  private labelCharts: string[];
-  private dataCharts: number[];
+  hiddenChart: boolean;
+
 
   constructor(private fBuilder: FormBuilder,
-              private statement: StatementService) {
+              private statement: StatementService,
+              private  title: Title) {
+    this.title.setTitle('Thống kê thành viên');
   }
 
   ngOnInit(): void {
     this.btnView = 'Xem biểu đồ';
+    this.action = true;
+    this.hiddenChart = true;
     this.timeGroup = this.fBuilder.group({
       time: [this.numberMonth]
     });
-
+    this.getList(this.numberMonth);
   }
 
-  display() {
+  displayChangeTemplate() {
+    this.createChart();
     if (this.btnView === 'Xem biểu đồ') {
       this.btnView = 'Xem bảng số liệu';
+      this.action = false;
+      this.hiddenChart = false;
+      console.log(this.chart);
     } else {
       this.btnView = 'Xem biểu đồ';
+      this.action = true;
+      this.hiddenChart = true;
+      console.log(this.chart);
     }
   }
+
+  displayChangeValue() {
+    if (this.action) {
+      this.chart = new Chart();
+    } else {
+      this.createChart();
+      console.log(this.chart);
+    }
+  }
+
   getList(numberMonth: number) {
     this.statement.listCustomerTop(this.numberMonth).subscribe((value: Array<ICustomerStatementDto>) => {
       this.listCustomerTop$ = new BehaviorSubject<Array<ICustomerStatementDto>>(value);
@@ -51,14 +74,15 @@ export class CustomerStatementComponent implements OnInit {
   find() {
     this.numberMonth = this.timeGroup.value.time;
     this.getList(this.numberMonth);
+    this.displayChangeValue();
   }
 
   creatDataForChart(value: Array<ICustomerStatementDto>) {
     this.labelCharts = [];
     this.dataCharts = [];
 
-    // @ts-ignore
-    for (const item: ICustomerStatementDto of value) {
+
+    for (const item of value) {
       if (item.name != null) {
         this.labelCharts.push(item.name);
       } else {
@@ -74,20 +98,17 @@ export class CustomerStatementComponent implements OnInit {
     }
   }
 
-  creatTable() {
-
-  }
 
   createChart() {
 
-    this.chart = new Chart('MyChart', {
+    this.chart = new Chart('myChart', {
       type: 'bar',
 
       data: {
         labels: this.labelCharts,
         datasets: [
           {
-            label: 'Doanh thu',
+            label: 'Tổng tiền',
             data: this.dataCharts,
             backgroundColor: 'blue'
           },
@@ -95,8 +116,10 @@ export class CustomerStatementComponent implements OnInit {
         ]
       },
       options: {
+        responsive: true,
         indexAxis: 'x',
         aspectRatio: 2.5,
+        display: true,
         scales: {
           y: {
             beginAtZero: true,

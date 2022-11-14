@@ -15,6 +15,7 @@ import {TicketModule} from './component/ticket/ticket.module';
 import {FormsModule} from '@angular/forms';
 import {StatementManagementModule} from './component/statement-management/statement-management.module';
 
+
 @NgModule({
   declarations: [
     AppComponent
@@ -32,7 +33,8 @@ import {StatementManagementModule} from './component/statement-management/statem
     RoomModule,
     TicketModule,
     FormsModule,
-    StatementManagementModule
+    StatementManagementModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]
