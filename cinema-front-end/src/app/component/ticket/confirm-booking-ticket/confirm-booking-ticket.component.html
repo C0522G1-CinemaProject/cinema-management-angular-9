@@ -1,0 +1,85 @@
+<body>
+<div class="container-fluid d-flex" style="color: white">
+  <div class="container">
+    <div class="row">
+      <div class="dashboard-wrapper">
+        <div class="row">
+          <div class="col-xs-12 col-sm-10 col-md-10 dashboard-content user-profile">
+            <div class="panel panel-default">
+              <div class="panel-heading"><h4>THÔNG TIN ĐẶT VÉ</h4></div>
+              <div class="panel-body">
+                <div *ngIf="informationTicket != null">
+                <div class="row">
+                  <div class="col-sm-5 col-md-4 user-img">
+                    <img
+                      src="{{informationTicket.image}}"
+                      class="img-responsive" alt="user-img"/>
+                  </div><!-- end columns -->
+                  <div class="col-sm-7 col-md-8  user-detail">
+                    <ul class="list-unstyled">
+                      <li><h4>{{informationTicket.nameMovie}}</h4></li>
+                      <hr>
+                      <li><span>Phòng chiếu:</span> {{informationTicket.nameRoom}}</li>
+                      <br>
+                      <li><span>Ngày chiếu:</span> {{informationTicket.dateProjection}}</li>
+                      <br>
+                      <li><span>Giờ chiếu:</span> {{informationTicket.startTime}}</li>
+                      <br>
+                      <li><span>Ghế:</span> {{informationTicket.nameSeat}}</li>
+                      <br>
+                      <li>
+                        <table>
+                          <tr>
+                            <td>
+                              <span>Giá:</span>
+                            </td>
+                            <td>
+                              &nbsp;{{informationTicket.nameSeat}}: {{informationTicket.price}} VNĐ
+                            </td>
+                          </tr>
+
+                        </table>
+                      </li>
+                      <hr>
+                      <li><span>Tổng cộng:</span> {{informationTicket.price}} VNĐ</li>
+                      <br>
+                    </ul>
+
+                  </div><!-- end columns -->
+                </div><!-- end row -->
+                <div class="row">
+                  <div class="col-sm-5 col-md-4 user-img">
+                    <!---->
+                  </div><!-- end columns -->
+
+                  <div class="col-sm-7 col-md-8  user-detail">
+                    <ul class="list-unstyled">
+                      <li><h3 id="accountBooking">Kiểm tra thông tin đặt vé</h3></li>
+                      <hr>
+                      <li><span>Họ tên:</span> {{informationTicket.nameCustomer}}</li>
+                      <br>
+                      <li><span>Email:</span> {{informationTicket.email}}</li>
+                      <br>
+                      <li><span>CMND:</span> {{informationTicket.idCard}}</li>
+                      <br>
+                      <li><span>Số điện thoại:</span> {{informationTicket.phoneNumber}}</li>
+                      <br>
+                      <li id="note" style="transform: translateX(-10px); font-size: 17px"></li>
+                    </ul>
+                    <br>
+
+                    <button class="button btnGreen" id="confirm" [routerLink]="['/ticket/payment-ticket']">Xác nhận đặt vé</button>
+
+                  </div><!-- end columns -->
+                </div><!-- end row -->
+                </div>
+              </div><!-- end panel-body -->
+            </div><!-- end panel-detault -->
+          </div><!-- end columns -->
+        </div><!-- end row -->
+      </div><!-- end dashboard-wrapper -->
+    </div><!-- end columns -->
+  </div><!-- end row -->
+</div><!-- end container -->
+</body>
+
