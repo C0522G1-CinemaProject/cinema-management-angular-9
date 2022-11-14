@@ -19,7 +19,7 @@
         </div>
       </div>
       <button class="btn btn-outline-primary my-3" (click)="display()">{{btnView}}</button>
-      <div class="row table-responsive" *ngIf="btnView===''">
+      <div class="row table-responsive" *ngIf="action; else temp">
         <table border="1px" align="center"
                class="container table table-sm table-active table-bordered border border-3 border-secondary">
           <thead class="text-center bg bg-warning">
@@ -40,7 +40,7 @@
           </tbody>
         </table>
       </div>
-      <div class="chart-container">
+      <div class="chart-container" #temp>
         <canvas id="myChart"></canvas>
       </div>
     </div>

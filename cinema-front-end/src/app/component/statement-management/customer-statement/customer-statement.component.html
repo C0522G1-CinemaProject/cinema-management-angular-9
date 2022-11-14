@@ -19,11 +19,31 @@
         </div>
       </div>
       <button class="btn btn-outline-primary my-3" (click)="display()">{{btnView}}</button>
-      <div class="row table-responsive">
-        <p id="display"></p>
+      <div class="row table-responsive" *ngIf="action; else temp">
+        <table border="1px" align="center"
+               class="container table table-sm table-active table-bordered border border-3 border-secondary">
+          <thead class="text-center bg bg-warning">
+          <tr>
+            <th>STT</th>
+            <th>Tên phim</th>
+            <th>Vé đã bán</th>
+            <th>Tổng tiền</th>
+            <th>Điểm tích lũy</th>
+          </tr>
+          </thead>
+          <tbody class='bg-body'>
+          <tr *ngFor="let item of (listCustomerTop$ | async); index as i" >
+            <td class='text-center'> {{i}} </td>
+            <td style='padding-left: 25px'>{{item.name}}</td>
+            <td style='padding-left: 25px'>{{item.countTicket}}</td>
+            <td style='padding-left: 25px'>{{item.totalMoney}} + " VND</td>
+            <td style='padding-left: 25px'>{{item.accumulation}}</td>
+          </tr>
+          </tbody>
+        </table>
       </div>
-      <div class="chart-container" *ngIf="btnView==='Xem bảng số liệu'">
-        <canvas  id="MyChart" >{{ chart }}</canvas>
+      <div class="chart-container" #temp>
+        <canvas  id="myChart" ></canvas>
       </div>
     </div>
     <div class="col-2"></div>

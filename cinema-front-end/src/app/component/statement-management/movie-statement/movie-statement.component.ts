@@ -6,6 +6,7 @@ import {IMovieStatementDto} from '../../../dto/i-movie-statement-dto';
 
 import {StatementService} from '../statement.service';
 import {BehaviorSubject, Observable} from 'rxjs';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-movie-statement',
@@ -15,17 +16,19 @@ import {BehaviorSubject, Observable} from 'rxjs';
 export class MovieStatementComponent implements OnInit {
 
   btnView = 'Xem biểu đồ';
+  action: boolean;
   numberMonth = 0;
   labelCharts: string[] = [];
   dataCharts: number[] = [];
   listMovieTop$: Observable<Array<IMovieStatementDto>>;
   timeGroup!: FormGroup;
-  chart: any;
-  canvas: any;
-  ctx: any;
+  chart: Chart;
+
 
   constructor(private fbuilder: FormBuilder,
-              private statement: StatementService) {
+              private statement: StatementService,
+              private  title: Title) {
+    this.title.setTitle('Thống kê phim');
   }
 
   ngOnInit(): void {
@@ -33,73 +36,75 @@ export class MovieStatementComponent implements OnInit {
     this.timeGroup = this.fbuilder.group({
       time: [this.numberMonth]
     });
+    this.action = true;
     this.getList(this.numberMonth);
-    /*  this.canvas = document.getElementById('myChart');
-      console.log(this.canvas);
-      this.ctx = this.canvas.getContext('2d');*/
 
-    this.chart = new Chart('myChart', {
-      type: 'bar',
-      data: {
-        // tslint:disable-next-line:max-line-length
-        labels: ['USA', 'Spain', 'Italy', 'France', 'Germany', 'UK', 'Turkey', 'Iran', 'China', 'Russia', 'Brazil', 'Belgium', 'Canada', 'Netherlands', 'Switzerland', 'India', 'Portugal', 'Peru', 'Ireland', 'Sweden', 'USA', 'Spain', 'Italy', 'France', 'Germany', 'UK', 'Turkey', 'Iran', 'China', 'Russia', 'Brazil', 'Belgium', 'Canada', 'Netherlands',],
-        datasets: [{
-          label: 'Total cases.',
-          // tslint:disable-next-line:max-line-length
-          data: [886789, 213024, 189973, 158183, 153129, 138078, 101790, 87026, 82804, 62773, 50036, 42797, 42110, 35729, 28496, 23502, 22353, 20914, 17607, 16755, 886789, 213024, 189973, 158183, 153129, 138078, 101790, 87026, 82804, 62773, 50036, 42797, 42110, 35729],
-          backgroundColor: 'red',
-          hoverBackgroundColor: 'blue',
-          hoverBorderColor: 'white',
-          hoverBorderWidth: 3,
-          borderColor: '#666',
-          borderWidth: 2
-        }]
-      },
-      options: {
-        scales: {
-          yAxes: [{
-            beginAtZero: true,
-            ticks: {
-              callback(value, index, values) {
-                return value + ' VND';
-              }
-            }
-          }]
-        },
-        legend: {
-          display: true
-        },
-        responsive: true,
-        indexAxis: 'x',
-        aspectRatio: 1.8,
-        display: true
-      }
-    });
-    console.log(this.chart);
-    // this.createChart();
+    /* this.chart = new Chart('myChart', {
+       type: 'bar',
+       data: {
+         // tslint:disable-next-line:max-line-length
+         labels: ['USA', 'Spain', 'Italy', 'France', 'Germany', 'UK', 'Turkey', 'Iran', 'China', 'Russia', 'Brazil', 'Belgium', 'Canada', 'Netherlands', 'Switzerland', 'India', 'Portugal', 'Peru', 'Ireland', 'Sweden'],
+         datasets: [{
+           label: 'Total cases.',
+           // tslint:disable-next-line:max-line-length
+           data: [886789, 213024, 189973, 158183, 153129, 138078, 101790, 87026, 82804, 62773, 50036, 42797, 42110, 35729, 28496, 23502, 22353, 20914, 17607, 16755],
+           backgroundColor: 'red',
+           hoverBackgroundColor: 'blue',
+           hoverBorderColor: 'white',
+           hoverBorderWidth: 3,
+           borderColor: '#666',
+           borderWidth: 2
+         }]
+       },
+       options: {
+         scales: {
+           yAxes: [{
+             beginAtZero: true,
+             ticks: {
+               callback(value, index, values) {
+                 return value + ' VND';
+               }
+             }
+           }]
+         },
+         legend: {
+           display: true
+         },
+         responsive: true,
+         indexAxis: 'x',
+         aspectRatio: 1.8,
+         display: true
+       }
+     });
+     console.log(this.chart);*/
+
   }
 
   display() {
     if (this.btnView === 'Xem biểu đồ') {
       this.btnView = 'Xem bảng số liệu';
+      this.action = false;
+      this.createChart();
     } else {
       this.btnView = 'Xem biểu đồ';
+      this.action = true;
     }
   }
 
   getList(numberMonth: number) {
     this.statement.listMovieTop(this.numberMonth).subscribe((value: Array<IMovieStatementDto>) => {
       this.listMovieTop$ = new BehaviorSubject<Array<IMovieStatementDto>>(value);
-      this.creatLabel(value);
+      this.creatDataForChart(value);
     });
   }
 
   find() {
     this.numberMonth = this.timeGroup.value.time;
     this.getList(this.numberMonth);
+    this.display();
   }
 
-  creatLabel(value: Array<IMovieStatementDto>) {
+  creatDataForChart(value: Array<IMovieStatementDto>) {
     this.labelCharts = [];
     this.dataCharts = [];
 
@@ -120,9 +125,6 @@ export class MovieStatementComponent implements OnInit {
     }
   }
 
-  creatTable() {
-
-  }
 
   createChart() {
 
@@ -142,14 +144,13 @@ export class MovieStatementComponent implements OnInit {
       },
       options: {
         scales: {
-          yAxes: [{
+          y: {
             beginAtZero: true,
-            ticks: {
-              callback(value, index, values) {
-                return value + ' VND';
-              }
+            title: {
+              display: true,
+              text: 'VND'
             }
-          }]
+          }
         },
         legend: {
           display: true

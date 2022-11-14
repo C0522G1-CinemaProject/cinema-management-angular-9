@@ -4,6 +4,7 @@ import * as Chart from 'chart.js';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {ICustomerStatementDto} from '../../../dto/i-customer-statement-dto';
 import {StatementService} from '../statement.service';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-customer-statement',
@@ -12,17 +13,20 @@ import {StatementService} from '../statement.service';
 })
 export class CustomerStatementComponent implements OnInit {
 
-  btnView: string | undefined;
+  btnView = 'Xem biểu đồ';
+  action: boolean;
   numberMonth = 0;
-
+  labelCharts: string[] = [];
+  dataCharts: number[] = [];
   timeGroup!: FormGroup;
-  chart: any;
+  chart: Chart;
   listCustomerTop$: Observable<Array<ICustomerStatementDto>>;
-  private labelCharts: string[];
-  private dataCharts: number[];
+
 
   constructor(private fBuilder: FormBuilder,
-              private statement: StatementService) {
+              private statement: StatementService,
+              private  title: Title) {
+  this.title.setTitle('Thống kê thành viên') ;
   }
 
   ngOnInit(): void {
@@ -30,14 +34,17 @@ export class CustomerStatementComponent implements OnInit {
     this.timeGroup = this.fBuilder.group({
       time: [this.numberMonth]
     });
-
+    this.getList(this.numberMonth);
   }
 
   display() {
     if (this.btnView === 'Xem biểu đồ') {
       this.btnView = 'Xem bảng số liệu';
+      this.action = false;
+      this.createChart();
     } else {
       this.btnView = 'Xem biểu đồ';
+      this.action = true;
     }
   }
 
@@ -51,6 +58,7 @@ export class CustomerStatementComponent implements OnInit {
   find() {
     this.numberMonth = this.timeGroup.value.time;
     this.getList(this.numberMonth);
+    this.display();
   }
 
   creatDataForChart(value: Array<ICustomerStatementDto>) {
@@ -74,9 +82,7 @@ export class CustomerStatementComponent implements OnInit {
     }
   }
 
-  creatTable() {
 
-  }
 
   createChart() {
 
@@ -95,8 +101,10 @@ export class CustomerStatementComponent implements OnInit {
         ]
       },
       options: {
+        responsive: true,
         indexAxis: 'x',
         aspectRatio: 2.5,
+        display: true,
         scales: {
           y: {
             beginAtZero: true,
