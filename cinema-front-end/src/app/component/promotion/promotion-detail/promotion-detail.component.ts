@@ -21,12 +21,11 @@ export class PromotionDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe(value => {
-      this.id = Number(value.get('id'));
+      this.id = +Number(value.get('id'));
+      this.promotionService.getPromotionById(this.id).subscribe(pro => {
+        this.promotion = pro;
+      });
     });
-    this.promotionService.getPromotionById(this.id).subscribe(value => {
-      this.promotion = value;
-    });
-
     this.getPromotionList(this.numberRecord);
   }
 

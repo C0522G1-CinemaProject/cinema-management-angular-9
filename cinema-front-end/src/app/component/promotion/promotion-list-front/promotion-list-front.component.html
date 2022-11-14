@@ -17,7 +17,7 @@
       </ul>
     </div>
   </div>
-  <div class="content text-center wrapCss">
+  <div class="content text-center wrapCss" *ngIf="numberRecord < promotionList.length / 5">
     <button type="submit" class="button btnBlue" (click)="loadMore()">Xem thêm</button>
   </div>
 </div>
