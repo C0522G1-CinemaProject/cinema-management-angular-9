@@ -6,10 +6,10 @@ import {PromotionDetailComponent} from './promotion-detail/promotion-detail.comp
 
 const routes: Routes = [
   {
-    path: '', component: PromotionListComponent
+    path: 'list', component: PromotionListComponent
   },
   {
-    path: 'list', component: PromotionListFrontComponent
+    path: '', component: PromotionListFrontComponent
   },
   {
     path: 'detail/:id', component: PromotionDetailComponent
