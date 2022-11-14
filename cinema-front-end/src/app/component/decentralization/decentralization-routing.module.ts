@@ -5,12 +5,10 @@ import {ForgotPasswordComponent} from './forgot-password/forgot-password.compone
 import {ConfirmResetPasswordComponent} from './confirm-reset-password/confirm-reset-password.component';
 
 
-
 const routes: Routes = [
   {path: '', component: LoginComponent},
   {path: 'forgot-password', component: ForgotPasswordComponent},
   {path: 'confirm-reset-password/:token', component: ConfirmResetPasswordComponent},
-  // {path: 'login-gmail', component: LoginGmailComponent},
 ];
 
 @NgModule({
