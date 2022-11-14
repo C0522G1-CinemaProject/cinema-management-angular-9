@@ -72,7 +72,7 @@
   <input type="text" required id="name" formControlName="name">
 
   <label for="password"><b>Mật Khẩu</b><span style="color: red">*</span></label>
-  <input formControlName="password" class="form-control" type="password" required id="password">
+  <input  class="form-control" type="password" required id="password">
 
   <label for="email"><b>Email</b><span class="war">*</span></label>
   <input type="email" id="email" formControlName="email">
@@ -87,9 +87,9 @@
   <input type="text" required id="address" formControlName="address">
 
   <label class="mt-2"><b>Giới Tính</b><span class="war">*</span></label><br>
-  <label><input type="radio" class="m-2" value="1" name="gender" formControlName="gender">Nam</label>
-  <label><input type="radio" class="m-2 ms-5" value="2" name="gender" formControlName="gender">Nữ</label>
-  <label class="mb-3"><input type="radio" class="m-2 ms-5" value="0" name="gender"
+  <label><input type="radio" class="m-2" [value]="1" name="gender" formControlName="gender">Nam</label>
+  <label><input type="radio" class="m-2 ms-5" [value]="2" name="gender" formControlName="gender">Nữ</label>
+  <label class="mb-3"><input type="radio" class="m-2 ms-5" [value]="0" name="gender"
                              formControlName="gender">Khác</label><br>
 
   <label for="birthday"><b>Ngày Sinh</b><span class="war">*</span></label>

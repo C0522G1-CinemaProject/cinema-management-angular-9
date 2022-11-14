@@ -19,6 +19,7 @@ export class CustomerEditComponent implements OnInit {
   customer: ICustomer;
   dayOfBirth: string;
   CustomerTypes: ICustomerType[] = [];
+
   // Users: IUser[] = [];
 
   constructor(private customerService: CustomerService,
@@ -32,11 +33,11 @@ export class CustomerEditComponent implements OnInit {
   ngOnInit(): void {
     const id = this.activatedRoute.snapshot.params.id;
     this.customerService.findById(id).subscribe(value => {
-      console.log(value);
       this.customer = value;
       this.dayOfBirth = value.dayOfBirth;
-      console.log(value);
+      console.log(this.customer);
       this.formEdit.patchValue(this.customer);
+      this.formEdit.controls.username.setValue(this.customer.user.username);
     });
     this.formEdit = this.fb.group({
       id: [],
@@ -45,7 +46,7 @@ export class CustomerEditComponent implements OnInit {
       address: [],
       gender: [],
       idCard: [],
-      user: [],
+      username: [],
       email: [],
       phoneNumber: [],
       customerType: []

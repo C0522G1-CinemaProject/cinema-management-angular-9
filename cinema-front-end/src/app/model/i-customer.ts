@@ -11,6 +11,6 @@ export interface ICustomer {
   email?: string;
   address?: string;
   phoneNumber?: string;
-  username?: IUser;
+  user?: IUser;
   customerType?: ICustomerType;
 }

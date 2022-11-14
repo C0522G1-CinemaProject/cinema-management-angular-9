@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree} from '@angular/router';
 import {Observable} from 'rxjs';
-import {TokenStorageService} from "../../service/token-storage.service";
+import {TokenStorageService} from '../../service/token-storage.service';
+
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +23,7 @@ export class AuthGuard implements CanActivate {
       const role: string[] = currentUser.roles;
       console.log(role);
       // console.log(role.indexOf(route.data['roles'][0]));
+      // tslint:disable-next-line:prefer-for-of
       for (let i = 0; i < role.length; i++) {
         console.log('lặp');
         let j = 0;

@@ -35,8 +35,8 @@ import {CommonModule} from '@angular/common';
     TicketModule,
     FormsModule,
     CommonModule
+
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {

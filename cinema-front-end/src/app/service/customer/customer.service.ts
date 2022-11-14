@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
 import {environment} from '../../../environments/environment';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {ICustomer} from '../../model/i-customer';
 import {CustomerResult} from '../../model/customer-result';
+import {TokenStorageService} from '../token-storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,17 @@ import {CustomerResult} from '../../model/customer-result';
 export class CustomerService {
   URL_API = `${environment.api_url}`;
 
-  constructor(private http: HttpClient) {
+  httpOptions: any;
+
+  constructor(private http: HttpClient, private tokenService: TokenStorageService) {
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.tokenService.getToken()
+      }),
+      'Access-Control-Allow-Origin': 'http://localhost:4200',
+      'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS'
+    };
   }
 
   getCustomer(name: string, page: number, pageSize: number): Observable<CustomerResult<ICustomer>> {
