@@ -17,6 +17,7 @@ export class MovieStatementComponent implements OnInit {
 
   btnView = 'Xem biểu đồ';
   action: boolean;
+  hiddenChart: boolean;
   numberMonth = 0;
   labelCharts: string[] = [];
   dataCharts: number[] = [];
@@ -37,57 +38,32 @@ export class MovieStatementComponent implements OnInit {
       time: [this.numberMonth]
     });
     this.action = true;
+    this.hiddenChart = true;
     this.getList(this.numberMonth);
 
-    /* this.chart = new Chart('myChart', {
-       type: 'bar',
-       data: {
-         // tslint:disable-next-line:max-line-length
-         labels: ['USA', 'Spain', 'Italy', 'France', 'Germany', 'UK', 'Turkey', 'Iran', 'China', 'Russia', 'Brazil', 'Belgium', 'Canada', 'Netherlands', 'Switzerland', 'India', 'Portugal', 'Peru', 'Ireland', 'Sweden'],
-         datasets: [{
-           label: 'Total cases.',
-           // tslint:disable-next-line:max-line-length
-           data: [886789, 213024, 189973, 158183, 153129, 138078, 101790, 87026, 82804, 62773, 50036, 42797, 42110, 35729, 28496, 23502, 22353, 20914, 17607, 16755],
-           backgroundColor: 'red',
-           hoverBackgroundColor: 'blue',
-           hoverBorderColor: 'white',
-           hoverBorderWidth: 3,
-           borderColor: '#666',
-           borderWidth: 2
-         }]
-       },
-       options: {
-         scales: {
-           yAxes: [{
-             beginAtZero: true,
-             ticks: {
-               callback(value, index, values) {
-                 return value + ' VND';
-               }
-             }
-           }]
-         },
-         legend: {
-           display: true
-         },
-         responsive: true,
-         indexAxis: 'x',
-         aspectRatio: 1.8,
-         display: true
-       }
-     });
-     console.log(this.chart);*/
 
   }
 
-  display() {
+  displayChangeTemplate() {
+    this.createChart();
     if (this.btnView === 'Xem biểu đồ') {
       this.btnView = 'Xem bảng số liệu';
       this.action = false;
-      this.createChart();
+      this.hiddenChart = false;
+      console.log(this.chart);
     } else {
       this.btnView = 'Xem biểu đồ';
       this.action = true;
+      this.hiddenChart = true;
+      console.log(this.chart);
+    }
+  }
+  displayChangeValue() {
+    if (this.action) {
+      this.chart = new Chart();
+    } else {
+      this.createChart();
+      console.log(this.chart);
     }
   }
 
@@ -101,7 +77,7 @@ export class MovieStatementComponent implements OnInit {
   find() {
     this.numberMonth = this.timeGroup.value.time;
     this.getList(this.numberMonth);
-    this.display();
+    this.displayChangeValue();
   }
 
   creatDataForChart(value: Array<IMovieStatementDto>) {
@@ -127,39 +103,38 @@ export class MovieStatementComponent implements OnInit {
 
 
   createChart() {
+     this.chart = new Chart('myChart', {
+       type: 'bar',
 
-    this.chart = new Chart('myChart', {
-      type: 'bar',
+       data: {
+         labels: this.labelCharts,
+         datasets: [
+           {
+             label: 'Doanh thu',
+             data: this.dataCharts,
+             backgroundColor: 'blue'
+           },
 
-      data: {
-        labels: this.labelCharts,
-        datasets: [
-          {
-            label: 'Doanh thu',
-            data: this.dataCharts,
-            backgroundColor: 'blue'
-          },
-
-        ]
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true,
-            title: {
-              display: true,
-              text: 'VND'
-            }
-          }
-        },
-        legend: {
-          display: true
-        },
-        responsive: true,
-        indexAxis: 'x',
-        aspectRatio: 2.5,
-        display: true
-      }
-    });
+         ]
+       },
+       options: {
+         scales: {
+           y: {
+             beginAtZero: true,
+             title: {
+               display: true,
+               text: 'VND'
+             }
+           }
+         },
+         legend: {
+           display: true
+         },
+         responsive: true,
+         indexAxis: 'x',
+         aspectRatio: 2.5,
+         display: true
+       }
+     });
   }
 }

@@ -21,30 +21,46 @@ export class CustomerStatementComponent implements OnInit {
   timeGroup!: FormGroup;
   chart: Chart;
   listCustomerTop$: Observable<Array<ICustomerStatementDto>>;
+  hiddenChart: boolean;
 
 
   constructor(private fBuilder: FormBuilder,
               private statement: StatementService,
               private  title: Title) {
-  this.title.setTitle('Thống kê thành viên') ;
+    this.title.setTitle('Thống kê thành viên');
   }
 
   ngOnInit(): void {
     this.btnView = 'Xem biểu đồ';
+    this.action = true;
+    this.hiddenChart = true;
     this.timeGroup = this.fBuilder.group({
       time: [this.numberMonth]
     });
     this.getList(this.numberMonth);
   }
 
-  display() {
+  displayChangeTemplate() {
+    this.createChart();
     if (this.btnView === 'Xem biểu đồ') {
       this.btnView = 'Xem bảng số liệu';
       this.action = false;
-      this.createChart();
+      this.hiddenChart = false;
+      console.log(this.chart);
     } else {
       this.btnView = 'Xem biểu đồ';
       this.action = true;
+      this.hiddenChart = true;
+      console.log(this.chart);
+    }
+  }
+
+  displayChangeValue() {
+    if (this.action) {
+      this.chart = new Chart();
+    } else {
+      this.createChart();
+      console.log(this.chart);
     }
   }
 
@@ -58,7 +74,7 @@ export class CustomerStatementComponent implements OnInit {
   find() {
     this.numberMonth = this.timeGroup.value.time;
     this.getList(this.numberMonth);
-    this.display();
+    this.displayChangeValue();
   }
 
   creatDataForChart(value: Array<ICustomerStatementDto>) {
@@ -83,17 +99,16 @@ export class CustomerStatementComponent implements OnInit {
   }
 
 
-
   createChart() {
 
-    this.chart = new Chart('MyChart', {
+    this.chart = new Chart('myChart', {
       type: 'bar',
 
       data: {
         labels: this.labelCharts,
         datasets: [
           {
-            label: 'Doanh thu',
+            label: 'Tổng tiền',
             data: this.dataCharts,
             backgroundColor: 'blue'
           },
