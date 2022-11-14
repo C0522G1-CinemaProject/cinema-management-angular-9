@@ -5,12 +5,16 @@ import { DecentralizationRoutingModule } from './decentralization-routing.module
 import {LoginComponent} from './login/login.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
+import {ForgotPasswordComponent} from './forgot-password/forgot-password.component';
+import {ConfirmResetPasswordComponent} from './confirm-reset-password/confirm-reset-password.component';
 
 
 @NgModule({
-  declarations: [LoginComponent],
+  declarations: [LoginComponent, ForgotPasswordComponent, ConfirmResetPasswordComponent],
   exports: [
-    LoginComponent
+    LoginComponent,
+    ForgotPasswordComponent,
+    ConfirmResetPasswordComponent
   ],
   imports: [
     CommonModule,
