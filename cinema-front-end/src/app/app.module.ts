@@ -14,6 +14,7 @@ import {RoomModule} from './component/room/room.module';
 import {TicketModule} from './component/ticket/ticket.module';
 import {FormsModule} from '@angular/forms';
 
+
 @NgModule({
   declarations: [
     AppComponent
@@ -30,10 +31,10 @@ import {FormsModule} from '@angular/forms';
     RegisterModule,
     RoomModule,
     TicketModule,
-
-    FormsModule
+    FormsModule,
 
   ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

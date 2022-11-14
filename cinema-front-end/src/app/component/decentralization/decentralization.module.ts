@@ -9,9 +9,8 @@ import {ForgotPasswordComponent} from './forgot-password/forgot-password.compone
 import {ConfirmResetPasswordComponent} from './confirm-reset-password/confirm-reset-password.component';
 
 
-
 @NgModule({
-  declarations: [LoginComponent, ForgotPasswordComponent, ConfirmResetPasswordComponent, ],
+  declarations: [LoginComponent, ForgotPasswordComponent, ConfirmResetPasswordComponent],
   exports: [
     LoginComponent,
     ForgotPasswordComponent,
