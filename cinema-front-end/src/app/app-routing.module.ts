@@ -10,6 +10,7 @@ import {RoomModule} from './component/room/room.module';
 import {TicketModule} from './component/ticket/ticket.module';
 
 import {DecentralizationModule} from './component/decentralization/decentralization.module';
+import {CustomerModule} from './component/customer/customer.module';
 
 /*không được xóa canActivate*/
 const routes: Routes = [
@@ -27,6 +28,15 @@ const routes: Routes = [
     // canActivate: [AuthGuard],
     data: {
       roles: ['ROLE_Employee', 'ROLE_Admin']
+    }
+  },
+  {
+    path: 'customer',
+    loadChildren: () => CustomerModule,
+    /*không được xóa canActivate*/
+    // canActivate: [AuthGuard],
+    data: {
+      roles: ['ROLE_Customer', 'ROLE_Admin']
     }
   },
   {
