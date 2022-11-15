@@ -16,7 +16,7 @@ export class PromotionService {
   }
 
   paginate(page: number, limit: number): Observable<SearchResult<IPromotion>> {
-    return this.http.get<SearchResult<IPromotion>>(API_URL + '/promotion/list' + '?number=' + page + '&size=' + limit);
+    return this.http.get<SearchResult<IPromotion>>(API_URL + '/promotion/list' + '?page=' + page + '&size=' + limit);
   }
 
   deletePromotion(id: number): Observable<void> {

@@ -6,6 +6,7 @@ import swal from 'sweetalert2';
 import {IPromotion} from '../../../model/i-promotion';
 import {PromotionService} from '../../../service/promotion.service';
 
+const FILTER_PAG_REGEX = /[^0-9]/g;
 @Component({
   selector: 'app-promotion-list',
   templateUrl: './promotion-list.component.html',
@@ -13,7 +14,7 @@ import {PromotionService} from '../../../service/promotion.service';
 })
 export class PromotionListComponent implements OnInit {
   pageNumber = 1;
-  pageSize = 4;
+  pageSize = 5;
   promotionList$: Observable<IPromotion[]>;
   total$: Observable<number>;
   promotionIdDelete: number;
@@ -45,7 +46,8 @@ export class PromotionListComponent implements OnInit {
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
+      confirmButtonText: 'Đồng ý',
+      cancelButtonText: 'Hủy Bỏ'
     }).then((result) => {
       if (result.isConfirmed) {
         this.promotionService.deletePromotion(this.promotionIdDelete).subscribe(() => {
@@ -69,7 +71,7 @@ export class PromotionListComponent implements OnInit {
     this.deletePromotion();
   }
 
-  showdetail(imgUrl: string, detail: string) {
+  showDetail(imgUrl: string, detail: string) {
     swal.fire({
       title: 'Chương trình khuyến mãi!',
       text: detail,
