@@ -21,6 +21,13 @@ export class PromotionService {
 
   deletePromotion(id: number): Observable<void> {
     return this.http.delete<void>(API_URL + '/promotion/delete/' + id);
+}
 
+  getAllPromotion(page: number): Observable<IPromotion[]> {
+    return this.http.get<IPromotion[]>(API_URL + '/promotion/list?page=' + page);
+  }
+
+  getPromotionById(id: number): Observable<IPromotion> {
+    return this.http.get<IPromotion>(API_URL + '/promotion/detail/' + id);
   }
 }

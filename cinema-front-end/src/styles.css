@@ -1,5 +1,4 @@
 /* You can add global styles to this file, and also import other style files */
-/* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/dist/css/bootstrap.css";
 * {
   margin: 0;
@@ -76,13 +75,13 @@
 /*.wrapper .main_content .header{*/
 /*    background: #4b4276;*/
 /*}*/
+
 body {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
   url("https://images.unsplash.com/photo-1596445836561-991bcd39a86d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80");
   background-size: cover;
   position: relative;
   opacity: 0.9;
-
 }
 
 .wrapCss {
@@ -136,5 +135,7 @@ body {
   box-shadow: 0 15px 20px green;
   color: #fff;
   transform: translateY(-5px);
+}
+  color: white;
 }
 
