@@ -6,4 +6,6 @@ export interface TicketDto {
   bookingTime?: string;
   isDeleteTicket?: string;
   ticketId?: string;
+  customerName?: string;
+  totalPoint?: string;
 }

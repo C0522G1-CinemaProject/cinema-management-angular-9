@@ -17,17 +17,32 @@ export class CanceledTicketListComponent implements OnInit {
   total$: Observable<number>;
   ticketDto$: Observable<TicketDto[]>;
   action: boolean;
+  customerName = '';
+  customer: TicketDto[];
+  totalPoint = '';
 
   constructor(private ticketService: TicketService) {
   }
 
   ngOnInit(): void {
     this.showListCanceledTicket();
+    this.findByCustomerNameAndPoint();
+  }
+
+  findByCustomerNameAndPoint() {
+    this.ticketService.findByCustomerNameAndPoint().subscribe(value => {
+      this.customer = value;
+      this.totalPoint = this.customer[0].totalPoint;
+      this.customerName = this.customer[0].customerName;
+
+      console.log(this.totalPoint);
+    });
   }
 
 
   showListCanceledTicket() {
     this.ticketService.showListCanceledTicket(this.page, this.pageSize).subscribe(value => {
+        console.log(value);
         if (value != null) {
           this.action = true;
           this.ticketDto$ = new BehaviorSubject<TicketDto[]>(value.content);

@@ -18,18 +18,29 @@ export class HistoryPointListComponent implements OnInit {
   total$: Observable<number>;
   ticketDto$: Observable<TicketDto[]>;
   action: boolean;
+  customerName = '';
+  customer: TicketDto[];
+  totalPoint = '';
 
   constructor(private ticketService: TicketService) {
   }
 
   ngOnInit(): void {
     this.showListHistoryPoint();
+    this.findByCustomerNameAndPoint();
+  }
+
+
+  findByCustomerNameAndPoint() {
+    this.ticketService.findByCustomerNameAndPoint().subscribe(value => {
+      this.customer = value;
+      this.totalPoint = this.customer[0].totalPoint;
+      this.customerName = this.customer[0].customerName;
+    });
   }
 
   showListHistoryPoint() {
     this.ticketService.showListHistoryPoint(this.page, this.pageSize, this.startTime, this.endTime).subscribe(value => {
-      console.log(value);
-      console.log('1');
       if (value != null) {
         this.action = true;
         this.ticketDto$ = new BehaviorSubject<TicketDto[]>(value.content);
@@ -41,9 +52,8 @@ export class HistoryPointListComponent implements OnInit {
   }
 
 
-  showListBigPoint() {
-    this.ticketService.showListBigPoint(this.page, this.pageSize, this.startTime, this.endTime).subscribe(value => {
-      console.log('2');
+  showTheListOfPointsAdded() {
+    this.ticketService.showTheListOfPointsAdded(this.page, this.pageSize, this.startTime, this.endTime).subscribe(value => {
       if (value != null) {
         this.action = true;
         this.ticketDto$ = new BehaviorSubject<TicketDto[]>(value.content);
@@ -54,9 +64,8 @@ export class HistoryPointListComponent implements OnInit {
     });
   }
 
-  showListSmallPoint() {
-    this.ticketService.showListSmallPoint(this.page, this.pageSize, this.startTime, this.endTime).subscribe(value => {
-      console.log('3');
+  showListOfUsePoints() {
+    this.ticketService.showListOfUsePoints(this.page, this.pageSize, this.startTime, this.endTime).subscribe(value => {
       if (value != null) {
         this.action = true;
         this.ticketDto$ = new BehaviorSubject<TicketDto[]>(value.content);
@@ -69,13 +78,10 @@ export class HistoryPointListComponent implements OnInit {
 
   getAllSearch() {
     if (Number(this.point) === 1) {
-      console.log('a');
-      this.showListBigPoint();
+      this.showTheListOfPointsAdded();
     } else if (Number(this.point) === -1) {
-      console.log('b');
-      this.showListSmallPoint();
+      this.showListOfUsePoints();
     } else {
-      console.log('b');
       this.showListHistoryPoint();
     }
   }
