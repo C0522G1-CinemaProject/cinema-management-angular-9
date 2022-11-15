@@ -16,11 +16,11 @@ export class ConfirmBookingTicketService {
   }
 
   getTicketById(id: number): Observable<ITicketDto> {
-    return this.httpClient.get<ITicketDto>(this.API_URL + '/ticket/list-ticket/4');
+    return this.httpClient.get<ITicketDto>(this.API_URL + '/ticket/list-ticket/1');
   }
 
   updateStatusTicketById(): Observable<void> {
     // @ts-ignore
-    return this.httpClient.put<void>(this.API_URL + '/ticket/update-ticket/4');
+    return this.httpClient.put<void>(this.API_URL + '/ticket/update-ticket/1');
   }
 }
