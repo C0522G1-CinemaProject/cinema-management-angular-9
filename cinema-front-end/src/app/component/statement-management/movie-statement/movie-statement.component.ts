@@ -120,7 +120,7 @@ export class MovieStatementComponent implements OnInit {
        options: {
          scales: {
            y: {
-             beginAtZero: true,
+             beginAtZero: false,
              title: {
                display: true,
                text: 'VND'

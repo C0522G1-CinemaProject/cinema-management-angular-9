@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 
 
@@ -11,16 +11,19 @@ import {Observable} from 'rxjs';
 })
 export class StatementService {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {
+  }
 
-  listMovieTop( numberMonth: number): Observable<Array<IMovieStatementDto>> {
+  listMovieTop(numberMonth: number): Observable<Array<IMovieStatementDto>> {
 
-    const URL = environment.api_url + '/api/movie/statement?numberMonth=' + (numberMonth) ;
+    const URL = environment.api_url + '/movie/statement?numberMonth=' + (numberMonth);
     return this.httpClient.get<Array<IMovieStatementDto>>(URL);
   }
 
-  listCustomerTop( numberMonth: number): Observable<Array<IMovieStatementDto>> {
-    const URL = environment.api_url + '/api/customer/statement?numberMonth=' + (numberMonth) ;
+  listCustomerTop(numberMonth: number): Observable<Array<IMovieStatementDto>> {
+    const URL = environment.api_url + '/customer/statement?numberMonth=' + (numberMonth);
+    console.log(URL);
+
     return this.httpClient.get<Array<IMovieStatementDto>>(URL);
   }
 }

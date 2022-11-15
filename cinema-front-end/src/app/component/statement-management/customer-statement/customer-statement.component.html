@@ -26,7 +26,7 @@
           <tr>
             <th>STT</th>
             <th>Tên phim</th>
-            <th>Vé đã bán</th>
+            <th>Vé đã mua</th>
             <th>Tổng tiền</th>
             <th>Điểm tích lũy</th>
           </tr>
@@ -36,7 +36,7 @@
             <td class='text-center'> {{i}} </td>
             <td style='padding-left: 25px'>{{item.name}}</td>
             <td style='padding-left: 25px'>{{item.countTicket}}</td>
-            <td style='padding-left: 25px'>{{item.totalMoney}} + " VND</td>
+            <td style='padding-left: 25px'>{{item.totalMoney | currency: ' '}} VND</td>
             <td style='padding-left: 25px'>{{item.accumulation}}</td>
           </tr>
           </tbody>

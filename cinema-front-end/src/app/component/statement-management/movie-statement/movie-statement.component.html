@@ -31,12 +31,12 @@
           </tr>
           </thead>
           <tbody class='bg-body'>
-         <!-- <tr *ngFor="let item of (listMovieTop$ | async); index as i" >
+          <tr *ngFor="let item of (listMovieTop$ | async); index as i" >
             <td class='text-center'> {{i}} </td>
             <td style='padding-left: 25px'>{{item.name}}</td>
             <td style='padding-left: 25px'>{{item.countTicket}}</td>
-            <td style='padding-left: 25px'>{{item.turnover}} + " VND</td>
-          </tr>-->
+            <td style='padding-left: 25px'>{{item.turnover| currency: ' '}} VND</td>
+          </tr>
           </tbody>
         </table>
       </div>
