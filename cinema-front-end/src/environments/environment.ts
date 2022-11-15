@@ -4,7 +4,17 @@
 
 export const environment = {
   production: false,
-  api_url: 'http://localhost:8080/api'
+  api_url: 'http://localhost:8080/employee/',
+  api_url_type: 'http://localhost:8080/employee/user',
+  firebaseConfig: {
+    apiKey: 'AIzaSyD72vNjLIojz69hvCF0suOuvPX-KRpYq1U',
+    authDomain: 'huyjr-5f531.firebaseapp.com',
+    projectId: 'huyjr-5f531',
+    storageBucket: 'huyjr-5f531.appspot.com',
+    messagingSenderId: '9183740604',
+    appId: '1:9183740604:web:c7bbdeaf46541573dc86b9',
+    measurementId: 'G-8YRVXBQW1Y'
+  }
 };
 
 /*

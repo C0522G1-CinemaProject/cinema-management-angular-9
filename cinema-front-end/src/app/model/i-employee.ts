@@ -1,4 +1,6 @@
-import {IUser} from './IUser';
+import {IUser} from './i-user';
+import {User} from '../dto/user';
+
 
 export interface IEmployee {
   id?: number;
@@ -7,7 +9,7 @@ export interface IEmployee {
   email?: string;
   address?: string;
   phoneNumber?: string;
-  username?: IUser;
+  user?: User;
   idCard?: string;
   dayOfBirth?: string;
   image?: string;
