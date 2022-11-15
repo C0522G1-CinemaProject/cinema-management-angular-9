@@ -13,7 +13,7 @@ import {RegisterModule} from './component/register/register.module';
 import {RoomModule} from './component/room/room.module';
 import {TicketModule} from './component/ticket/ticket.module';
 import {FormsModule} from '@angular/forms';
-import {StatementManagementModule} from './component/statement-management/statement-management.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -32,7 +32,7 @@ import {StatementManagementModule} from './component/statement-management/statem
     RoomModule,
     TicketModule,
     FormsModule,
-    StatementManagementModule
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
