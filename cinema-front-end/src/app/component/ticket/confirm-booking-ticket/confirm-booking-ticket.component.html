@@ -8,7 +8,7 @@
             <div class="panel panel-default">
               <div class="panel-heading"><h4>THÔNG TIN ĐẶT VÉ</h4></div>
               <div class="panel-body">
-                <div *ngIf="informationTicket != null">
+                <div *ngIf="informationTicket != null; else noContent">
                 <div class="row">
                   <div class="col-sm-5 col-md-4 user-img">
                     <img
@@ -73,6 +73,9 @@
                   </div><!-- end columns -->
                 </div><!-- end row -->
                 </div>
+                <ng-template #noContent>
+                  <p>Không có dữ liệu</p>
+                </ng-template>
               </div><!-- end panel-body -->
             </div><!-- end panel-detault -->
           </div><!-- end columns -->

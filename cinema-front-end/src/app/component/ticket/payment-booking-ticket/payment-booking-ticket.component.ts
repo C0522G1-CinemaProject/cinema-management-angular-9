@@ -4,6 +4,7 @@ import {ConfirmBookingTicketService} from '../../../service/confirm-booking-tick
 import {Router} from '@angular/router';
 import {render} from 'creditcardpayments/creditCardPayments';
 import Swal from 'sweetalert2';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-payment-booking-ticket',
@@ -18,7 +19,9 @@ export class PaymentBookingTicketComponent implements OnInit {
 
 
   constructor(private confirmBookingTicketService: ConfirmBookingTicketService,
-              private router: Router) {
+              private router: Router,
+              private title: Title) {
+    this.title.setTitle('Thông tin đặt vé');
     console.log(this.action);
     render(
       {
