@@ -13,7 +13,7 @@ import {Title} from '@angular/platform-browser';
 })
 export class CustomerStatementComponent implements OnInit {
 
-  btnView = 'Xem biểu đồ';
+  btnView = 'XEM BIỂU ĐỒ';
   action: boolean;
   numberMonth = 0;
   labelCharts: string[] = [];
@@ -31,7 +31,7 @@ export class CustomerStatementComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.btnView = 'Xem biểu đồ';
+    this.btnView = 'XEM BIỂU ĐỒ';
     this.action = true;
     this.hiddenChart = true;
     this.timeGroup = this.fBuilder.group({
@@ -42,13 +42,13 @@ export class CustomerStatementComponent implements OnInit {
 
   displayChangeTemplate() {
     this.createChart();
-    if (this.btnView === 'Xem biểu đồ') {
-      this.btnView = 'Xem bảng số liệu';
+    if (this.btnView === 'XEM BIỂU ĐỒ') {
+      this.btnView = 'XEM BẢNG SỐ LIỆU';
       this.action = false;
       this.hiddenChart = false;
       console.log(this.chart);
     } else {
-      this.btnView = 'Xem biểu đồ';
+      this.btnView = 'XEM BIỂU ĐỒ';
       this.action = true;
       this.hiddenChart = true;
       console.log(this.chart);
@@ -66,6 +66,7 @@ export class CustomerStatementComponent implements OnInit {
 
   getList(numberMonth: number) {
     this.statement.listCustomerTop(this.numberMonth).subscribe((value: Array<ICustomerStatementDto>) => {
+      console.log(value);
       this.listCustomerTop$ = new BehaviorSubject<Array<ICustomerStatementDto>>(value);
       this.creatDataForChart(value);
     });
@@ -100,10 +101,45 @@ export class CustomerStatementComponent implements OnInit {
 
 
   createChart() {
-
     this.chart = new Chart('myChart', {
+        type: 'bar',
+        data: {
+          // tslint:disable-next-line:max-line-length
+          labels: this.labelCharts,
+          datasets: [{
+            label: 'Tiêu phí.',
+            // tslint:disable-next-line:max-line-length
+            data: this.dataCharts,
+            backgroundColor: 'blue',
+            hoverBackgroundColor: 'blue',
+            hoverBorderColor: 'white',
+            hoverBorderWidth: 3,
+            borderColor: '#666',
+            borderWidth: 2
+          }]
+        },
+        options: {
+          scales: {
+            yAxes: [{
+              beginAtZero: true,
+              ticks: {
+                callback(value, index, values) {
+                  return value + ' VND';
+                }
+              }
+            }]
+          },
+          legend: {
+            display: true
+          },
+          responsive: true,
+          indexAxis: 'x',
+          aspectRatio: 1.8,
+          display: true
+        }
+      });
+    /*this.chart = new Chart('myChart', {
       type: 'bar',
-
       data: {
         labels: this.labelCharts,
         datasets: [
@@ -111,17 +147,11 @@ export class CustomerStatementComponent implements OnInit {
             label: 'Tổng tiền',
             data: this.dataCharts,
             backgroundColor: 'blue'
-          },
-
-        ]
+          }]
       },
       options: {
-        responsive: true,
-        indexAxis: 'x',
-        aspectRatio: 2.5,
-        display: true,
         scales: {
-          y: {
+          yAxes: {
             beginAtZero: true,
             title: {
               display: true,
@@ -130,6 +160,6 @@ export class CustomerStatementComponent implements OnInit {
           }
         }
       }
-    });
+    });*/
   }
 }
