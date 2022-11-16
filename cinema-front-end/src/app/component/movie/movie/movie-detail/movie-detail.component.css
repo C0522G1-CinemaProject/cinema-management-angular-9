@@ -1,6 +1,4 @@
 .bgcolor {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
-  url("https://media.tourisme-cambresis.fr/84967554-105897.jpg");
   background-size: cover;
   position: relative;
   opacity: 0.9;

@@ -36,7 +36,7 @@ import {NgbAlertModule, NgbPaginationModule, NgbModule} from '@ng-bootstrap/ng-b
     TicketModule,
     FormsModule,
 
-    AngularFireModule.initializeApp(environment.firebaseConfig)
+    AngularFireModule.initializeApp(environment.firebaseConfig),
 
     NgbPaginationModule,
     NgbAlertModule,

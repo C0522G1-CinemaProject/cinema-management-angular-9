@@ -10,8 +10,8 @@
 
     <div class="row m-0 p-0">
       <div class="col-3 p-1 ms-0 ps-0">
-        <button class="button btnGreen" style="height: 39px">
-          <a routerLink="#">Thêm mới</a>
+        <button class="button btnGreen" style="height: 39px" [routerLink]="['/movie/add']">
+          Thêm mới
         </button>
       </div>
       <div class="col-lg-1 col-sm-4"></div>
@@ -54,8 +54,8 @@
           <td data-tittle="Phiên bản">{{movie.version}}</td>
           <td data-tittle="Sửa">
             <div class="text-center wrapCss">
-              <button class="button btnYellow">
-                <a routerLink="#">Chỉnh sửa</a>
+              <button class="button btnYellow" [routerLink]="['/edit/',movie.id]">
+                Chỉnh sửa
               </button>
             </div>
           </td>

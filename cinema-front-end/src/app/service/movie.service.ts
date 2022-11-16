@@ -1,3 +1,4 @@
+import {IMovieDto} from '../dto/i-movie-dto';
 
 const API_URL = `${environment.movieUrl}`;
 import {Injectable} from '@angular/core';
@@ -17,9 +18,10 @@ import {Page} from '../page';
 })
 export class MovieService {
 
-   apiUrlListMovie = environment.api_url_list_movie;
-   URL_API = `${environment.api_url}`;
+  apiUrlListMovie = environment.api_url_list_movie;
+  URL_API = `${environment.api_url}`;
   httpOptions: any;
+
   constructor(private httpClient: HttpClient, private tokenService: TokenStorageService) {
     this.httpOptions = {
       headers: new HttpHeaders({
@@ -30,48 +32,52 @@ export class MovieService {
       'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS'
     };
   }
-  
+
   getAllMovieType(): Observable<IMovieType[]> {
-    console.log(API_URL + '/movieType');
-    return this.http.get<IMovieType[]>(API_URL + '/movieType');
+    console.log(this.URL_API + 'movie/movieType');
+    return this.httpClient.get<IMovieType[]>(this.URL_API + 'movie/movieType');
   }
 
   saveMovie(movie: IMovie): Observable<IMovie> {
-    console.log(API_URL + '/add', movie);
-    return this.http.post<IMovie>(API_URL + '/add', movie);
+    console.log(this.URL_API + 'movie/add', movie);
+    return this.httpClient.post<IMovie>(this.URL_API + 'movie/add', movie);
   }
 
   editMovie(movie: IMovie): Observable<IMovie> {
-    console.log(API_URL + '/edit/' + movie.id, movie);
-    return this.http.patch<IMovie>(API_URL + '/edit/' + movie.id, movie);
+    console.log(this.URL_API + 'movie/edit/' + movie.id, movie);
+    return this.httpClient.patch<IMovie>(this.URL_API + 'movie/edit/' + movie.id, movie);
   }
 
   getMovieById(id: number): Observable<IMovieDto> {
-    console.log(API_URL + '/' + id);
-    return this.http.get<IMovieDto>(API_URL + '/' + id);
-  }
-  
- findById(id: number): Observable<IMovie> {
-    return this.http.get<IMovie>(API_URL + `movie/detail/1`);
-  }
-  findAllListMovie(name: string, size: number): Observable<PageResult<MovieDto>> {
-    const API_URL = this.apiUrlListMovie + 'list' + '/home' + '?name=' + name  + '&size=' + size;
-    console.log(API_URL);
-    return this.httpClient.get<PageResult<MovieDto>>(API_URL);
+    console.log(this.URL_API + 'movie/' + id);
+    return this.httpClient.get<IMovieDto>(this.URL_API + 'movie/' + id);
   }
 
+  // ok
+  findById(id: number): Observable<IMovie> {
+    return this.httpClient.get<IMovie>(this.URL_API + 'movie/detail/' + id);
+  }
+
+  // ok
+  findAllListMovie(name: string, size: number): Observable<PageResult<MovieDto>> {
+    const API_URL_HOME = this.URL_API + 'movie/list/home?name=' + name + '&size=' + size;
+    console.log(API_URL_HOME);
+    return this.httpClient.get<PageResult<MovieDto>>(API_URL_HOME);
+  }
+// ok
   findAllListPremiereSoonMovie(name: string, size: number): Observable<PageResult<MovieDto>> {
-    const API_URL_PREMIERE = this.apiUrlListMovie + 'list' + '/premiere' + '?name=' + name + '&size=' + size;
+    const API_URL_PREMIERE = this.URL_API + 'movie/list/premiere?name=' + name + '&size=' + size;
     console.log(API_URL_PREMIERE);
     return this.httpClient.get<PageResult<MovieDto>>(API_URL_PREMIERE);
   }
 
+
   getMovieList(page: number, size: number, name: string): Observable<Page<IMovie>> {
-    return this.http.get<Page<IMovie>>(this.URL_API + '/movie/list' + '?name=' + name + '&page=' + (page - 1) + '&size=' + size);
+    return this.httpClient.get<Page<IMovie>>(this.URL_API + 'movie/list?name=' + name + '&page=' + (page - 1) + '&size=' + size);
   }
 
   deleteMovie(id: number): Observable<void> {
-    return this.http.delete<void>(this.URL_API + '/movie/delete/' + id);
+    return this.httpClient.delete<void>(this.URL_API + '/movie/delete/' + id);
   }
 
 

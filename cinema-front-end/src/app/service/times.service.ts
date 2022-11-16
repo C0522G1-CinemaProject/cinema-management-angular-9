@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import {ITimes} from '../model/i-times';
 
 
-const API_URL = `${environment.timeUrl}`;
+const API_URL = `${environment.api_url}`;
 @Injectable({
   providedIn: 'root'
 })
@@ -14,7 +14,7 @@ export class TimesService {
   constructor(private http: HttpClient) { }
 
   getAllTime(id: number, dateT: string): Observable<ITimes[]> {
-    console.log(API_URL + '/?idRoom=' + id + '&dateT=' + dateT);
-    return this.http.get<ITimes[]>(API_URL + '/?idRoom=' + id + '&dateT=' + dateT);
+    console.log(API_URL + 'showTime/time/?idRoom=' + id + '&dateT=' + dateT);
+    return this.http.get<ITimes[]>(API_URL + 'showTime/time/?idRoom=' + id + '&dateT=' + dateT);
   }
 }

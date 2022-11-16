@@ -14,7 +14,9 @@ export class ListMovieComponent implements OnInit {
   pageSize = 5;
   // moviePage$: Observable<PageResult<MovieDto>>;
   movieList$: Observable<MovieDto[]> | undefined;
+  total$: Observable<number>;
   movieNameSearch = '';
+  action: boolean;
 
   constructor(private movieService: MovieService) {
   }
@@ -25,8 +27,14 @@ export class ListMovieComponent implements OnInit {
 
   paginate(movieNameSearch, pageSize) {
     this.movieService.findAllListMovie(movieNameSearch, pageSize).subscribe(data => {
-      // this.moviePage$ = new BehaviorSubject<PageResult<MovieDto>>(data);
-      this.movieList$ = new BehaviorSubject<MovieDto[]>(data.content);
+      console.log(data);
+      if (data != null) {
+        this.action = true;
+        this.movieList$ = new BehaviorSubject<MovieDto[]>(data.content);
+        this.total$ = new BehaviorSubject<number>(data.totalElements);
+      } else {
+        this.action = false;
+      }
     });
   }
 
