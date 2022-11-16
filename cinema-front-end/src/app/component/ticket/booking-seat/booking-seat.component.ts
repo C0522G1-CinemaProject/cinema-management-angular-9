@@ -47,7 +47,7 @@ export class BookingSeatComponent implements OnInit {
 
     this.getAllSeatByShowTime();
 
-    this.bookingTicketService.getCustomerByUsername("abristog").subscribe(value => {
+    this.bookingTicketService.getCustomerByUsername().subscribe(value => {
         this.customer = value;
       },
       error => {
@@ -86,23 +86,24 @@ export class BookingSeatComponent implements OnInit {
   nextConfirm() {
     for (let item of this.seatBookings) {
       this.bookingTicketService.getSeatDetailById(item.id).subscribe(value => {
-        this.ticketBooking = {
-          statusTicket: 0,
-          seatDetail: value,
-          customer: this.customer,
-          ticketBookingTime: new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate()
-        }
+          this.ticketBooking = {
+            statusTicket: 0,
+            seatDetail: value,
+            customer: this.customer,
+            ticketBookingTime: new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate()
+              + ' ' + new Date().getHours() + ':' + new Date().getMinutes() + ':' + new Date().getSeconds()
+          }
 
-        this.bookingTicketService.addPendingTicket(this.ticketBooking).subscribe(() => {
+          this.bookingTicketService.addPendingTicket(this.ticketBooking).subscribe(() => {
             this.ticketBookings.push(this.ticketBooking);
-            }, error => {
-              console.log(error);
-            });
-          },
-          error => {
+          }, error => {
             console.log(error);
           });
-      }
-      console.log(this.ticketBookings);
+        },
+        error => {
+          console.log(error);
+        });
     }
+    console.log(this.ticketBookings);
   }
+}

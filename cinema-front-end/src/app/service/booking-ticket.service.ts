@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {BehaviorSubject, Observable} from "rxjs";
 import {IMovieBookingDto} from "../dto/i-movie-booking-dto";
 import {IShowtimesBookingDto} from "../dto/i-showtimes-booking-dto";
@@ -8,6 +8,7 @@ import {ISeatDetailBookingDto} from "../dto/i-seat-detail-booking-dto";
 import {ITicket} from "../model/i-ticket";
 import {ICustomer} from "../model/i-customer";
 import {ISeatDetail} from "../model/i-seat-detail";
+import {TokenStorageService} from "./token-storage.service";
 
 // const API_URL = `${environment.api_url}`;
 const API_URL = 'http://localhost:8080/api';
@@ -23,23 +24,34 @@ export class BookingTicketService {
   curShowDate = this.showDateBooking.asObservable();
   curShowTime = this.showTimeBooking.asObservable();
 
-  constructor(private httpClient: HttpClient) {
+  httpOptions: any;
+
+  constructor(private httpClient: HttpClient, private tokenService: TokenStorageService) {
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.tokenService.getToken()
+      }),
+      'Access-Control-Allow-Origin': 'http://localhost:4200',
+      'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS'
+    };
   }
 
-  findAllMovieInNext7Days(): Observable<IMovieBookingDto[]> {
-    return this.httpClient.get<IMovieBookingDto[]>(API_URL + '/booking-ticket/movie');
+  findAllMovieInNext7Days(): Observable<any> {
+    console.log(this.httpOptions)
+    return this.httpClient.get<IMovieBookingDto[]>(API_URL + '/booking-ticket/movie', this.httpOptions);
   }
 
-  findAllShowDateByMovie(idMovie: number): Observable<IShowDateBookingDto[]> {
-    return this.httpClient.get<IShowDateBookingDto[]>(API_URL + '/booking-ticket/show-date/' + idMovie);
+  findAllShowDateByMovie(idMovie: number): Observable<any> {
+    return this.httpClient.get<IShowDateBookingDto[]>(API_URL + '/booking-ticket/show-date/' + idMovie, this.httpOptions);
   }
 
-  findAllShowTimeByShowDate(showDate: string): Observable<IShowtimesBookingDto[]> {
-    return this.httpClient.get<IShowtimesBookingDto[]>(API_URL + '/booking-ticket/showtime/' + showDate);
+  findAllShowTimeByShowDate(showDate: string): Observable<any> {
+    return this.httpClient.get<IShowtimesBookingDto[]>(API_URL + '/booking-ticket/showtime/' + showDate, this.httpOptions);
   }
 
-  findAllSeatByShowTime(idShowTime: number): Observable<ISeatDetailBookingDto[]> {
-    return this.httpClient.get<ISeatDetailBookingDto[]>(API_URL + '/booking-ticket/seat-detail/' + idShowTime);
+  findAllSeatByShowTime(idShowTime: number): Observable<any> {
+    return this.httpClient.get<ISeatDetailBookingDto[]>(API_URL + '/booking-ticket/seat-detail/' + idShowTime, this.httpOptions);
   }
 
   changeData(movie: IMovieBookingDto, showDate: IShowDateBookingDto, showTime: IShowtimesBookingDto): void {
@@ -48,15 +60,15 @@ export class BookingTicketService {
     this.showTimeBooking.next(showTime);
   }
 
-  addPendingTicket(ticket: ITicket): Observable<ITicket> {
-    return this.httpClient.post<ITicket>(API_URL + '/booking-ticket/add-pending-ticket', ticket);
+  addPendingTicket(ticket: ITicket): Observable<any> {
+    return this.httpClient.post<ITicket>(API_URL + '/booking-ticket/add-pending-ticket', ticket, this.httpOptions);
   }
 
-  getCustomerByUsername(username: string): Observable<ICustomer> {
-    return this.httpClient.get<ICustomer>(API_URL + '/booking-ticket/customer/' + username);
+  getCustomerByUsername(): Observable<any> {
+    return this.httpClient.get<ICustomer>(API_URL + '/booking-ticket/get-customer', this.httpOptions);
   }
 
-  getSeatDetailById(id: number): Observable<ISeatDetail> {
-    return this.httpClient.get<ISeatDetail>(API_URL + '/booking-ticket/seat/' + id);
+  getSeatDetailById(id: number): Observable<any> {
+    return this.httpClient.get<ISeatDetail>(API_URL + '/booking-ticket/seat/' + id, this.httpOptions);
   }
 }
