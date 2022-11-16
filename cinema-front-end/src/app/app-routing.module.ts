@@ -34,32 +34,30 @@ const routes: Routes = [
   {
     path: 'movie', loadChildren: () => MovieModule,
     /*không được xóa canActivate*/
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
     data: {
       roles: ['ROLE_Employee', 'ROLE_Admin', 'ROLE_Customer']
     }
-
-  
   },
   {
     path: 'promotion', loadChildren: () => PromotionModule,
     /*không được xóa canActivate*/
-    canActivate: [AuthGuard]
+    // canActivate: [AuthGuard]
   },
   {
     path: 'register', loadChildren: () => RegisterModule,
     /*không được xóa canActivate*/
-    canActivate: [AuthGuard]
+    // canActivate: [AuthGuard]
   },
   {
     path: 'room', loadChildren: () => RoomModule,
     /*không được xóa canActivate*/
-    canActivate: [AuthGuard]
+    // canActivate: [AuthGuard]
   },
   {
     path: 'ticket', loadChildren: () => TicketModule,
     /*không được xóa canActivate*/
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
     data: {
       roles: ['ROLE_Employee', 'ROLE_Admin', 'ROLE_Customer']
     }
