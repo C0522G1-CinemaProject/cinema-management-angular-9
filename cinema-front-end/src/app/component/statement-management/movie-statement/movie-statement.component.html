@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <div class="row">
+  <div class="row" style="background-color: white">
     <div class="col-2"></div>
     <div class="col-8">
       <div class="row">
@@ -32,7 +32,7 @@
           </thead>
           <tbody class='bg-body'>
           <tr *ngFor="let item of (listMovieTop$ | async); index as i" >
-            <td class='text-center'> {{i}} </td>
+            <td class='text-center'> {{i+1}} </td>
             <td style='padding-left: 25px'>{{item.name}}</td>
             <td style='padding-left: 25px'>{{item.countTicket}}</td>
             <td style='padding-left: 25px'>{{item.turnover| currency: ' '}} VND</td>

@@ -33,7 +33,7 @@ export class MovieStatementComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.btnView = 'Xem biểu đồ';
+    this.btnView = 'XEM BIỂU ĐỒ';
     this.timeGroup = this.fbuilder.group({
       time: [this.numberMonth]
     });
@@ -46,13 +46,13 @@ export class MovieStatementComponent implements OnInit {
 
   displayChangeTemplate() {
     this.createChart();
-    if (this.btnView === 'Xem biểu đồ') {
-      this.btnView = 'Xem bảng số liệu';
+    if (this.btnView === 'XEM BIỂU ĐỒ') {
+      this.btnView = 'XEM BẢNG SỐ LIỆU';
       this.action = false;
       this.hiddenChart = false;
       console.log(this.chart);
     } else {
-      this.btnView = 'Xem biểu đồ';
+      this.btnView = 'XEM BIỂU ĐỒ';
       this.action = true;
       this.hiddenChart = true;
       console.log(this.chart);
@@ -120,7 +120,7 @@ export class MovieStatementComponent implements OnInit {
        options: {
          scales: {
            y: {
-             beginAtZero: false,
+             beginAtZero: true,
              title: {
                display: true,
                text: 'VND'
