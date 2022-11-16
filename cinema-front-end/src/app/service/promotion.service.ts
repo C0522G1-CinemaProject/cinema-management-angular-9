@@ -20,11 +20,11 @@ export class PromotionService {
   }
 
   createPromotion(promotion): Observable<IPromotion> {
-    return this.http.post<IPromotion>(API_URL + '/save', promotion);
+    return this.http.post<IPromotion>(API_URL + '/promotion/save', promotion);
   }
 
   editPromotion(id: number, promotion): Observable<IPromotion> {
-    return this.http.patch<IPromotion>(API_URL + '/edit/' + id, promotion);
+    return this.http.patch<IPromotion>(API_URL + '/promotion/edit/' + id, promotion);
   }
 
   deletePromotion(id: number): Observable<void> {
