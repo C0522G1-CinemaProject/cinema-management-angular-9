@@ -1,5 +1,4 @@
-import {IUser} from './IUser';
-
+import {IUser} from './i-user';
 export interface IEmployee {
   id?: number;
   name?: string;
