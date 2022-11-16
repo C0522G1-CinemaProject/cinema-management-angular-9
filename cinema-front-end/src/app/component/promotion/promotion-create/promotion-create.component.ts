@@ -7,7 +7,6 @@ import {finalize} from 'rxjs/operators';
 import {formatDate} from '@angular/common';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {IPromotion} from '../../../model/i-promotion';
-import {Title} from '@angular/platform-browser';
 
 
 @Component({
@@ -33,15 +32,15 @@ export class PromotionCreateComponent implements OnInit {
   selectedImage: any = null;
   curDate = new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate();
   promotion: IPromotion;
+  imgUrl: string | ArrayBuffer = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHXrOiR-R5ERp6j7qTDAdiN96xl2UiGEq95g&usqp=CAU';
 
   constructor(private promotionService: PromotionService,
-              private title: Title,
               private router: Router,
               @Inject(AngularFireStorage) private storage: AngularFireStorage) {
-    this.title.setTitle('Thêm mới khuyến mãi');
   }
 
   ngOnInit(): void {
+    this.imgUrl = this.promotion.image;
   }
 
   submit(): void {
@@ -64,20 +63,13 @@ export class PromotionCreateComponent implements OnInit {
               text: promotion.name,
               width: 600,
               padding: '3em',
-              color: '#716add',
-              background: '#fff url(/images/trees.png)',
-              backdrop: `
-              rgba(0,0,123,0.4)
-              url("/images/nyan-cat.gif")
-              left top
-              no-repeat
-            `
+              color: '#716add'
             });
             this.promotionFormGroup.reset();
           }, error => {
             console.log(error);
           }, () => {
-            this.router.navigateByUrl('/list');
+            this.router.navigateByUrl('/promotion/list');
             console.log('Thêm mới khuyến mãi thành công!');
           });
         });
@@ -87,6 +79,14 @@ export class PromotionCreateComponent implements OnInit {
 
   showPreview(event: any) {
     this.selectedImage = event.target.files[0];
+    if (event.target.files && event.target.files[0]) {
+      const file = event.target.files[0];
+
+      const reader = new FileReader();
+      reader.onload = e => this.imgUrl = reader.result;
+
+      reader.readAsDataURL(file);
+    }
   }
 
   getCurrentDateTime(): string {

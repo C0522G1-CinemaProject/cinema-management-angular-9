@@ -71,6 +71,7 @@ export class PromotionEditComponent implements OnInit {
           this.promotion = this.promotionFormGroup.value;
           this.promotion.startTime = this.promotionFormGroup.get('dateFormGroup').get('startTime').value;
           this.promotion.endTime = this.promotionFormGroup.get('dateFormGroup').get('endTime').value;
+          console.log(this.promotion);
           this.promotionService.editPromotion(id, this.promotion).subscribe(() => {
             Swal.fire({
               icon: 'success',
@@ -78,20 +79,13 @@ export class PromotionEditComponent implements OnInit {
               text: promotion.name,
               width: 600,
               padding: '3em',
-              color: '#716add',
-              background: '#fff url(/images/trees.png)',
-              backdrop: `
-              rgba(0,0,123,0.4)
-              url("/images/nyan-cat.gif")
-              left top
-              no-repeat
-            `
+              color: '#716add'
             });
             this.promotionFormGroup.reset();
           }, error => {
             console.log(error);
           }, () => {
-            this.router.navigateByUrl('/list');
+            this.router.navigateByUrl('/promotion/list');
             console.log('Chỉnh sửa khuyến mãi thành công!');
           });
         });

@@ -43,8 +43,8 @@
             <td *ngIf="pageNumber>=1">{{i + 1 + (pageNumber - 1) * pageSize}}</td>
             <td *ngIf="pageNumber===0">{{i +1}}</td>
             <td class="text-lg-start">{{promotion.name}}</td>
-            <td>{{promotion.startTime}}</td>
-            <td>{{promotion.endTime}}</td>
+            <td>{{promotion.startTime | date:"dd/MM/yyyy"}}</td>
+            <td>{{promotion.endTime | date:"dd/MM/yyyy"}}</td>
             <td>{{promotion.discount}}</td>
             <td>
               <button class="button btnBlue" (click)="showDetail(promotion.image,promotion.detail)">
