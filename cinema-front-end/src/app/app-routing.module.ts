@@ -1,7 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {HomeModule} from './component/home/home.module';
-import {AuthGuard} from './component/decentralization/auth.guard';
 import {EmployeeModule} from './component/employee/employee.module';
 import {MovieModule} from './component/movie/movie.module';
 import {PromotionModule} from './component/promotion/promotion.module';
