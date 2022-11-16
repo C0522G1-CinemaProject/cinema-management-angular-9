@@ -32,7 +32,7 @@ const routes: Routes = [
   {
     path: 'movie', loadChildren: () => MovieModule,
     /*không được xóa canActivate*/
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     data: {
       roles: ['ROLE_Employee', 'ROLE_Admin', 'ROLE_Customer']
     }

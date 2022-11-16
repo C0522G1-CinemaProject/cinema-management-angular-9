@@ -1,39 +1,39 @@
+
 <div class="row">
-  <div class="col-12 m-0 p-0 me-0">
+  <div class="col-lg-2"></div>
+  <div class="col-lg-8">
     <div class="row">
       <div class="col-12 text-center">
         <h2>Danh sách phim</h2>
       </div>
     </div>
-    <div class="row">
-      <div class="col-12"></div>
-    </div>
+
     <div class="row m-0 p-0">
-      <div class="row m-0 p-0">
-        <div class="col-3 p-1 ms-0 ps-0">
-          <button class="button btnGreen" style="height: 39px">
-            Thêm mới
+      <div class="col-3 p-1 ms-0 ps-0">
+        <button class="button btnGreen" style="height: 39px">
+          <a routerLink="#">Thêm mới</a>
+        </button>
+      </div>
+      <div class="col-lg-1 col-sm-4"></div>
+      <div class="col-lg-2 col-sm-4"></div>
+      <div class="col-lg-2"></div>
+      <div class="col-lg-1"></div>
+      <div class="col-lg-3 col-sm-4 p-1 pe-0">
+        <div class="d-flex">
+          <input class="form-control me-2" type="search" placeholder="Tìm tên khuyến mãi"
+                 aria-label="Search" [(ngModel)]="name">
+          <button (click)="searchMovie()" class="button btnGreen" style="height: 38px" type="submit">
+            Tìm
           </button>
-        </div>
-        <div class="col-1"></div>
-        <div class="col-2"></div>
-        <div class="col-2"></div>
-        <div class="col-1"></div>
-        <div class="col-3 p-1 pe-0">
-          <div class="d-flex">
-            <input class="form-control me-2" type="search" placeholder="Tìm tên khuyến mãi"
-                   aria-label="Search" [(ngModel)]="name">
-            <button (click)="getAllMovie()" class="button btnGreen" style="height: 38px" type="submit">
-              Tìm
-            </button>
-          </div>
         </div>
       </div>
     </div>
-    <div class="row p-0 m-0">
-      <table class="table" id="table-id">
+
+    <div class="row p-0 m-0 table-responsive">
+      <table class="table" id="no-more-table">
         <thead class="bg bg-warning">
         <tr>
+          <th>STT</th>
           <th>Phim</th>
           <th>Ngày khởi chiếu</th>
           <th>Hãng phim</th>
@@ -45,18 +45,21 @@
         </thead>
 
         <tbody>
-        <tr *ngFor="let movie of (movieList$ | async)">
-          <td>{{movie.name}}</td>
-          <td>{{movie.startDay}}</td>
-          <td>{{movie.filmStudio}}</td>
-          <td>{{movie.filmTime}}</td>
-          <td>{{movie.version}}</td>
-          <td>
+        <tr *ngFor="let movie of (movieList$ | async); index as i">
+          <td data-tittle="STT">{{i + 1 + (page - 1) * size}}</td>
+          <td data-tittle="Phim">{{movie.name}}</td>
+          <td data-tittle="Ngày khởi chiếu">{{movie.startDay |date: "dd/MM/yyyy"}}</td>
+          <td data-tittle="Hãng phim">{{movie.filmStudio}}</td>
+          <td data-tittle="Thời lượng">{{movie.filmTime}} phút</td>
+          <td data-tittle="Phiên bản">{{movie.version}}</td>
+          <td data-tittle="Sửa">
             <div class="text-center wrapCss">
-              <button class="button btnYellow">Chỉnh sửa</button>
+              <button class="button btnYellow">
+                <a routerLink="#">Chỉnh sửa</a>
+              </button>
             </div>
           </td>
-          <td>
+          <td data-tittle="Xoá">
             <div class="text-center wrapCss">
               <button class="button btnRed" (click)="confirmDelete(movie)">Xóa</button>
             </div>
@@ -67,23 +70,21 @@
     </div>
 
     <div class="row">
-      <div class="col-2 ms-0">
+      <div class="col-lg-2 col-sm-4 ms-0">
         <div class="container p-0 text-center">
           <span class="fw-bold text-light"></span>
           <select class="form-select form-select-sm" name="state" id="maxRows " [(ngModel)]="size"
                   (ngModelChange)="getAllMovie()">
-            <option value=" 5">Chọn số lượng hiển thị</option>
-            <option [ngValue]="5000">Hiển thị tất cả</option>
+            <option [ngValue]=" 5">Chọn số lượng hiển thị</option>
             <option [ngValue]="10">10</option>
-            <option [ngValue]="15">15</option>
             <option [ngValue]="20">20</option>
-            <option [ngValue]="50">50</option>
+            <option [ngValue]="5000">Hiển thị tất cả</option>
           </select>
         </div>
       </div>
-      <div class="col-4"></div>
-      <div class="col-4"></div>
-      <div class="col-2">
+      <div class="col-lg-4 "></div>
+      <div class="col-lg-4 "></div>
+      <div class="col-lg-2 col-sm-4 ">
         <div class='pagination-container'>
           <nav aria-label="Page navigation example">
             <!--            <ul class="pagination">-->
@@ -100,19 +101,22 @@
             <!--                  <span aria-hidden="true">&raquo;</span>-->
             <!--                </a>-->
             <!--              </li>-->
-                        <ngb-pagination
-                          [collectionSize]="(total$| async)!"
-                          [(page)]="page"
-                          [maxSize]="5"
-                          [pageSize]="size"
-                          (pageChange)="getAllMovie()"
-                        >
-                        </ngb-pagination>
+            <ngb-pagination
+              [collectionSize]="(total$| async)!"
+              [(page)]="page"
+              [maxSize]="5"
+              [pageSize]="size"
+              (pageChange)="getAllMovie()"
+            >
+              <ng-template ngbPaginationNumber let-page>{{ page }}</ng-template>
+            </ngb-pagination>
 
           </nav>
         </div>
       </div>
-    </div>
-  </div>
 
+
+  </div>
+</div>
+  <div class="col-lg-2"></div>
 </div>

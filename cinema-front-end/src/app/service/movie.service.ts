@@ -16,8 +16,7 @@ export class MovieService {
   }
 
   getMovieList(page: number, size: number, name: string): Observable<Page<IMovie>> {
-    console.log(this.URL_API + '/movie/list' + '?name=' + name + '&page=' + page + '&size=' + size);
-    return this.http.get<Page<IMovie>>(this.URL_API + '/movie/list' + '?name=' + name + '&page=' + page + '&size=' + size);
+    return this.http.get<Page<IMovie>>(this.URL_API + '/movie/list' + '?name=' + name + '&page=' + (page - 1) + '&size=' + size);
   }
 
   deleteMovie(id: number): Observable<void> {

@@ -14,7 +14,7 @@ import Swal from 'sweetalert2';
 export class MovieListComponent implements OnInit {
 
   name = '';
-  page = 0;
+  page = 1;
   size = 5;
   movieList$: Observable<IMovie[]> | undefined;
   total$: Observable<number>;
@@ -34,9 +34,20 @@ export class MovieListComponent implements OnInit {
 
   getAllMovie() {
     this.movieService.getMovieList(this.page, this.size, this.name).subscribe(value => {
+      console.log(this.page);
       this.movieList$ = new BehaviorSubject<IMovie[]>(value.content);
       this.total$ = new BehaviorSubject<number>(value.totalElements);
       console.log(this.size);
+    });
+  }
+
+  searchMovie() {
+    this.movieService.getMovieList(1, this.size, this.name).subscribe(value => {
+      this.movieList$ = new BehaviorSubject<IMovie[]>(value.content);
+      this.total$ = new BehaviorSubject<number>(value.totalElements);
+      this.router.navigate(['/movie/list'], {
+        queryParams: {page: 1, size: this.size, name: this.name}
+      });
     });
   }
 
