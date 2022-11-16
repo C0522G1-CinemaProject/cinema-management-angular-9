@@ -1,6 +1,4 @@
 import {IMovieDto} from '../dto/i-movie-dto';
-
-const API_URL = `${environment.movieUrl}`;
 import {Injectable} from '@angular/core';
 import {IMovieType} from '../model/i-movie-type';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
@@ -18,7 +16,6 @@ import {Page} from '../page';
 })
 export class MovieService {
 
-  apiUrlListMovie = environment.api_url_list_movie;
   URL_API = `${environment.api_url}`;
   httpOptions: any;
 
@@ -26,7 +23,7 @@ export class MovieService {
     this.httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + this.tokenService.getToken()
+        Authorization: 'Bearer ' + this.tokenService.getToken()
       }),
       'Access-Control-Allow-Origin': 'http://localhost:4200',
       'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS'
@@ -64,6 +61,7 @@ export class MovieService {
     console.log(API_URL_HOME);
     return this.httpClient.get<PageResult<MovieDto>>(API_URL_HOME);
   }
+
 // ok
   findAllListPremiereSoonMovie(name: string, size: number): Observable<PageResult<MovieDto>> {
     const API_URL_PREMIERE = this.URL_API + 'movie/list/premiere?name=' + name + '&size=' + size;

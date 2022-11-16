@@ -5,5 +5,5 @@ export interface IPromotion {
   startTime?: string;
   endTime?: string;
   detail?: string;
-  discount?: string;
+  discount?: number;
 }
