@@ -35,4 +35,6 @@ export class MovieService {
     console.log(API_URL_PREMIERE);
     return this.httpClient.get<PageResult<MovieDto>>(API_URL_PREMIERE);
   }
+
+
 }
