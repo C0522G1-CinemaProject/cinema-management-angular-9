@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {PromotionService} from '../../../service/promotion.service';
 import {IPromotion} from '../../../model/i-promotion';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-promotion-list-front',
@@ -12,7 +13,10 @@ export class PromotionListFrontComponent implements OnInit {
   morePromotionList: IPromotion[];
   numberRecord = 0;
 
-  constructor(private promotionService: PromotionService) {
+  constructor(private promotionService: PromotionService,
+              private title: Title) {
+    this.title.setTitle('Khuyến mãi');
+
   }
 
   ngOnInit(): void {

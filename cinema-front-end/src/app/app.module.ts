@@ -13,9 +13,9 @@ import {RoomModule} from './component/room/room.module';
 import {TicketModule} from './component/ticket/ticket.module';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
-import {AngularFireModule} from '@angular/fire';
 import {environment} from '../environments/environment';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {AngularFireModule} from '@angular/fire';
 
 @NgModule({
   declarations: [
@@ -35,7 +35,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     TicketModule,
     FormsModule,
     HttpClientModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig)
+    AngularFireModule.initializeApp(environment.firebaseConfig),
     NgbModule
   ],
   providers: [],

@@ -7,6 +7,7 @@ import {finalize} from 'rxjs/operators';
 import {formatDate} from '@angular/common';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {IPromotion} from '../../../model/i-promotion';
+import {Title} from '@angular/platform-browser';
 
 
 @Component({
@@ -34,8 +35,10 @@ export class PromotionCreateComponent implements OnInit {
   promotion: IPromotion;
 
   constructor(private promotionService: PromotionService,
+              private title: Title,
               private router: Router,
               @Inject(AngularFireStorage) private storage: AngularFireStorage) {
+    this.title.setTitle('Thêm mới khuyến mãi');
   }
 
   ngOnInit(): void {
