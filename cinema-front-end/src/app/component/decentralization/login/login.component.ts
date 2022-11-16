@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-
 import Swal from 'sweetalert2';
 import {TokenStorageService} from '../../../service/token-storage.service';
 import {AuthService} from '../../../service/auth.service';
@@ -20,7 +19,6 @@ export class LoginComponent implements OnInit {
   private subject = new ReplaySubject<gapi.auth2.GoogleAuth>(1);
   formGroup: FormGroup;
   username: string ;
-  // errorMessage: string ;
   roles: string[] = [];
   returnUrl: string;
 
@@ -109,7 +107,6 @@ export class LoginComponent implements OnInit {
       //
     });
   }
-
   public observable(): Observable<gapi.auth2.GoogleAuth> {
     return this.subject.asObservable();
   }

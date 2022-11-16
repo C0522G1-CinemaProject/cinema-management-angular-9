@@ -1,10 +1,7 @@
+import {ICustomerType} from '../model/i-customer-type';
+import {IUser} from '../model/i-user';
 
-import {ICustomerType} from './i-customer-type';
-import {IUser} from './i-user';
-
-
-export interface ICustomer {
-  id?: number;
+export interface ICustomerDto {
   name?: string;
   dayOfBirth?: string;
   gender?: number;

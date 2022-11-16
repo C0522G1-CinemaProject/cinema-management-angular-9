@@ -34,9 +34,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     RegisterModule,
     RoomModule,
     TicketModule,
-    FormsModule,
     CommonModule,
-    NgbModule
+    NgbModule,
+    FormsModule
+
   ],
   bootstrap: [AppComponent]
 })
