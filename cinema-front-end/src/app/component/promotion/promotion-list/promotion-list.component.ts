@@ -60,6 +60,15 @@ export class PromotionListComponent implements OnInit {
           this.paginate();
           this.router.navigateByUrl('promotion/list');
         });
+      } else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === swal.DismissReason.cancel
+      ) {
+        swal.fire(
+          'Đã hủy',
+          'Khuyến mãi của bạn vẫn còn nguyên :)',
+          'error'
+        );
       }
     });
 
