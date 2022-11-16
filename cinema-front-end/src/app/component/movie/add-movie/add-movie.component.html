@@ -5,50 +5,96 @@
 <form [formGroup]="formAddMovie" >
   <div class="row">
     <div class="col-lg-6">
-      <label for="filmName"><b>Tên Phim</b><span>*</span></label>
+      <label for="filmName"><b>Tên Phim</b><span>*</span>
+        <span style="color: red; font-size: 12px" class="ps-3" *ngIf="formAddMovie.controls.name.hasError('required') &&
+              formAddMovie.controls.name.touched">Vui lòng nhập tên phim!</span>
+        <span style="color: red; font-size: 12px" class="ps-3" *ngIf="formAddMovie.controls.name.hasError('maxlength') &&
+              formAddMovie.controls.name.touched">Tên phim không được vượt quá 50 kí tự!</span>
+      </label>
       <input formControlName="name" type="text" id="filmName">
     </div>
     <div class="col-lg-6">
-      <label for="actor"><b>Diễn Viên</b><span>*</span></label>
+      <label for="actor"><b>Diễn Viên</b><span>*</span>
+        <span style="color: red; font-size: 12px" class="ps-3" *ngIf="formAddMovie.controls.actor.hasError('required') &&
+              formAddMovie.controls.actor.touched">Vui lòng nhập tên diễn viên!</span>
+        <span style="color: red; font-size: 12px" class="ps-3" *ngIf="formAddMovie.controls.actor.hasError('maxlength') &&
+              formAddMovie.controls.actor.touched">Tên diễn viên không được vượt quá 40 kí tự!</span>
+        <span style="color: red; font-size: 12px" class="ps-3" *ngIf="formAddMovie.controls.actor.hasError('pattern') &&
+              formAddMovie.controls.actor.touched">Viết hoa chữ cái đầu, khác ký tự đặc biệt!</span>
+      </label>
       <input formControlName="actor" type="text" id="actor">
     </div>
   </div>
   <div class="row">
     <div class="col-lg-6">
-      <label for="filmProducer"><b>Hãng Phim</b><span>*</span></label>
+      <label for="filmProducer"><b>Hãng Phim</b><span>*</span>
+        <span style="color: red; font-size: 12px" class="ps-3" *ngIf="formAddMovie.controls.filmStudio.hasError('required') &&
+              formAddMovie.controls.filmStudio.touched">Vui lòng nhập hãng phim!</span>
+        <span style="color: red; font-size: 12px" class="ps-3" *ngIf="formAddMovie.controls.filmStudio.hasError('maxlength') &&
+              formAddMovie.controls.filmStudio.touched">Hãng phim không được vượt quá 40 kí tự!</span>
+      </label>
       <input formControlName="filmStudio" type="text" id="filmProducer">
     </div>
     <div class="col-lg-6">
-      <label for="filmTime"><b>Thời Lượng</b><span>*</span></label>
+      <label for="filmTime"><b>Thời Lượng</b><span>*</span>
+        <span style="color: red; font-size: 12px" class="ps-3" *ngIf="formAddMovie.controls.filmTime.hasError('required') &&
+              formAddMovie.controls.filmTime.touched">Vui lòng nhập thời lượng phim!</span>
+        <span style="color: red; font-size: 12px" class="ps-3" *ngIf="formAddMovie.controls.filmTime.hasError('max') &&
+              formAddMovie.controls.filmTime.touched">Thời lượng phim không quá 120 phút!</span>
+        <span style="color: red; font-size: 12px" class="ps-3" *ngIf="formAddMovie.controls.filmTime.hasError('pattern') &&
+              formAddMovie.controls.filmTime.touched">Vui lòng nhập số!</span>
+      </label>
       <input formControlName="filmTime" type="text" id="filmTime">
     </div>
   </div>
 
   <div class="row">
     <div class="col-lg-6">
-      <label for="director"><b>Đạo Diễn</b><span>*</span></label>
+      <label for="director"><b>Đạo Diễn</b><span>*</span>
+        <span style="color: red; font-size: 12px" class="ps-3" *ngIf="formAddMovie.controls.director.hasError('required') &&
+              formAddMovie.controls.director.touched">Vui lòng nhập tên đạo diễn!</span>
+        <span style="color: red; font-size: 12px" class="ps-3" *ngIf="formAddMovie.controls.director.hasError('maxlength') &&
+              formAddMovie.controls.director.touched">Tên đạo diễn không được vượt quá 40 kí tự!</span>
+        <span style="color: red; font-size: 12px" class="ps-3" *ngIf="formAddMovie.controls.director.hasError('pattern') &&
+              formAddMovie.controls.director.dirty">Viết hoa chữ cái đầu, khác ký tự đặc biệt!</span>
+      </label>
       <input formControlName="director" type="text" id="director">
     </div>
     <div class="col-lg-6">
-      <label for="filmTrailer"><b>Trailer</b><span>*</span></label>
+      <label for="filmTrailer"><b>Trailer</b><span>*</span>
+        <span style="color: red; font-size: 12px" class="ps-3" *ngIf="formAddMovie.controls.trailer.hasError('required') &&
+              formAddMovie.controls.trailer.touched">Vui lòng nhập trailer!</span>
+      </label>
       <input formControlName="trailer" type="text" id="filmTrailer">
     </div>
   </div>
-  <div class="row">
+  <div class="row" formGroupName="dateGroup">
     <div class="col-lg-6">
-      <label for="dateFrom"><b>Từ Ngày</b><span>*</span></label>
+      <label for="dateFrom"><b>Từ Ngày</b><span>*</span>
+        <span style="color: red; font-size: 12px" class="ps-3"
+              *ngIf="formAddMovie.get('dateGroup').hasError('invalidStartDate', 'startDay')
+             && formAddMovie.get('dateGroup').get('startDay').touched">Phải lớn hơn hoặc bằng ngày hiện tại</span>
+      </label>
       <input formControlName="startDay" type="date" id="dateFrom">
     </div>
 
     <div class="col-lg-6">
-      <label for="dateTo"><b>Đến Ngày</b><span>*</span></label>
+      <label for="dateTo"><b>Đến Ngày</b><span>*</span>
+        <span style="color: red; font-size: 12px" class="ps-3"
+              *ngIf="formAddMovie.controls.dateGroup.hasError('invalidEndDate')
+         && formAddMovie.controls.dateGroup.touched">Phải lớn hơn hoặc bằng ngày bắt đầu!</span>
+      </label>
       <input formControlName="endDay" type="date" id="dateTo">
     </div>
   </div>
   <div formGroupName="showTimeDto">
         <div class="row">
           <div class="col-lg-6">
-            <label for="filmRoom"><b>Phòng Chiếu</b><span>*</span></label>
+            <label for="filmRoom"><b>Phòng Chiếu</b><span>*</span>
+              <span style="color: red; font-size: 12px" class="ps-3"
+                    *ngIf="formAddMovie.get('showTimeDto').hasError('required')
+             && formAddMovie.get('showTimeDto').get('room').dirty">Vui lòng n=chọn phòng chiếu</span>
+            </label>
             <select (change)="getInfo()" formControlName="room" id="filmRoom" class="form-select">
               <option value="null">Chọn phòng chiếu</option>
               <option *ngFor="let room1 of roomList" [ngValue]="room1">{{room1.name}}</option>
@@ -82,9 +128,11 @@
       </div>
     </div>
     <div class="col-lg-6">
-      <label for="filmImg" class="mb-1"><b>Hình Ảnh</b><span>*</span></label>
-      <input [src]="formAddMovie.value.image" type="file" id="filmImg" (change)="showPreview($event)">
+      <label  for="filmImg" class="mb-1"><b>Hình Ảnh</b><span>*</span></label>
+      <input type="file" id="filmImg" (change)="showPreview($event)" [src]="imgUrl">
+      <img width="130px" height="95px" [src]="imgUrl">
     </div>
+
   </div>
   <div class="row">
     <label><b>Thể Loại</b><span>*</span></label>
@@ -105,7 +153,7 @@
   </div>
   <div class="row text-center wrapCss">
     <button class="button btnGreen mx-2" (click)="addMovie()">Lưu</button>
-    <button class="button btnBlue mx-2">Quay lại</button>
+    <button class="button btnYellow mx-2">Quay lại</button>
   </div>
 </form>
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>

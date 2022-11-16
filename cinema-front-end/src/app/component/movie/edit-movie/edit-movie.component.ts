@@ -38,6 +38,7 @@ export class EditMovieComponent implements OnInit {
   selectedImage: any = null;
   id: number;
 
+
   constructor(private fb: FormBuilder,
               private roomService: RoomService,
               private timeService: TimesService,

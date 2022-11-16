@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {IRoom} from '../../../model/i-room';
 import {ITimes} from '../../../model/i-times';
 import {RoomService} from 'src/app/service/room.service';
@@ -23,6 +23,7 @@ import Swal from 'sweetalert2';
 })
 export class AddMovieComponent implements OnInit {
 
+  movie: IMovie;
   formAddMovie: FormGroup;
   showTimeDto: FormGroup;
   movieTypeDto: FormArray;
@@ -34,7 +35,8 @@ export class AddMovieComponent implements OnInit {
   k = 0;
   submitted = false;
   selectedImage: any = null;
-
+  imgUrl: string | ArrayBuffer;
+  curDate = new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate();
 
   constructor(private fb: FormBuilder,
               private roomService: RoomService,
@@ -47,24 +49,26 @@ export class AddMovieComponent implements OnInit {
     this.getAllMovieType();
     this.getAllRoom();
     this.formAddMovie = this.fb.group({
-      name: [],
+      name: ['', [Validators.required, Validators.maxLength(50)]],
       image: [],
-      startDay: [],
-      endDay: [],
-      director: [],
-      filmTime: [],
-      trailer: [],
+      dateGroup: this.fb.group({
+        startDay: ['', this.checkStartDate],
+        endDay: []
+      }, this.checkEndDate),
+      director: ['', [Validators.required, Validators.maxLength(40), Validators.pattern('^([A-Z][^0-9@*&%#!<>]+[ ][^0-9@*&%#!<>]+)$')]],
+      filmTime: ['', [Validators.required, Validators.max(120), Validators.pattern('^([0-9]+)')]],
+      trailer: ['', [Validators.required]],
       content: [],
-      filmStudio: [],
-      actor: [],
-      version: [],
+      filmStudio: ['', [Validators.required, Validators.maxLength(40)]],
+      actor: ['', [Validators.required, Validators.maxLength(40), Validators.pattern('^([A-Z][^0-9@*&%#!<>]+[ ][^0-9@*&%#!<>]+)$')]],
+      version: ['', [Validators.required]],
       movieTypeDto: this.fb.array([]),
       showTimeDto:
         this.fb.group({
           movie: [],
-          room: [],
+          room: ['', [Validators.required]],
           dateProjection: [],
-          times: []
+          times: ['', [Validators.required]]
         })
     });
   }
@@ -119,6 +123,7 @@ export class AddMovieComponent implements OnInit {
   // }
 
   addMovie() {
+    this.movie = this.formAddMovie.value;
     this.submitted = true;
     const image = this.getCurrentDateTime() + this.selectedImage.name;
     const destinationFilename = 'Movie/' + image;
@@ -133,6 +138,9 @@ export class AddMovieComponent implements OnInit {
           //   this.router.navigateByUrl('/list');
           //   console.log('Thêm mới khuyến mãi thành công!');
           // });
+
+          this.movie.image = url;
+          this.imgUrl = this.movie.image;
           this.movieService.saveMovie(this.formAddMovie.value).subscribe(() => {
             Swal.fire({
               icon: 'success',
@@ -160,9 +168,71 @@ export class AddMovieComponent implements OnInit {
 
   showPreview(event: any) {
     this.selectedImage = event.target.files[0];
+
+    if (event.target.files && event.target.files[0]) {
+      const file = event.target.files[0];
+
+      const reader = new FileReader();
+      reader.onload = e => this.imgUrl = reader.result;
+
+      reader.readAsDataURL(file);
+    }
   }
 
   getCurrentDateTime(): string {
     return formatDate(new Date(), 'dd-MM-yyyyhhmmssa', 'en-US');
+  }
+
+  checkStartDate(abstractControl: AbstractControl): any {
+    const formYear = Number(new Date(abstractControl.value).getFullYear());
+    const formMonth = Number(new Date(abstractControl.value).getMonth() + 1);
+    const formDay = Number(new Date(abstractControl.value).getDate());
+    if (formYear > new Date().getFullYear()) {
+      return null;
+    }
+
+    if (formYear < new Date().getFullYear()) {
+      return {invalidStartDate: true};
+    }
+
+    if (formMonth > new Date().getMonth() + 1) {
+      return null;
+    }
+
+    if (formMonth < new Date().getMonth() + 1) {
+      return {invalidStartDate: true};
+    }
+
+    return (formDay >= new Date().getDate()) ? null : {invalidStartDate: true};
+  }
+
+  checkEndDate(abstractControl: AbstractControl): any {
+    console.log(new Date(abstractControl.value.startDay));
+    const formStartYear = new Date(abstractControl.value.startDay).getFullYear();
+    const formStartMonth = new Date(abstractControl.value.startDay).getMonth() + 1;
+    const formStartDay = new Date(abstractControl.value.startDay).getDate();
+    console.log(formStartDay + '-' + formStartMonth + '-' + formStartYear);
+    console.log(formStartDay);
+    const formEndYear = new Date(abstractControl.value.endDay).getFullYear();
+    const formEndMonth = new Date(abstractControl.value.endDay).getMonth() + 1;
+    const formEndDay = new Date(abstractControl.value.endDay).getDate();
+
+    if (formEndYear > formStartYear) {
+      return null;
+    }
+
+    if (formEndYear < formStartYear) {
+      return {invalidEndDate: true};
+    }
+
+    if (formEndMonth > formStartMonth) {
+      return null;
+    }
+
+    if (formEndMonth < formStartMonth) {
+      return {invalidEndDate: true};
+    }
+
+    return (formEndDay >= formStartDay) ? null : {invalidEndDate: true};
   }
 }
