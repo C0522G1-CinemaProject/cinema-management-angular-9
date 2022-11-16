@@ -7,7 +7,7 @@
             style="background-image: url({{pro.image}})">
           <div class="book-container">
             <div class="content text-center wrapCss">
-              <button type="submit" class="button btnYellow" routerLink="/detail/{{pro.id}}">Xem chi tiết</button>
+              <button type="submit" class="button btnBlue" routerLink="/detail/{{pro.id}}">Xem chi tiết</button>
             </div>
           </div>
           <div class="informations-container">
@@ -17,7 +17,7 @@
       </ul>
     </div>
   </div>
-  <div class="content text-center wrapCss" *ngIf="numberRecord < promotionList.length / 5">
+  <div class="content text-center wrapCss" *ngIf="numberRecord < promotionList.length / 4">
     <button type="submit" class="button btnBlue" (click)="loadMore()">Xem thêm</button>
   </div>
 </div>
