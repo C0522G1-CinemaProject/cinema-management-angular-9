@@ -1,5 +1,6 @@
-import {IUser} from './IUser';
+
 import {ICustomerType} from './i-customer-type';
+import {IUser} from './i-user';
 
 
 export interface ICustomer {
@@ -11,6 +12,6 @@ export interface ICustomer {
   email?: string;
   address?: string;
   phoneNumber?: string;
-  username?: IUser;
+  user?: IUser;
   customerType?: ICustomerType;
 }
