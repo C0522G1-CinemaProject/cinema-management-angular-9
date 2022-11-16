@@ -1,4 +1,3 @@
-
 import {IUser} from './i-user';
 
 export interface IEmployee {

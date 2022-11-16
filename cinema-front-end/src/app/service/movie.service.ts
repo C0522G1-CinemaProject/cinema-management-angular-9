@@ -1,5 +1,7 @@
-import {Injectable} from '@angular/core';
 
+const API_URL = `${environment.movieUrl}`;
+import {Injectable} from '@angular/core';
+import {IMovieType} from '../model/i-movie-type';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment} from '../../environments/environment';
@@ -15,7 +17,6 @@ import {Page} from '../page';
 })
 export class MovieService {
 
-
    apiUrlListMovie = environment.api_url_list_movie;
    URL_API = `${environment.api_url}`;
   httpOptions: any;
@@ -29,6 +30,27 @@ export class MovieService {
       'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS'
     };
   }
+  
+  getAllMovieType(): Observable<IMovieType[]> {
+    console.log(API_URL + '/movieType');
+    return this.http.get<IMovieType[]>(API_URL + '/movieType');
+  }
+
+  saveMovie(movie: IMovie): Observable<IMovie> {
+    console.log(API_URL + '/add', movie);
+    return this.http.post<IMovie>(API_URL + '/add', movie);
+  }
+
+  editMovie(movie: IMovie): Observable<IMovie> {
+    console.log(API_URL + '/edit/' + movie.id, movie);
+    return this.http.patch<IMovie>(API_URL + '/edit/' + movie.id, movie);
+  }
+
+  getMovieById(id: number): Observable<IMovieDto> {
+    console.log(API_URL + '/' + id);
+    return this.http.get<IMovieDto>(API_URL + '/' + id);
+  }
+  
  findById(id: number): Observable<IMovie> {
     return this.http.get<IMovie>(API_URL + `movie/detail/1`);
   }
@@ -51,5 +73,6 @@ export class MovieService {
   deleteMovie(id: number): Observable<void> {
     return this.http.delete<void>(this.URL_API + '/movie/delete/' + id);
   }
+
 
 }

@@ -1,3 +1,10 @@
+
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import {AddMovieComponent} from './add-movie/add-movie.component';
+import {EditMovieComponent} from './edit-movie/edit-movie.component';
+
+
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {MovieDetailComponent} from './movie/movie-detail/movie-detail.component';
@@ -11,8 +18,15 @@ const routes: Routes = [
   {path: 'list/premiere', component: ListPremiereComponent},
   {path : 'list', component: MovieListComponent}
    {path: 'detail/:id', component: MovieDetailComponent}
+     {
+    path: 'movie/add',
+    component: AddMovieComponent
+  },
+  {
+    path: 'movie/edit/:id',
+    component: EditMovieComponent
+  }
 ];
-
 
 
 @NgModule({

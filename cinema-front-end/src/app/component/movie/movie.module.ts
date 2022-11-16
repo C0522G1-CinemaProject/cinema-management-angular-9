@@ -3,6 +3,9 @@ import {CommonModule} from '@angular/common';
 
 
 import { MovieRoutingModule } from './movie-routing.module';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {AddMovieComponent} from './add-movie/add-movie.component';
+import {EditMovieComponent} from './edit-movie/edit-movie.component';
 
 import { MovieDetailComponent } from './movie/movie-detail/movie-detail.component';
 import {ReactiveFormsModule} from '@angular/forms';
@@ -15,7 +18,15 @@ import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
-  declarations: [MovieListComponent,ListMovieComponent, ListPremiereComponent,MovieDetailComponent],
+
+
+  declarations: [
+  MovieListComponent,
+  ListMovieComponent, 
+  ListPremiereComponent,
+  MovieDetailComponent,
+  AddMovieComponent,
+  EditMovieComponent],
   imports: [
     CommonModule,
     MovieRoutingModule,
