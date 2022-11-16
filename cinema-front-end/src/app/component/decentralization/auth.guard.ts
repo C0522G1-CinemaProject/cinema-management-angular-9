@@ -25,6 +25,20 @@ export class AuthGuard implements CanActivate {
           queryParams: {returnUrl: state.url}
         });
         return false;
+      const role: string[] = currentUser.roles;
+      console.log(role);
+      // console.log(role.indexOf(route.data['roles'][0]));
+      // tslint:disable-next-line:prefer-for-of
+      for (let i = 0; i < role.length; i++) {
+        console.log('lặp');
+        let j = 0;
+        while (j < route.data.roles.length) {
+          if (role[i] === route.data.roles[j]) {
+            console.log('có quyền');
+            return true;
+          }
+          j++;
+        }
       }
       return true;
     }

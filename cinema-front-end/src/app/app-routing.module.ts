@@ -65,7 +65,6 @@ const routes: Routes = [
   {
     path: 'ticket', loadChildren: () => TicketModule,
     /*không được xóa canActivate*/
-
     // canActivate: [AuthGuard]
   },
   {

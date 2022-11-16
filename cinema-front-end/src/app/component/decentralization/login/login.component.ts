@@ -6,6 +6,8 @@ import {TokenStorageService} from '../../../service/token-storage.service';
 import {AuthService} from '../../../service/auth.service';
 import {ShareService} from '../../../service/share.service';
 import {SocialAuthService, SocialUser} from "angularx-social-login";
+import {Observable, ReplaySubject} from 'rxjs';
+
 
 
 @Component({
@@ -14,8 +16,11 @@ import {SocialAuthService, SocialUser} from "angularx-social-login";
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  private user: gapi.auth2.GoogleUser;
+  private auth2: gapi.auth2.GoogleAuth;
+  private subject = new ReplaySubject<gapi.auth2.GoogleAuth>(1);
   formGroup: FormGroup;
-  username: string;
+  username: string ;
   roles: string[] = [];
   returnUrl: string;
   socialUser: SocialUser;
@@ -34,6 +39,11 @@ export class LoginComponent implements OnInit {
         rememberMe: ['']
       }
     );
+    gapi.load('auth', () => {
+      this.auth2 = gapi.auth2.init({
+        client_id: '612774287153-uthnsrl25on17doe8413il68ebv9c969.apps.googleusercontent.com'
+      });
+    });
   }
 
   ngOnInit(): void {
@@ -91,6 +101,7 @@ export class LoginComponent implements OnInit {
       }
     );
   }
+
   // signInWithGoogle(): void {
   //   this.authSocialService.signIn(GoogleLoginProvider.PROVIDER_ID).then(data => {
   //     this.socialUser = data;
@@ -127,4 +138,23 @@ export class LoginComponent implements OnInit {
   //     }
   //   );
   // }
+  public signIn() {
+    this.auth2.signIn({
+      scope: 'https://www.googleapis.com/auth/gmail.readonly'
+    }).then( user => {
+      // @ts-ignore
+      this.subject.next(user);
+    }).catch(() => {
+      this.subject.next(null);
+    });
+  }
+
+  public signOut() {
+    this.auth2.signOut().then(() => {
+      //
+    });
+  }
+  public observable(): Observable<gapi.auth2.GoogleAuth> {
+    return this.subject.asObservable();
+  }
 }

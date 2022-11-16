@@ -32,8 +32,7 @@ export class ForgotPasswordComponent implements OnInit {
       email: ['', [Validators.email, Validators.required]]
     });
   }
-
-  forgotPassword() {
+ forgotPassword() {
     if (this.formForgotPass.valid) {
       this.authService.forgotPassword(this.formForgotPass.get('email').value).subscribe(
         data => {
