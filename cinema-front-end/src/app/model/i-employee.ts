@@ -1,5 +1,5 @@
-// @ts-ignore
-import {IUser} from './IUser';
+
+import {IUser} from './i-user';
 
 export interface IEmployee {
   id?: number;

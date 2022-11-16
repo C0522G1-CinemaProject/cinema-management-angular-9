@@ -15,6 +15,7 @@ import {Page} from '../page';
 })
 export class MovieService {
 
+
    apiUrlListMovie = environment.api_url_list_movie;
    URL_API = `${environment.api_url}`;
   httpOptions: any;
@@ -28,7 +29,9 @@ export class MovieService {
       'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS'
     };
   }
-
+ findById(id: number): Observable<IMovie> {
+    return this.http.get<IMovie>(API_URL + `movie/detail/1`);
+  }
   findAllListMovie(name: string, size: number): Observable<PageResult<MovieDto>> {
     const API_URL = this.apiUrlListMovie + 'list' + '/home' + '?name=' + name  + '&size=' + size;
     console.log(API_URL);

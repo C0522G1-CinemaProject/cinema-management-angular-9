@@ -8,4 +8,6 @@ export interface ICustomerStatementDto {
   totalMoney?: number;
 
   accumulation?: number;
+
+
 }
