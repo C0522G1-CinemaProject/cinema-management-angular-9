@@ -1,11 +1,13 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import Swal from 'sweetalert2';
 import {TokenStorageService} from '../../../service/token-storage.service';
 import {AuthService} from '../../../service/auth.service';
 import {ShareService} from '../../../service/share.service';
+import {SocialAuthService, SocialUser} from "angularx-social-login";
 import {Observable, ReplaySubject} from 'rxjs';
+
 
 
 @Component({
@@ -21,8 +23,11 @@ export class LoginComponent implements OnInit {
   username: string ;
   roles: string[] = [];
   returnUrl: string;
-
-  constructor(private formBuild: FormBuilder,
+  socialUser: SocialUser;
+  constructor(private authSocialService: SocialAuthService,
+              // private auth: AuthenticationService,
+              private ref: ChangeDetectorRef,
+              private formBuild: FormBuilder,
               private tokenStorageService: TokenStorageService,
               private authService: AuthService,
               private router: Router,
@@ -31,7 +36,7 @@ export class LoginComponent implements OnInit {
     this.formGroup = this.formBuild.group({
         username: [''],
         password: [''],
-      rememberMe: ['']
+        rememberMe: ['']
       }
     );
     gapi.load('auth', () => {
@@ -43,6 +48,13 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/home';
+    this.formGroup = this.formBuild.group({
+        username: ['', Validators.required],
+        password: ['', Validators.required],
+        remember_me: ['']
+      }
+    );
+
     if (this.tokenStorageService.getToken()) {
       const user = this.tokenStorageService.getUser();
       this.authService.isLoggedIn = true;
@@ -54,8 +66,7 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.authService.login(this.formGroup.value).subscribe(
       data => {
-        // console.log(data)
-        if (this.formGroup.value.rememberMe) {
+        if (this.formGroup.value.remember_me) {
           this.tokenStorageService.saveTokenLocal(data.accessToken);
           this.tokenStorageService.saveUserLocal(data);
         } else {
@@ -77,7 +88,6 @@ export class LoginComponent implements OnInit {
         });
         this.router.navigateByUrl(this.returnUrl);
         this.shareService.sendClickEvent();
-
       },
       err => {
         this.authService.isLoggedIn = false;
@@ -91,6 +101,43 @@ export class LoginComponent implements OnInit {
       }
     );
   }
+
+  // signInWithGoogle(): void {
+  //   this.authSocialService.signIn(GoogleLoginProvider.PROVIDER_ID).then(data => {
+  //     this.socialUser = data;
+  //     const tokenGoogle = new JwtResponseService(this.socialUser.idToken);
+  //     console.log(tokenGoogle);
+  //     this.auth.google(tokenGoogle).subscribe(req => {
+  //         if (req.token === '') {
+  //           this.tokenStorageService.saveUser(req.user);
+  //           // this.router.navigateByUrl('/registration');
+  //         } else {
+  //           this.tokenStorageService.saveTokenLocal(req.token);
+  //           req.user.username = null;
+  //           this.tokenStorageService.saveUserLocal(req.user);
+  //           this.tokenStorageService.saveUserLocal(req.username);
+  //           // window.location.reload();
+  //         }
+  //       },
+  //       error => {
+  //         console.log(error);
+  //         this.logOut();
+  //       });
+  //   }).catch(
+  //     err => {
+  //       console.log(err);
+  //     }
+  //   );
+  // }
+  //
+  // logOut(): void {
+  //   this.authSocialService.signOut().then(
+  //     data => {
+  //       this.tokenStorageService.logOut();
+  //       window.location.reload();
+  //     }
+  //   );
+  // }
   public signIn() {
     this.auth2.signIn({
       scope: 'https://www.googleapis.com/auth/gmail.readonly'

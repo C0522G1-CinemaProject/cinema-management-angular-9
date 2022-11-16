@@ -18,8 +18,13 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     const url: string = state.url;
     const currentUser = this.tokenStorageService.getUser();
-    // console.log(route);
     if (currentUser !== null) {
+      const role = currentUser.roles[0];
+      if (route.data.roles.indexOf(role) === -1) {
+        this.router.navigate(['/login'], {
+          queryParams: {returnUrl: state.url}
+        });
+        return false;
       const role: string[] = currentUser.roles;
       console.log(role);
       // console.log(role.indexOf(route.data['roles'][0]));
@@ -35,13 +40,9 @@ export class AuthGuard implements CanActivate {
           j++;
         }
       }
-      this.router.navigate(['/login'], {
-        queryParams: {returnUrl: state.url}
-      });
-      return false;
+      return true;
     }
-    this.router.navigate(['/login'], {queryParams: {returnUrl: state.url}});
+    this.router.navigate(['login'], {queryParams: {returnUrl: state.url}});
     return false;
   }
-
 }

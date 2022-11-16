@@ -15,6 +15,7 @@ import {TicketModule} from './component/ticket/ticket.module';
 import {FormsModule} from '@angular/forms';
 import {CustomerListComponent} from './component/customer/customer-list/customer-list.component';
 import {CustomerEditComponent} from './component/customer/customer-edit/customer-edit.component';
+
 import {CommonModule} from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -34,10 +35,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     RegisterModule,
     RoomModule,
     TicketModule,
-    CommonModule,
+    FormsModule,
     NgbModule,
-    FormsModule
-
+    CommonModule
   ],
   bootstrap: [AppComponent]
 })

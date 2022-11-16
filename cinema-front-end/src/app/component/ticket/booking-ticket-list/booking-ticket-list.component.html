@@ -1,0 +1,138 @@
+<body>
+<div class="row">
+  <div class="col-lg-2">
+  </div>
+  <div class="col-lg-8">
+    <div class="row mt-3">
+      <div>
+        <h3 class=" fw-bold text-light mb-4"><span style="box-shadow: 0 8px 15px lightblue; padding: 11px">
+QUẢN LÝ TÀI KHOẢN</span></h3>
+      </div>
+      <div class="col-lg-4 col-12 col-md-6 text-center">
+        <div style="box-shadow: 0 8px 15px lightblue">
+          <div class="bg-warning">
+            <img src="https://photocross.net/wp-content/uploads/2020/03/anh-chan-dung.jpg" height="200"
+                 width="200" class="m-3">
+          </div>
+          <div style="background-color: #f2f2f2">
+            <h3>{{customerName}}</h3>
+            <p>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                   class="bi bi-award-fill" viewBox="0 0 16 16">
+                <path
+                  d="m8 0 1.669.864 1.858.282.842 1.68 1.337 1.32L13.4 6l.306 1.854-1.337 1.32-.842 1.68-1.858.282L8 12l-1.669-.864-1.858-.282-.842-1.68-1.337-1.32L2.6 6l-.306-1.854 1.337-1.32.842-1.68L6.331.864 8 0z"/>
+                <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/>
+              </svg>
+              <span *ngIf="totalPoint"><b>Điểm tích lũy</b>: {{totalPoint | number  }} điểm</span>
+              <span *ngIf="!totalPoint"><b>Điểm tích lũy</b>: 0 điểm</span>
+            </p>
+            <a>
+              <button class="button btnRed ">Đăng xuất</button>
+            </a>
+            <hr>
+            <a href="#">
+              <span class="text-dark">Thông tin tài khoản</span>
+            </a>
+            <hr>
+            <a routerLink="/ticket/history/point">
+              <span class="text-dark">Lịch sử điểm</span>
+            </a>
+            <hr>
+            <a routerLink="/ticket/booking/list">
+              <span class="text-dark">Vé đã đặt</span>
+            </a>
+            <hr>
+            <a routerLink="/ticket/canceled/list">
+              <span class="text-dark">Vé đã hủy</span>
+            </a>
+            <hr>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-8 col-12 c0l-md-6 table-responsive">
+
+        <h2 class="text-light text-center">VÉ ĐÃ ĐẶT</h2>
+        <div class="row">
+          <div class="col-lg-8"></div>
+          <div class="col-lg-4">
+
+          </div>
+        </div>
+
+        <table class="table table-striped table-hover " id="table-id">
+          <thead>
+          <tr class="bg-warning">
+            <th scope="col">#</th>
+            <th scope="col">Tên phim</th>
+            <th scope="col">Ngày đặt</th>
+            <th scope="col">Tổng tiền(VNĐ)</th>
+            <th scope="col">Trạng thái</th>
+            <th scope="col">Hoạt động</th>
+          </tr>
+          </thead>
+          <p class=" text-danger" *ngIf="!action">Không có dữ liệu</p>
+          <tbody class="table-light" *ngIf="action">
+          <tr *ngFor="let ticket of (ticketDto$ | async)!; index as i">
+
+            <td>{{i + 1 + (page - 1) * pageSize  }}</td>
+            <td>{{ticket.movieName}}</td>
+            <td>{{ticket.bookingTime | date:"dd/MM/yyyy HH:mm"}}</td>
+            <td>{{ticket.price | currency: "VND" }}</td>
+            <td *ngIf="ticket.statusTicket == 1"><b class="text-primary">Đợi nhận Vé</b></td>
+            <td *ngIf="ticket.statusTicket == 2"><b class="text-success">Đã nhận vé</b></td>
+            <td *ngIf="ticket.statusTicket == 1">
+              <div class=" wrapCss">
+                <button class="button btnRed " (click)="confirmDelete(ticket)" id="button">Xóa
+                </button>
+              </div>
+            </td>
+            <td *ngIf="ticket.statusTicket == 2">Chi Tiết</td>
+          </tr>
+
+          </tbody>
+        </table>
+        <div class="row">
+          <div class="col-lg-8">
+            <div *ngIf="action">
+              <span class="fw-bold text-light">Hiển thị</span>
+              <select class="form-control-sm" style="width: auto" [(ngModel)]="pageSize"
+                      (ngModelChange)="showListBookingTicket()">
+                <option [ngValue]="5"> 5 trên trang</option>
+                <option [ngValue]="10">10 trên trang</option>
+                <option [ngValue]="15">15 trên trang</option>
+                <option [ngValue]="20">20 trên trang</option>
+                <option [ngValue]="25">25 trên trang</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-lg-4">
+
+            <div class="text-center">
+              <div class='pagination-container'>
+                <div class="row">
+                  <div class="d-flex justify-content-between p-2 text-white" *ngIf="action">
+                    <ngb-pagination
+                      [collectionSize]="(total$ | async)!"
+                      [(page)]="page"
+                      [maxSize]="pageSize"
+                      [pageSize]="pageSize"
+                      (pageChange)="showListBookingTicket()">
+                      <ng-template ngbPaginationNumber let-page>{{ page }}</ng-template>
+                    </ngb-pagination>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-2"></div>
+  <h1>.</h1>
+</div>
+</body>
+
+
+
