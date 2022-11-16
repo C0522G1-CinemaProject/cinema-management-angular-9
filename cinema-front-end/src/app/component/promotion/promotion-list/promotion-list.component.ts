@@ -6,7 +6,6 @@ import swal from 'sweetalert2';
 import {IPromotion} from '../../../model/i-promotion';
 import {PromotionService} from '../../../service/promotion.service';
 
-const FILTER_PAG_REGEX = /[^0-9]/g;
 @Component({
   selector: 'app-promotion-list',
   templateUrl: './promotion-list.component.html',
@@ -19,6 +18,7 @@ export class PromotionListComponent implements OnInit {
   total$: Observable<number>;
   promotionIdDelete: number;
   promotionNameDelete: string;
+  totalElements: number;
 
   constructor(private promotionService: PromotionService,
               private title: Title,
@@ -32,9 +32,10 @@ export class PromotionListComponent implements OnInit {
 
   paginate() {
     this.promotionService.paginate(this.pageNumber, this.pageSize).subscribe(data => {
-      console.log(data);
       this.promotionList$ = new BehaviorSubject<IPromotion[]>(data.content);
       this.total$ = new BehaviorSubject<number>(data.totalElements);
+      this.totalElements = data.totalElements;
+
     });
   }
 
@@ -59,6 +60,15 @@ export class PromotionListComponent implements OnInit {
           this.paginate();
           this.router.navigateByUrl('promotion/list');
         });
+      } else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === swal.DismissReason.cancel
+      ) {
+        swal.fire(
+          'Đã hủy',
+          'Khuyến mãi của bạn vẫn còn nguyên :)',
+          'error'
+        );
       }
     });
 
