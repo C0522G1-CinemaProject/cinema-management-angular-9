@@ -2,14 +2,12 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+
 export const environment = {
   production: false,
-  roomUrl: 'http://localhost:8080/room',
-  timeUrl: 'http://localhost:8080/showTime/time',
-  movieUrl: 'http://localhost:8080/api/movie',
-  showTimeUrl: 'http://localhost:8080/showTime',
+
   api_url: 'http://localhost:8080/api/',
-  api_url_list_movie: 'http://localhost:8080/api/movie/',
+
   firebaseConfig: {
     apiKey: 'AIzaSyCFQLW2O-P0Er86REA7El5je0mFKS9LVf4',
     authDomain: 'cinema-project-6158f.firebaseapp.com',
@@ -18,7 +16,6 @@ export const environment = {
     messagingSenderId: '690611635755',
     appId: '1:690611635755:web:119c0a353fd5ec7937cc6e',
     measurementId: 'G-RKCS3NE9QF'
-  }
 
 };
 

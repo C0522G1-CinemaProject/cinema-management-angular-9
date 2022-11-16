@@ -1,6 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-
 import {AppComponent} from './app.component';
 import {AppRoutingModule} from './app-routing.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -13,9 +12,9 @@ import {RegisterModule} from './component/register/register.module';
 import {RoomModule} from './component/room/room.module';
 import {TicketModule} from './component/ticket/ticket.module';
 import {FormsModule} from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
 import {AngularFireModule} from '@angular/fire';
 import {environment} from '../environments/environment';
-
 import {NgbAlertModule, NgbPaginationModule, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 
@@ -36,11 +35,8 @@ import {NgbAlertModule, NgbPaginationModule, NgbModule} from '@ng-bootstrap/ng-b
     RoomModule,
     TicketModule,
     FormsModule,
-
-
+    HttpClientModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-
-    NgbPaginationModule,
     NgbAlertModule,
     NgbModule
   ],
