@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {ICustomer} from '../../../model/i-customer';
 import {CustomerService} from '../../../service/customer/customer.service';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-customer-list',
@@ -11,12 +12,15 @@ import {CustomerService} from '../../../service/customer/customer.service';
 export class CustomerListComponent implements OnInit {
 
   page = 1;
-  pageSize = 30;
+  pageSize = 5;
   nameSearch = '';
   total$: Observable<number>;
   customers$: Observable<ICustomer[]>;
 
-  constructor(private customerService: CustomerService) {
+  constructor(private customerService: CustomerService,
+              private title: Title) {
+    this.title.setTitle('Thống kê phim');
+
   }
 
   ngOnInit(): void {
@@ -32,5 +36,4 @@ export class CustomerListComponent implements OnInit {
       error => {
       });
   }
-
 }

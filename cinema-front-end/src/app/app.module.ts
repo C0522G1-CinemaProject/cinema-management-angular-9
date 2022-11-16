@@ -16,6 +16,7 @@ import {FormsModule} from '@angular/forms';
 import {CustomerListComponent} from './component/customer/customer-list/customer-list.component';
 import {CustomerEditComponent} from './component/customer/customer-edit/customer-edit.component';
 import {CommonModule} from '@angular/common';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -34,8 +35,8 @@ import {CommonModule} from '@angular/common';
     RoomModule,
     TicketModule,
     FormsModule,
-    CommonModule
-
+    CommonModule,
+    NgbModule
   ],
   bootstrap: [AppComponent]
 })
