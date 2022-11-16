@@ -6,6 +6,7 @@ import {ConfirmResetPasswordComponent} from './confirm-reset-password/confirm-re
 import {LoginGmailComponent} from './login-gmail/login-gmail.component';
 
 
+
 const routes: Routes = [
   {path: '', component: LoginComponent},
   {path: 'forgot-password', component: ForgotPasswordComponent},
@@ -14,7 +15,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  // imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
 export class DecentralizationRoutingModule { }

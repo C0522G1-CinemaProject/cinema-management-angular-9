@@ -24,9 +24,14 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/js/slide2.js",
+              "src/assets/js/slide1.js"
+
+            ]
           },
           "configurations": {
             "production": {

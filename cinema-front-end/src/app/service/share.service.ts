@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Observable, Subject} from 'rxjs';
 
 @Injectable({
@@ -6,7 +6,8 @@ import {Observable, Subject} from 'rxjs';
 })
 export class ShareService {
 
-  constructor() { }
+  constructor() {
+  }
 
   private subject = new Subject<any>();
 
@@ -14,7 +15,8 @@ export class ShareService {
     // @ts-ignore
     this.subject.next();
   }
-  getClickEvent(): Observable<any>{
+
+  getClickEvent(): Observable<any> {
     return this.subject.asObservable();
   }
 }

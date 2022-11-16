@@ -21,14 +21,16 @@ const routes: Routes = [
       roles: ['ROLE_Employee', 'ROLE_Admin', 'ROLE_Customer', '']
     }
   },
-  {
-    path: 'employee', loadChildren: () => EmployeeModule,
-    /*không được xóa canActivate*/
-    canActivate: [AuthGuard],
-    data: {
-      roles: ['ROLE_Employee', 'ROLE_Admin']
-    }
-  },
+
+  // },
+  // {
+  //   path: 'employee', loadChildren: () => EmployeeModule,
+  //   /*không được xóa canActivate*/
+  //   // canActivate: [AuthGuard],
+  //   data: {
+  //     roles: ['ROLE_Employee', 'ROLE_Admin']
+  //   }
+  // },
   {
     path: 'movie', loadChildren: () => MovieModule,
     /*không được xóa canActivate*/
@@ -36,6 +38,8 @@ const routes: Routes = [
     data: {
       roles: ['ROLE_Employee', 'ROLE_Admin', 'ROLE_Customer']
     }
+
+  
   },
   {
     path: 'promotion', loadChildren: () => PromotionModule,
@@ -60,6 +64,7 @@ const routes: Routes = [
       roles: ['ROLE_Employee', 'ROLE_Admin', 'ROLE_Customer']
     }
   },
+
   {
     path: 'login', loadChildren: () => DecentralizationModule
   }

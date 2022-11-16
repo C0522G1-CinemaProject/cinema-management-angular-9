@@ -1,5 +1,5 @@
-import {IUserRole} from './i-user-role';
 
+import {IUserRole} from './i-user-role';
 
 export interface IRole {
   id: number;
