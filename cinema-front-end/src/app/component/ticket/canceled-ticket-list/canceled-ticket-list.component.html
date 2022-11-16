@@ -7,9 +7,9 @@
       <div>
         <h3 class=" fw-bold text-light mb-4"><span style="box-shadow: 0 8px 15px lightblue; padding: 11px">
 QUẢN LÝ TÀI KHOẢN</span></h3>
-      </div>
+      </div >
       <div class="col-lg-4 col-12 col-md-6 text-center">
-        <div class="shadow">
+        <div style="box-shadow: 0 8px 15px lightblue">
           <div class="bg-warning">
             <img src="https://photocross.net/wp-content/uploads/2020/03/anh-chan-dung.jpg" height="200"
                  width="200" class="m-3">
@@ -23,7 +23,8 @@ QUẢN LÝ TÀI KHOẢN</span></h3>
                   d="m8 0 1.669.864 1.858.282.842 1.68 1.337 1.32L13.4 6l.306 1.854-1.337 1.32-.842 1.68-1.858.282L8 12l-1.669-.864-1.858-.282-.842-1.68-1.337-1.32L2.6 6l-.306-1.854 1.337-1.32.842-1.68L6.331.864 8 0z"/>
                 <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/>
               </svg>
-              Điểm tích lũy: {{totalPoint | number  }} điểm
+              <span *ngIf="totalPoint"><b>Điểm tích lũy</b>: {{totalPoint | number  }} điểm</span>
+              <span *ngIf="!totalPoint"><b>Điểm tích lũy</b>: 0 điểm</span>
             </p>
             <a>
               <button class="button btnRed">Đăng xuất</button>
@@ -70,12 +71,12 @@ QUẢN LÝ TÀI KHOẢN</span></h3>
             <th scope="col">Trạng thái</th>
           </tr>
           </thead>
-          <p class="text-center text-danger" *ngIf="!action">Không có dữ liệu</p>
+          <p class=" text-danger" *ngIf="!action">Không có dữ liệu</p>
           <tbody class="table-light" *ngIf="action">
           <tr *ngFor="let ticket of (ticketDto$ | async)!; index as i">
             <td>{{i + 1 + (page - 1) * pageSize  }}</td>
             <td>{{ticket.movieName}}</td>
-            <td>{{ticket.bookingTime}}</td>
+            <td>{{ticket.bookingTime | date:"dd/MM/yyyy HH:mm"}}</td>
             <td>{{ticket.price | currency: "VND" }}</td>
             <td *ngIf="ticket.isDeleteTicket == 'true'"><b style="color: red">Vé đã hủy</b></td>
           </tr>

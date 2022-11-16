@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
 })
 export class BookingTicketListComponent implements OnInit {
 
+
   nameDelete: string;
   idDelete: number;
   page = 1;
@@ -31,16 +32,13 @@ export class BookingTicketListComponent implements OnInit {
 
   }
 
+
   findByCustomerNameAndPoint() {
     this.ticketService.findByCustomerNameAndPoint().subscribe(value => {
-      this.customer = value;
-      this.totalPoint = this.customer[0].totalPoint;
-      this.customerName = this.customer[0].customerName;
-
-      console.log(this.totalPoint);
+      this.customerName = value.customerName;
+      this.totalPoint = value.totalPoint;
     });
   }
-
 
   showListBookingTicket() {
     this.ticketService.showListBookingTicket(this.page, this.pageSize).subscribe(value => {

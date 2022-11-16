@@ -21,6 +21,7 @@ export class HistoryPointListComponent implements OnInit {
   customerName = '';
   customer: TicketDto[];
   totalPoint = '';
+  validateTime = new Date();
 
   constructor(private ticketService: TicketService) {
   }
@@ -28,14 +29,14 @@ export class HistoryPointListComponent implements OnInit {
   ngOnInit(): void {
     this.showListHistoryPoint();
     this.findByCustomerNameAndPoint();
+
   }
 
 
   findByCustomerNameAndPoint() {
     this.ticketService.findByCustomerNameAndPoint().subscribe(value => {
-      this.customer = value;
-      this.totalPoint = this.customer[0].totalPoint;
-      this.customerName = this.customer[0].customerName;
+      this.customerName = value.customerName;
+      this.totalPoint = value.totalPoint;
     });
   }
 

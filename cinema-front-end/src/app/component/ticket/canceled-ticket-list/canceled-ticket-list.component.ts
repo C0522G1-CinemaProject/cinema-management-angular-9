@@ -31,13 +31,11 @@ export class CanceledTicketListComponent implements OnInit {
 
   findByCustomerNameAndPoint() {
     this.ticketService.findByCustomerNameAndPoint().subscribe(value => {
-      this.customer = value;
-      this.totalPoint = this.customer[0].totalPoint;
-      this.customerName = this.customer[0].customerName;
-
-      console.log(this.totalPoint);
+      this.customerName = value.customerName;
+      this.totalPoint = value.totalPoint;
     });
   }
+
 
 
   showListCanceledTicket() {
