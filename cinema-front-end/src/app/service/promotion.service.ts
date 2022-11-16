@@ -8,35 +8,17 @@ import {IPromotion} from '../model/i-promotion';
   providedIn: 'root'
 })
 export class PromotionService {
-  private apiUrl: string;
-
-  constructor(private httpClient: HttpClient) {
-    this.apiUrl = environment.api_url;
-  }
-
-  showPromotion(nameSearch: string): Observable<IPromotion[]> {
-    return this.httpClient.get<IPromotion[]>(this.apiUrl +
-      'promotions?name_like=' + nameSearch);
-  }
-
-  findPromotionSearchPaging(numberRecord: number, curPage: number, nameSearch: string): Observable<IPromotion[]> {
-    return this.httpClient.get<IPromotion[]>(this.apiUrl + 'khs?_page=' + curPage + '&_limit=' + numberRecord +
-      '&khName_like=' + nameSearch);
-  }
-  deletePromotion(id: number): Observable<IPromotion> {
-    return this.httpClient.delete<IPromotion>(this.apiUrl + 'khs/' + id);
-  }
-
-
+  private API_URL = 'http://localhost:8080/api/promotion/';
+  constructor(private httpClient: HttpClient) {}
   createPromotion(promotion): Observable<IPromotion> {
-    return this.httpClient.post<IPromotion>(this.apiUrl + 'save', promotion);
+    return this.httpClient.post<IPromotion>(this.API_URL + 'save', promotion);
   }
 
   getInfo(id: number): Observable<IPromotion> {
-    return this.httpClient.get<IPromotion>(this.apiUrl + id);
+    return this.httpClient.get<IPromotion>(this.API_URL + 'detail/' + id);
   }
 
-  editPromotion(id: number, promotion: IPromotion): Observable<IPromotion> {
-    return this.httpClient.get<IPromotion>(this.apiUrl + 'edit/' + id);
+  editPromotion(id: number, promotion): Observable<IPromotion> {
+    return this.httpClient.patch<IPromotion>(this.API_URL + 'edit/' + id, promotion);
   }
 }

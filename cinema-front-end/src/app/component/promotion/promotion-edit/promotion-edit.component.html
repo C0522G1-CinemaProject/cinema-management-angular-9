@@ -1,51 +1,84 @@
-<div style="margin-top: 40px" class="text-center mt-3" id="head"><h2 class="m-0 text-light">CHỈNH SỬA KHUYẾN MÃI</h2></div>
-<form [formGroup]="promotionFormGroup" (ngSubmit)="editPromotion(promotionId)">
+<div style="margin-top: 40px" class="text-center mt-3" id="head"><h2 class="m-0 text-light">CHỈNH SỬA KHUYẾN MÃI</h2>
+</div>
+<form [formGroup]="promotionFormGroup" (ngSubmit)="editPromotion(id)" >
   <div style="margin-top: -30px" class="row">
-    <label for="image"><b>Hình ảnh</b><span>*</span></label>
-    <div class="col-lg-2 upload-wrap">
-      <input id="image" type="text" accept="image/*" class="form-control" formControlName="image">
+    <label for="title"><b>Hình ảnh</b><span>*</span></label>
+    <div class="col-lg-4">
+      <img [src]="image" style="width: auto; height: 80px">
+<!--      <input type="text" formControlName="image" >-->
     </div>
+    <div class="col-lg-8">
+      <input type="file" (change)="showPreview($event)">
+      <!--      <input type="text" formControlName="image" >-->
+    </div>
+<!--    <div class="col-lg-10 upload-wrap uploadpreview 01"></div>-->
   </div>
-  <div style="margin-top: -15px" class="row">
+  <div style="margin-top: 0px" class="row">
     <div class="col-lg-12">
       <label for="title"><b>Tiêu đề</b><span>*</span>
-        <!--        <span style="color: red" class="ps-3">Không được để trống</span>-->
+        <span style="color: red; font-size: 12px" class="ps-3" *ngIf="promotionFormGroup.controls.name.hasError('required') &&
+                      promotionFormGroup.controls.name.touched">Vui lòng nhập tên tiêu đề!</span>
+        <span style="color: red; font-size: 12px" class="ps-3" *ngIf="promotionFormGroup.controls.name.hasError('maxlength') &&
+                      promotionFormGroup.controls.name.touched">Tên tiêu đề không được vượt quá 40 kí tự!</span>
+        <span style="color: red; font-size: 12px" class="ps-3" *ngIf="promotionFormGroup.controls.name.hasError('pattern') &&
+                      promotionFormGroup.controls.name.touched">Tiêu đề phải viết hoa chữ cái đầu và không chứa kí tự đặc biệt!</span>
       </label>
-      <input type="text" required id="title" class="form-control" formControlName="name">
+      <input type="text" required id="title" formControlName="name">
     </div>
   </div>
-  <div class="row">
+
+  <div class="row" formGroupName="dateFormGroup">
     <div class="col-lg-12">
-      <label for="start time"><b>Thời gian bắt đầu</b><span>*</span></label>
-      <input type="date" required id="start time" class="form-control" formControlName="startTime">
+      <label for="startTime"><b>Thời gian bắt đầu</b><span>*</span>
+        <span style="color: red; font-size: 12px" class="ps-3"
+              *ngIf="promotionFormGroup.get('dateFormGroup').hasError('invalidStartDate', 'startTime')
+               && promotionFormGroup.get('dateFormGroup').get('startTime').touched">Ngày bắt đầu phải lớn hơn hoặc bằng ngày hiện tại</span>
+      </label>
+      <input type="date" id="startTime" class="form-control" formControlName="startTime" [min]="curDate"/>
     </div>
-  </div>
-  <div class="row">
+
     <div class="col-lg-12">
-      <label for="end time"><b>Thời gian kết thúc</b><span>*</span></label>
-      <input type="date" required id="end time" class="form-control" formControlName="endTime">
+      <label for="endTime"><b>Thời gian kết thúc</b><span>*</span>
+        <span style="color: red; font-size: 12px" class="ps-3"
+              *ngIf="promotionFormGroup.controls.dateFormGroup.hasError('invalidEndDate')
+           && promotionFormGroup.controls.dateFormGroup.touched">Time kết thúc phải lớn hơn hoặc bằng time bắt đầu!</span>
+      </label>
+      <input type="date" id="endTime" class="form-control" formControlName="endTime" [min]="curDate"/>
     </div>
   </div>
 
   <div class="row">
     <div class="col-lg-12">
-      <label for="price"><b>Mức giảm giá(VNĐ)</b><span>*</span>
-        <!--        <span style="color: red" class="ps-3">Không được để trống</span>-->
+      <label for="price"><b>Mức giảm giá(%)</b><span>*</span>
+        <span style="color: red; font-size: 12px" class="ps-3" *ngIf="promotionFormGroup.controls.discount.hasError('required') &&
+                      promotionFormGroup.controls.discount.touched">Vui lòng nhập mức giảm giá!</span>
+        <span style="color: red; font-size: 12px" class="ps-3" *ngIf="promotionFormGroup.controls.discount.hasError('max') &&
+                      promotionFormGroup.controls.discount.touched">Mức giảm giá không được lớn hơn 20!</span>
+        <span style="color: red; font-size: 12px" class="ps-3" *ngIf="promotionFormGroup.controls.discount.hasError('pattern') &&
+                      promotionFormGroup.controls.discount.touched">Mức giảm giá chỉ được nhập số!</span>
       </label>
-      <input type="text" required id="price" class="form-control" formControlName="discount">
+      <input type="text" required id="price" formControlName="discount">
     </div>
   </div>
+
   <div class="row">
     <div class="col-lg-12">
-      <label for="detail"><b>Chi tiết</b><span>*</span></label><br>
-      <!--      <textarea style="margin-top: 5px" id="detail"></textarea>-->
-      <input type="text" required id="detail" class="form-control" formControlName="detail">
+      <label for="detail"><b>Chi tiết</b><span>*</span>
+        <span style="color: red; font-size: 12px" class="ps-3" *ngIf="promotionFormGroup.controls.detail.hasError('required') &&
+                      promotionFormGroup.controls.detail.touched">Vui lòng nhập chi tiết!</span>
+        <span style="color: red; font-size: 12px" class="ps-3" *ngIf="promotionFormGroup.controls.detail.hasError('maxlength') &&
+                      promotionFormGroup.controls.detail.touched">Nội dung chi tiết phải nhỏ hơn 1000 kí tự!</span>
+        <span style="color: red; font-size: 12px" class="ps-3" *ngIf="promotionFormGroup.controls.detail.hasError('pattern') &&
+                      promotionFormGroup.controls.detail.touched">Chi tiết phải viết hoa chữ cái đầu và không chứa kí tự đặc biệt!</span>
+      </label>
+      <textarea id="detail" formControlName="detail"></textarea>
+<!--      <input type="text" required id="detail" formControlName="detail">-->
     </div>
   </div>
   <div class="row">
     <div class="text-center wrapCss">
-      <button class="button btnGreen me-4">Chỉnh sửa</button>
-      <button class="button btnYellow">Quay lại</button>
+      <button class="button btnGreen me-3">Chỉnh sửa</button>
+      <button routerLink="/list" type="reset" class="button btnYellow me-3">Quay lại</button>
     </div>
   </div>
 </form>

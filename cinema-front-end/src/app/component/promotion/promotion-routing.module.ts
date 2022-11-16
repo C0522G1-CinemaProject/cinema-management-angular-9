@@ -7,7 +7,7 @@ import {PromotionListComponent} from './promotion-list/promotion-list.component'
 const routes: Routes = [
   {path: 'list', component: PromotionListComponent},
   {path: 'create', component: PromotionCreateComponent},
-  {path: 'edit/:promotionId', component: PromotionEditComponent}
+  {path: 'edit/:id', component: PromotionEditComponent}
 ];
 
 @NgModule({
