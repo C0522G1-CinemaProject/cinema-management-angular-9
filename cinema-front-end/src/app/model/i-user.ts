@@ -1,8 +1,8 @@
-import {IUserRole} from './iuser-role';
+import {IUserRole} from './i-user-role';
 
 export interface IUser {
   username: string;
   password: string;
 
-  userRoleList: IUserRole[];
+  // userRoleList: IUserRole[];
 }

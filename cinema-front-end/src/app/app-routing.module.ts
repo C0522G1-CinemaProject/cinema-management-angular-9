@@ -9,52 +9,60 @@ import {RoomModule} from './component/room/room.module';
 import {TicketModule} from './component/ticket/ticket.module';
 
 import {DecentralizationModule} from './component/decentralization/decentralization.module';
+import {AuthGuard} from './component/decentralization/auth.guard';
 
 /*không được xóa canActivate*/
 const routes: Routes = [
   {
     path: 'home', loadChildren: () => HomeModule,
     /*không được xóa canActivate*/
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     data: {
       roles: ['ROLE_Employee', 'ROLE_Admin', 'ROLE_Customer', '']
     }
   },
-  {
-    path: 'employee', loadChildren: () => EmployeeModule,
-    /*không được xóa canActivate*/
-    // canActivate: [AuthGuard],
-    data: {
-      roles: ['ROLE_Employee', 'ROLE_Admin']
-    }
-  },
+
+  // },
+  // {
+  //   path: 'employee', loadChildren: () => EmployeeModule,
+  //   /*không được xóa canActivate*/
+  //   // canActivate: [AuthGuard],
+  //   data: {
+  //     roles: ['ROLE_Employee', 'ROLE_Admin']
+  //   }
+  // },
   {
     path: 'movie', loadChildren: () => MovieModule,
     /*không được xóa canActivate*/
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     data: {
       roles: ['ROLE_Employee', 'ROLE_Admin', 'ROLE_Customer']
     }
+
+  
   },
   {
     path: 'promotion', loadChildren: () => PromotionModule,
     /*không được xóa canActivate*/
-    // canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   },
   {
     path: 'register', loadChildren: () => RegisterModule,
     /*không được xóa canActivate*/
-    // canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   },
   {
     path: 'room', loadChildren: () => RoomModule,
     /*không được xóa canActivate*/
-    // canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   },
   {
     path: 'ticket', loadChildren: () => TicketModule,
     /*không được xóa canActivate*/
-    // canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    data: {
+      roles: ['ROLE_Employee', 'ROLE_Admin', 'ROLE_Customer']
+    }
   },
 
   {

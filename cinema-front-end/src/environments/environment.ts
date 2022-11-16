@@ -1,10 +1,13 @@
 // This file can be replaced during build by using the `fileReplacements` array.
-// `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
+// `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
 
 export const environment = {
   production: false,
+
+  api_url: 'http://localhost:8080/api/',
+
   firebaseConfig: {
     apiKey: 'AIzaSyCFQLW2O-P0Er86REA7El5je0mFKS9LVf4',
     authDomain: 'cinema-project-6158f.firebaseapp.com',
@@ -13,8 +16,6 @@ export const environment = {
     messagingSenderId: '690611635755',
     appId: '1:690611635755:web:119c0a353fd5ec7937cc6e',
     measurementId: 'G-RKCS3NE9QF'
-  },
-  api_url: 'http://localhost:8080/api'
 
 };
 
@@ -25,4 +26,4 @@ export const environment = {
  * This import should be commented out in production mode because it will have a negative impact
  * on performance if an error is thrown.
  */
-// import 'zone.js/dist/zone-error';  // Included with Angular CLI.
+// import 'zone.js/plugins/zone-error';  // Included with Angular CLI.
