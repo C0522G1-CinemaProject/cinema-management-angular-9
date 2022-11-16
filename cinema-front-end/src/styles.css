@@ -1,3 +1,12 @@
+
+/* You can add global styles to this file, and also import other style files */
+/*button*/
+body{
+  background-color: black;
+  overflow-x: hidden;
+
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -87,6 +96,7 @@ body {
 /*    background: #4b4276;*/
 /*}*/
 
+
 .wrapCss {
   height: 100%;
   display: flex;
@@ -95,6 +105,15 @@ body {
 }
 
 .button {
+
+  font-weight: bold;
+  width: 140px;
+  height: 45px;
+  font-family: "Times New Roman", sans-serif;
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+
   width: 100px;
   height: 45px;
   font-family: "Times New Roman", sans-serif;
@@ -102,6 +121,7 @@ body {
   text-transform: uppercase;
   letter-spacing: 2.5px;
   font-weight: 500;
+
   color: #000;
   background-color: #fff;
   border: none;
@@ -140,8 +160,6 @@ body {
   transform: translateY(-7px);
 }
 
-
-
 table {
   background-color: white;
   text-align: center;
@@ -150,3 +168,4 @@ table {
 h2 {
   color: white;
 }
+
