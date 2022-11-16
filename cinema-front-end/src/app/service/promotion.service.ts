@@ -16,12 +16,12 @@ export class PromotionService {
   }
 
   paginate(page: number, limit: number): Observable<SearchResult<IPromotion>> {
-    return this.http.get<SearchResult<IPromotion>>(API_URL + '/promotion/list' + '?page=' + page + '&size=' + limit);
+    return this.http.get<SearchResult<IPromotion>>(API_URL + '/promotion/list' + '?page=' + (page - 1) + '&size=' + limit);
   }
 
   deletePromotion(id: number): Observable<void> {
     return this.http.delete<void>(API_URL + '/promotion/delete/' + id);
-}
+  }
 
   getAllPromotion(page: number): Observable<IPromotion[]> {
     return this.http.get<IPromotion[]>(API_URL + '/promotion/list?page=' + page);

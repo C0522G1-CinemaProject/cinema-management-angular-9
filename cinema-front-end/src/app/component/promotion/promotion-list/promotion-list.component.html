@@ -40,7 +40,8 @@
           <tbody class="text-black  bg-light">
           <tr
             *ngFor="let promotion of (promotionList$ | async); index as i ">
-            <td>{{i + 1 + (pageNumber - 1) * pageSize}}</td>
+            <td *ngIf="pageNumber>=1">{{i + 1 + (pageNumber - 1) * pageSize}}</td>
+            <td *ngIf="pageNumber===0">{{i +1}}</td>
             <td class="text-lg-start">{{promotion.name}}</td>
             <td>{{promotion.startTime}}</td>
             <td>{{promotion.endTime}}</td>
@@ -67,11 +68,15 @@
       </div>
       <div class="row">
         <div class="d-flex justify-content-between ms-0 p-1 ps-0">
-          <select class="form-select" style="width: 12%; height: 35px" [(ngModel)]="pageSize" (ngModelChange)="paginate()">
+          <select class="form-select" style="width: 12%; height: 35px" [(ngModel)]="pageSize"
+                  (ngModelChange)="paginate()">
             <option [ngValue]="5"> Hiển thị 5 dòng</option>
             <option [ngValue]="10">Hiển thị 10 dòng</option>
+            <option [ngValue]="20">Hiển thị 20 dòng</option>
+            <option [ngValue]="totalElements">Hiển thị tất cả</option>
           </select>
           <ngb-pagination
+            *ngIf="pageNumber != totalElements"
             [collectionSize]="(total$ | async)!"
             [(page)]="pageNumber"
             [pageSize]="pageSize"
