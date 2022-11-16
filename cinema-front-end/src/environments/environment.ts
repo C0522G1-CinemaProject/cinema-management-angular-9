@@ -16,7 +16,7 @@ export const environment = {
     messagingSenderId: '690611635755',
     appId: '1:690611635755:web:119c0a353fd5ec7937cc6e',
     measurementId: 'G-RKCS3NE9QF'
-
+  }
 };
 
 /*
@@ -27,3 +27,4 @@ export const environment = {
  * on performance if an error is thrown.
  */
 // import 'zone.js/plugins/zone-error';  // Included with Angular CLI.
+

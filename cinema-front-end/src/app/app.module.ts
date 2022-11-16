@@ -15,7 +15,7 @@ import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {AngularFireModule} from '@angular/fire';
 import {environment} from '../environments/environment';
-import {NgbAlertModule, NgbPaginationModule, NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbAlertModule, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({

@@ -6,7 +6,7 @@ import {IMovieDto} from '../dto/i-movie-dto';
 import {environment} from '../../environments/environment';
 import {IShowTimes} from '../model/i-show-times';
 
-const API_URL = `${environment.showTimeUrl}`;
+const API_URL = `${environment.api_url}`;
 @Injectable({
   providedIn: 'root'
 })
