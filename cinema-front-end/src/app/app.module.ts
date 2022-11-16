@@ -30,9 +30,7 @@ import {FormsModule} from '@angular/forms';
     RegisterModule,
     RoomModule,
     TicketModule,
-
     FormsModule
-
   ],
   bootstrap: [AppComponent]
 })

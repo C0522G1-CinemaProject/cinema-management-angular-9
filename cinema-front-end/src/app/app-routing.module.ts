@@ -16,7 +16,7 @@ const routes: Routes = [
   {
     path: 'home', loadChildren: () => HomeModule,
     /*không được xóa canActivate*/
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
     data: {
       roles: ['ROLE_Employee', 'ROLE_Admin', 'ROLE_Customer', '']
     }
@@ -24,7 +24,7 @@ const routes: Routes = [
   {
     path: 'employee', loadChildren: () => EmployeeModule,
     /*không được xóa canActivate*/
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
     data: {
       roles: ['ROLE_Employee', 'ROLE_Admin']
     }
@@ -32,7 +32,7 @@ const routes: Routes = [
   {
     path: 'movie', loadChildren: () => MovieModule,
     /*không được xóa canActivate*/
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
     data: {
       roles: ['ROLE_Employee', 'ROLE_Admin', 'ROLE_Customer']
     }
@@ -40,17 +40,17 @@ const routes: Routes = [
   {
     path: 'promotion', loadChildren: () => PromotionModule,
     /*không được xóa canActivate*/
-    canActivate: [AuthGuard]
+    // canActivate: [AuthGuard]
   },
   {
     path: 'register', loadChildren: () => RegisterModule,
     /*không được xóa canActivate*/
-    canActivate: [AuthGuard]
+    // canActivate: [AuthGuard]
   },
   {
     path: 'room', loadChildren: () => RoomModule,
     /*không được xóa canActivate*/
-    canActivate: [AuthGuard]
+    // canActivate: [AuthGuard]
   },
   {
     path: 'ticket', loadChildren: () => TicketModule,
