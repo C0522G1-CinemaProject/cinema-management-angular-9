@@ -7,6 +7,7 @@ import {formatDate} from '@angular/common';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {finalize} from 'rxjs/operators';
 import {IPromotion} from '../../../model/i-promotion';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-promotion-edit',
@@ -24,12 +25,14 @@ export class PromotionEditComponent implements OnInit {
   constructor(private promotionService: PromotionService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
+              private title: Title,
               @Inject(AngularFireStorage) private storage: AngularFireStorage) {
+    this.title.setTitle('Sửa thông tin khuyến mãi');
   }
 
   ngOnInit(): void {
     this.id = Number(this.activatedRoute.snapshot.params.id);
-    this.promotionService.getInfo(this.id).subscribe(promotion => {
+    this.promotionService.getPromotionById(this.id).subscribe(promotion => {
       this.image = promotion.image;
       this.promotionFormGroup = new FormGroup({
         image: new FormControl(promotion.image),

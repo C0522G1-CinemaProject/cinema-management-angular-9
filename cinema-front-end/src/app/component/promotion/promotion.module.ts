@@ -6,10 +6,9 @@ import { PromotionCreateComponent } from './promotion-create/promotion-create.co
 import { PromotionEditComponent } from './promotion-edit/promotion-edit.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { PromotionListComponent } from './promotion-list/promotion-list.component';
-import {FormsModule} from '@angular/forms';
-import {NgbDatepickerModule, NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 import { PromotionDetailComponent } from './promotion-detail/promotion-detail.component';
 import { PromotionListFrontComponent } from './promotion-list-front/promotion-list-front.component';
+import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({

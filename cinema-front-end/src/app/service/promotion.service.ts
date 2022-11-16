@@ -18,13 +18,13 @@ export class PromotionService {
   paginate(page: number, limit: number): Observable<SearchResult<IPromotion>> {
     return this.http.get<SearchResult<IPromotion>>(API_URL + '/promotion/list' + '?page=' + (page - 1) + '&size=' + limit);
   }
-  
+
   createPromotion(promotion): Observable<IPromotion> {
     return this.http.post<IPromotion>(API_URL + '/save', promotion);
   }
-  
+
   editPromotion(id: number, promotion): Observable<IPromotion> {
-    return this.httpClient.patch<IPromotion>(API_URL + '/edit/' + id, promotion);
+    return this.http.patch<IPromotion>(API_URL + '/edit/' + id, promotion);
   }
 
   deletePromotion(id: number): Observable<void> {

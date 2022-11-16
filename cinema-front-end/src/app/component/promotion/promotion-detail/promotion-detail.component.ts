@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {IPromotion} from '../../../model/i-promotion';
 import {PromotionService} from '../../../service/promotion.service';
 import {ActivatedRoute} from '@angular/router';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-promotion-detail',
@@ -16,7 +17,9 @@ export class PromotionDetailComponent implements OnInit {
 
 
   constructor(private promotionService: PromotionService,
+              private title: Title,
               private activatedRoute: ActivatedRoute) {
+    this.title.setTitle('Thông tin chi tiết khuyến mãi')
   }
 
   ngOnInit(): void {
