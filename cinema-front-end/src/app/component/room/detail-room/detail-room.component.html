@@ -1,9 +1,9 @@
 <div class="container-fluid">
   <div class="row">
 
-    <div class="col-4"></div>
+    <div class="col-lg-4 col-sm-6"></div>
 
-    <div class="col-4">
+    <div class="col-lg-4 col-md-12 col-sm-6">
 
       <div class="row">
         <h2 style="margin-top: 20px" class="text-center fw-bold text-white"><span>
@@ -29,9 +29,9 @@
       </div>
 
       <div class="row">
-        <div class="col-3">
+        <div class="col-2">
         </div>
-        <div class="col-6">
+        <div class="col-8">
           <div>
             <span class="symbol">A</span>
             <span *ngFor="let seat of seatList1">
@@ -44,18 +44,18 @@
           <div>
             <span class="symbol">B</span>
             <span *ngFor="let seat of seatList1">
-              <span (click)="updateSeatType(seat.id, seat.seatTypeId)" class="seat2 selected text-dark ps-1 h6"
+              <span (click)="updateSeatType(seat.id, seat.seatTypeId)" class="seat selected text-dark ps-1 h6"
                     *ngIf="seat.seatName.includes('B') && seat.seatTypeName == 'Ghế Vip'" >{{seat.seatName}}</span>
-              <span (click)="updateSeatType(seat.id, seat.seatTypeId)" class="seat2 text-dark ps-1 h6"
+              <span (click)="updateSeatType(seat.id, seat.seatTypeId)" class="seat text-dark ps-1 h6"
                     *ngIf="seat.seatName.includes('B') && seat.seatTypeName != 'Ghế Vip'" >{{seat.seatName}}</span>
             </span>
           </div>
           <div>
             <span class="symbol">C</span>
             <span *ngFor="let seat of seatList1">
-              <span (click)="updateSeatType(seat.id, seat.seatTypeId)" class="seat3 selected text-dark ps-1 h6"
+              <span (click)="updateSeatType(seat.id, seat.seatTypeId)" class="seat selected text-dark ps-1 h6"
                     *ngIf="seat.seatName.includes('C') && seat.seatTypeName == 'Ghế Vip'">{{seat.seatName}}</span>
-              <span (click)="updateSeatType(seat.id, seat.seatTypeId)" class="seat3 text-dark ps-1 h6"
+              <span (click)="updateSeatType(seat.id, seat.seatTypeId)" class="seat text-dark ps-1 h6"
                     *ngIf="seat.seatName.includes('C') && seat.seatTypeName != 'Ghế Vip'">{{seat.seatName}}</span>
             </span>
           </div>
@@ -69,20 +69,20 @@
             </span>
           </div>
           <div>
-            <span class="symbol">E</span>
+            <span class="symbol-1">E</span>
             <span *ngFor="let seat of seatList1">
-              <span (click)="updateSeatType(seat.id, seat.seatTypeId)" class="seat5 selected text-dark ps-1 h6"
+              <span (click)="updateSeatType(seat.id, seat.seatTypeId)" class="seat selected text-dark ps-1 h6"
                     *ngIf="seat.seatName.includes('E') && seat.seatTypeName == 'Ghế Vip'">{{seat.seatName}}</span>
-              <span (click)="updateSeatType(seat.id, seat.seatTypeId)" class="seat5 text-dark ps-1 h6"
+              <span (click)="updateSeatType(seat.id, seat.seatTypeId)" class="seat text-dark ps-1 h6"
                     *ngIf="seat.seatName.includes('E') && seat.seatTypeName != 'Ghế Vip'">{{seat.seatName}}</span>
             </span>
           </div>
           <div>
-            <span class="symbol">F</span>
+            <span class="symbol-1">F</span>
             <span *ngFor="let seat of seatList1">
-              <span (click)="updateSeatType(seat.id, seat.seatTypeId)" class="seat6 selected text-dark ps-1 h6"
+              <span (click)="updateSeatType(seat.id, seat.seatTypeId)" class="seat selected text-dark ps-1 h6"
                     *ngIf="seat.seatName.includes('F') && seat.seatTypeName == 'Ghế Vip'">{{seat.seatName}}</span>
-              <span (click)="updateSeatType(seat.id, seat.seatTypeId)" class="seat6 text-dark ps-1 h6"
+              <span (click)="updateSeatType(seat.id, seat.seatTypeId)" class="seat text-dark ps-1 h6"
                     *ngIf="seat.seatName.includes('F') && seat.seatTypeName != 'Ghế Vip'">{{seat.seatName}}</span>
             </span>
           </div>
@@ -105,7 +105,7 @@
             </span>
           </div>
         </div>
-        <div class="col-3">
+        <div class="col-2">
         </div>
       </div>
 
@@ -114,7 +114,7 @@
       </div>
     </div>
 
-    <div class="col-4"></div>
+    <div class="col-lg-4"></div>
 
   </div>
 </div>

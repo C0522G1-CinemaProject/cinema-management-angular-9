@@ -155,56 +155,16 @@ p.text span {
   transform: translateY(-7px);
 }
 
-.seat2{
-  background-color: #a0a0a0;
-  margin-right: 4px;
-  margin-left: 3px;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  box-shadow: 0 5px 5px lightblue;
-}
-.seat2.selected {
-  background-color: #6feaf6;
-}
-
-.seat3{
-  background-color: #a0a0a0;
-  margin-right: 4px;
-  margin-left: 3px;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  box-shadow: 0 5px 5px lightblue;
-}
-.seat3.selected {
-  background-color: #6feaf6;
-}
-
-.seat5{
-  background-color: #a0a0a0;
-  margin-right: 5px;
-  margin-left: 3px;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  box-shadow: 0 5px 5px lightblue;
-}
-.seat5.selected {
-  background-color: #6feaf6;
-}
-
-.seat6{
-  background-color: #a0a0a0;
-  margin-right: 6px;
-  margin-left: 3px;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  box-shadow: 0 5px 5px lightblue;
-}
-.seat6.selected {
-  background-color: #6feaf6;
-}
-
 .symbol{
-  margin-right: 10px;
-  margin-left: -22px;
+  margin-right: 13px;
+  margin-left: -14px;
   color: white;
 }
+
+.symbol-1{
+  margin-right: 15px;
+  margin-left: -14px;
+  color: white;
+}
+
+span {display: inline-block}
