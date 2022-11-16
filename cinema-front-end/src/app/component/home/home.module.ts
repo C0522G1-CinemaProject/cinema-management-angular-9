@@ -11,6 +11,10 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     HomeComponent,
     SidebarComponent
   ],
+    exports: [
+        HomeComponent,
+        SidebarComponent
+    ],
   imports: [
     CommonModule,
     HomeRoutingModule
