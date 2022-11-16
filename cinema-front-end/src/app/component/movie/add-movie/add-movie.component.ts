@@ -6,10 +6,9 @@ import {RoomService} from 'src/app/service/room.service';
 import {TimesService} from '../../../service/times.service';
 import {MovieService} from '../../../service/movie.service';
 import {IMovieType} from '../../../model/i-movie-type';
-import {ShowTimeService} from '../../../service/show-time.service';
 
 import {BehaviorSubject, Observable} from 'rxjs';
-import {IMovie} from '../../../model/i-movie';
+
 import {formatDate} from '@angular/common';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {finalize} from 'rxjs/operators';
