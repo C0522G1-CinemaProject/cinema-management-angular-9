@@ -14,19 +14,26 @@ export class PromotionDetailComponent implements OnInit {
   id: number;
   promotionList: IPromotion[];
   numberRecord = 0;
+  content: boolean;
 
 
   constructor(private promotionService: PromotionService,
               private title: Title,
               private activatedRoute: ActivatedRoute) {
-    this.title.setTitle('Thông tin chi tiết khuyến mãi')
-  }
+    this.title.setTitle('Thông tin chi tiết khuyến mãi');
+}
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe(value => {
+      console.log(value);
       this.id = +Number(value.get('id'));
       this.promotionService.getPromotionById(this.id).subscribe(pro => {
-        this.promotion = pro;
+        if (pro != null) {
+          this.content = true;
+          this.promotion = pro;
+        } else {
+          this.content = false;
+        }
       });
     });
     this.getPromotionList(this.numberRecord);

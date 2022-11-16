@@ -12,11 +12,12 @@ export class PromotionListFrontComponent implements OnInit {
   promotionList: IPromotion[];
   morePromotionList: IPromotion[];
   numberRecord = 0;
+  content: boolean;
+  totalRecord = 0;
 
   constructor(private promotionService: PromotionService,
               private title: Title) {
     this.title.setTitle('Khuyến mãi');
-
   }
 
   ngOnInit(): void {
@@ -25,13 +26,20 @@ export class PromotionListFrontComponent implements OnInit {
 
   getPromotionList(numberP: number) {
     this.promotionService.getAllPromotion(numberP).subscribe(value => {
-      if (this.numberRecord === 0) {
-        // @ts-ignore
-        this.promotionList = value.content;
+      // @ts-ignore
+      this.totalRecord = Math.ceil(value.totalElements / 4);
+      if (value != null) {
+        this.content = true;
+        if (this.numberRecord === 0) {
+          // @ts-ignore
+          this.promotionList = value.content;
+        } else {
+          // @ts-ignore
+          this.morePromotionList = value.content;
+          this.promotionList = this.promotionList.concat(this.morePromotionList);
+        }
       } else {
-        // @ts-ignore
-        this.morePromotionList = value.content;
-        this.promotionList = this.promotionList.concat(this.morePromotionList);
+        this.content = false;
       }
     });
   }
