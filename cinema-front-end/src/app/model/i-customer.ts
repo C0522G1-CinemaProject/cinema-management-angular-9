@@ -1,7 +1,5 @@
-
 import {ICustomerType} from './i-customer-type';
-import {IUser} from './i-user';
-
+import {IUser} from "./i-user";
 
 export interface ICustomer {
   id?: number;

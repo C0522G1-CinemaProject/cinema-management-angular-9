@@ -1,11 +1,12 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import {ConfirmBookingTicketComponent} from './confirm-booking-ticket/confirm-booking-ticket.component';
-import {PaymentBookingTicketComponent} from './payment-booking-ticket/payment-booking-ticket.component';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import {BookingTicketComponent} from "./booking-ticket/booking-ticket.component";
+import {BookingSeatComponent} from "./booking-seat/booking-seat.component";
 
 const routes: Routes = [
-  {path: 'confirm-ticket', component: ConfirmBookingTicketComponent},
-  {path: 'payment-ticket', component: PaymentBookingTicketComponent}
+  {path: 'booking-ticket', component: BookingTicketComponent},
+  {path: 'booking-seat', component: BookingSeatComponent
+  }
 ];
 
 @NgModule({
