@@ -16,7 +16,7 @@ const routes: Routes = [
   {
     path: 'home', loadChildren: () => HomeModule,
     /*không được xóa canActivate*/
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
     data: {
       roles: ['ROLE_Employee', 'ROLE_Admin', 'ROLE_Customer', '']
     }

@@ -13,6 +13,7 @@ import {formatDate} from '@angular/common';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {finalize} from 'rxjs/operators';
 import Swal from 'sweetalert2';
+import {IMovie} from '../../../model/i-movie';
 
 
 @Component({
