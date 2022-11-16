@@ -16,6 +16,8 @@ import {FormsModule} from '@angular/forms';
 import {AngularFireModule} from '@angular/fire';
 import {environment} from '../environments/environment';
 
+import {NgbAlertModule, NgbPaginationModule, NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -33,7 +35,13 @@ import {environment} from '../environments/environment';
     RoomModule,
     TicketModule,
     FormsModule,
+
     AngularFireModule.initializeApp(environment.firebaseConfig)
+
+    NgbPaginationModule,
+    NgbAlertModule,
+    NgbModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]
