@@ -1,4 +1,3 @@
-import {IUserRole} from './i-user-role';
 
 
 export interface IUser {

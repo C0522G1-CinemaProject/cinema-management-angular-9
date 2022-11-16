@@ -35,7 +35,6 @@ export class LoginComponent implements OnInit {
       }
     );
     gapi.load('auth', () => {
-      // @ts-ignore
       this.auth2 = gapi.auth2.init({
         client_id: '612774287153-uthnsrl25on17doe8413il68ebv9c969.apps.googleusercontent.com'
       });

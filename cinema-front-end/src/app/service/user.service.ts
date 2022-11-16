@@ -1,5 +1,6 @@
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {IUser} from '../model/i-user';
 import {environment} from '../../environments/environment';
 import {Injectable} from '@angular/core';
 import {UserDto} from '../dto/user-dto';
@@ -26,5 +27,9 @@ export class UserService {
 
   editUser(user: UserDto): Observable<any> {
     return this.http.patch<any>(environment.api_url + '/user/edit', user, this.httpOptions);
+  }
+
+  getAll(): Observable<IUser[]> {
+    return this.http.get<IUser[]>(this.baseURL);
   }
 }
