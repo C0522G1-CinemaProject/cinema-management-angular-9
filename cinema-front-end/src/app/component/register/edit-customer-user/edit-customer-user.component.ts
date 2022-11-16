@@ -122,6 +122,4 @@ export class EditCustomerUserComponent implements OnInit {
     return (passwordCheck.newPassword === passwordCheck.confirmPassword ? null : {notSame: true});
   }
 
-  checkOldPassword(control: AbstractControl) {
-  }
 }

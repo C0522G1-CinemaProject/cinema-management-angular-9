@@ -1,6 +1,5 @@
 <div class="text-center bg-warning mt-4" id="head"><h1 class="m-0 pt-2 text-light ">ĐĂNG KÝ</h1></div>
 <form class="mb-5" [formGroup]="customerForm" (ngSubmit)="submit()">
-
   <label for="username"><b>Tài Khoản</b><span class="war">*</span>
     <span class="text-danger ms-3 val"
           *ngIf="customerForm.controls.username.hasError('required') && customerForm.controls.username.dirty ">
@@ -86,6 +85,8 @@
   </label><br>
   <label><input type="radio" class="m-2" value="1" name="gender" formControlName="gender">Nam</label>
   <label><input type="radio" class="m-2 ms-5" value="2" name="gender" formControlName="gender">Nữ</label>
+
+
   <label class="mb-3"><input type="radio" class="m-2 ms-5" value="0" name="gender" formControlName="gender">Khác</label><br>
 
   <label for="code"><b>CMND/CCCD</b><span class="war">*</span>
@@ -129,7 +130,6 @@
           *ngIf="customerForm.controls.phoneNumber.hasError('pattern') && customerForm.controls.phoneNumber.dirty ">
               Nhập đúng định dạng [+84x] hoặc [0x] (x là 9 chữ số)!!
     </span>
-
   </label>
   <input type="text" id="phoneNumber" formControlName="phoneNumber">
 
@@ -137,3 +137,4 @@
     <button type="submit" class="button btnGreen" [disabled]="!customerForm.valid">Đăng Ký</button>
   </div>
 </form>
+

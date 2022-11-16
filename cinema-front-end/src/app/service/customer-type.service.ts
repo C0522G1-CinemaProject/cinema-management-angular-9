@@ -8,5 +8,4 @@ export class CustomerTypeService {
 
   constructor(private http: HttpClient) {
   }
-
 }
