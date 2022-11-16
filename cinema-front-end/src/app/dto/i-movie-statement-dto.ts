@@ -6,5 +6,4 @@ export interface IMovieStatementDto {
   countTicket?: number;
 
   turnover?: number;
-
 }
