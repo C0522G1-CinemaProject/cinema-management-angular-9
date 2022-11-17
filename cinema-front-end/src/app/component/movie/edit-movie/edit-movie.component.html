@@ -94,16 +94,20 @@
       <div class="col-lg-6">
         <label for="filmRoom"><b>Phòng Chiếu</b><span>*</span>
           <span style="color: red; font-size: 12px" class="ps-3"
-                *ngIf="formEditMovie.get('showTimeDto').hasError('required')
-             && formEditMovie.get('showTimeDto').get('room').dirty">Vui lòng chọn phòng chiếu</span>
+                *ngIf="formEditMovie.get('showTimeDto').get('room').hasError('required')
+             && formEditMovie.get('showTimeDto').get('room').touched || submitted">Vui lòng chọn phòng chiếu</span>
         </label>
-        <select (click)="getInfo()" [compareWith]="compareWithIdRoom" formControlName="room" id="filmRoom" class="form-select">
+        <select (change)="getInfo()" [compareWith]="compareWithIdRoom" formControlName="room" id="filmRoom" class="form-select">
           <option value="null">Chọn phòng chiếu</option>
           <option *ngFor="let room1 of roomList" [ngValue]="room1">{{room1.name}}</option>
         </select>
       </div>
       <div class="col-lg-6">
-        <label><b>Giờ Chiếu</b><span>*</span></label>
+        <label><b>Giờ Chiếu</b><span>*</span>
+          <span style="color: red; font-size: 12px" class="ps-3"
+                *ngIf="formEditMovie.get('showTimeDto').get('times').touched || submitted
+             && formEditMovie.get('showTimeDto').get('times').hasError('required')">Vui lòng chọn giờ chiếu</span>
+        </label>
         <select formControlName="times" [compareWith]="compareWithIdTime" id="time" style="border-radius: 5px" class="form-select">
           <option value="null">Chọn giờ chiếu</option>
           <option *ngFor="let time of timeList" [ngValue]="time">{{time.startTime}}</option>
@@ -113,7 +117,11 @@
   </div>
   <div class="row">
     <div class="col-lg-6">
-      <label for="director" class="mb-1"><b>Phiên Bản</b><span>*</span></label>
+      <label for="director" class="mb-1"><b>Phiên Bản</b><span>*</span>
+        <span style="color: red; font-size: 12px" class="ps-3"
+              *ngIf="formEditMovie.get('version').hasError('required')
+             && formEditMovie.get('version').touched || submitted">Vui lòng chọn phiên bản</span>
+      </label>
         <div class="form-check form-check-inline">
           <input formControlName="version" [value]="1" name="version" type="radio" id="filmType2d"/>
           <label class="form-check-label" for="filmType2d">
@@ -128,14 +136,22 @@
         </div>
     </div>
     <div class="col-lg-6">
-      <label  for="filmImg" class="mb-1"><b>Hình Ảnh</b><span>*</span></label>
+      <label  for="filmImg" class="mb-1"><b>Hình Ảnh</b><span>*</span>
+        <span style="color: red; font-size: 12px" class="ps-3"
+              *ngIf="formEditMovie.get('image').hasError('required')
+             && formEditMovie.get('image').touched || submitted">Vui lòng chọn hình ảnh</span>
+      </label>
       <input type="file" id="filmImg" (change)="showPreview($event)" [src]="imgUrl">
       <img width="130px" height="95px" [src]="imgUrl" alt="invalid">
     </div>
 
   </div>
   <div class="row">
-    <label><b>Thể Loại</b><span>*</span></label>
+    <label><b>Thể Loại</b><span>*</span>
+      <span style="color: red; font-size: 12px" class="ps-3"
+            *ngIf="formEditMovie.get('movieTypeDto').hasError('required')
+             && formEditMovie.get('movieTypeDto').touched || submitted">Vui lòng chọn thể loại</span>
+    </label>
     <div class="col-12">
       <div class="row" formArrayName="movieTypeDto">
         <div class="col-lg-3" *ngFor="let fType of (movieTypeList$ | async) ; index as i">

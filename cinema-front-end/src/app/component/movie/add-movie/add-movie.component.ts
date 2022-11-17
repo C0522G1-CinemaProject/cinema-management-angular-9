@@ -23,7 +23,7 @@ import {IMovie} from '../../../model/i-movie';
 })
 export class AddMovieComponent implements OnInit {
 
-  movie: IMovie;
+  movieObj: IMovie;
   formAddMovie: FormGroup;
   showTimeDto: FormGroup;
   movieTypeDto: FormArray;
@@ -49,7 +49,7 @@ export class AddMovieComponent implements OnInit {
     this.formAddMovie = this.fb.group({
       // employee: [],
       name: ['', [Validators.required, Validators.maxLength(50)]],
-      image: [],
+      image: ['', [Validators.required]],
       dateGroup: new FormGroup({
         startDay: new FormControl('', this.checkStartDate),
         endDay: new FormControl('')
@@ -65,7 +65,6 @@ export class AddMovieComponent implements OnInit {
       movieTypeDto: this.fb.array([]),
       showTimeDto:
         new FormGroup({
-          movie: new FormControl(),
           room: new FormControl('', [Validators.required]),
           dateProjection: new FormControl(),
           times: new FormControl ('', [Validators.required])
@@ -84,7 +83,7 @@ export class AddMovieComponent implements OnInit {
     const item = this.formAddMovie.value.showTimeDto;
     console.log(item);
     const id = item.room.id;
-    const endDate = this.formAddMovie.value.endDay;
+    const endDate = this.formAddMovie.value.dateGroup.endDay;
     console.log(id, endDate);
     this.timeService.getAllTime(id, endDate).subscribe(value => {
       this.timeList = value;
@@ -114,8 +113,8 @@ export class AddMovieComponent implements OnInit {
 
   addMovie() {
     this.submitted = true;
-    this.movie = this.formAddMovie.value;
-    this.showTimeDto.value.dateProjection = this.movie.endDay;
+    this.movieObj = this.formAddMovie.value;
+    this.formAddMovie.value.showTimeDto.dateProjection = this.formAddMovie.value.dateGroup.endDay;
     const image = this.getCurrentDateTime() + this.selectedImage.name;
     const destinationFilename = 'Movie/' + image;
     const fileRef = this.storage.ref(destinationFilename);
@@ -125,11 +124,11 @@ export class AddMovieComponent implements OnInit {
           this.formAddMovie.patchValue({image: url});
 
           // Call API to create vaccine
-          this.movie = this.formAddMovie.value;
-          this.movie.startDay = this.formAddMovie.get('dateGroup').get('startDay').value;
-          this.movie.endDay = this.formAddMovie.get('dateGroup').get('endDay').value;
-          this.movie.image = url;
-          this.imgUrl = this.movie.image;
+          this.movieObj = this.formAddMovie.value;
+          this.movieObj.startDay = this.formAddMovie.get('dateGroup').get('startDay').value;
+          this.movieObj.endDay = this.formAddMovie.get('dateGroup').get('endDay').value;
+          this.movieObj.image = url;
+          this.imgUrl = this.movieObj.image;
           this.movieService.saveMovie(this.formAddMovie.value).subscribe(() => {
             Swal.fire({
               icon: 'success',

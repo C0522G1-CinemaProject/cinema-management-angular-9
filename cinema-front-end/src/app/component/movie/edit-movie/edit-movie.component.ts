@@ -88,7 +88,6 @@ export class EditMovieComponent implements OnInit {
       movieTypeDto: this.fb.array([]),
       showTimeDto:
         new FormGroup({
-          movie: new FormControl(),
           room: new FormControl('', [Validators.required]),
           dateProjection: new FormControl(),
           times: new FormControl('', [Validators.required])
@@ -137,7 +136,7 @@ export class EditMovieComponent implements OnInit {
 
   editMovie() {
     this.submitted = true;
-    this.showTimeDto.value.dateProjection = this.movieDto.endDay;
+    this.formEditMovie.value.showTimeDto.dateProjection = this.formEditMovie.value.dateGroup.endDay;
     const image = this.getCurrentDateTime() + this.selectedImage.name;
     const destinationFilename = 'Movie/' + image;
     const fileRef = this.storage.ref(destinationFilename);
