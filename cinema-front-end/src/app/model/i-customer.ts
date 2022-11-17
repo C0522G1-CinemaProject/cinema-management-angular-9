@@ -1,4 +1,4 @@
-import {IUser} from './IUser';
+import {IUser} from './I-User';
 import {ICustomerType} from './i-customer-type';
 
 
