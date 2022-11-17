@@ -5,8 +5,8 @@ import {CanceledTicketListComponent} from './canceled-ticket-list/canceled-ticke
 import {BookingTicketListComponent} from './booking-ticket-list/booking-ticket-list.component';
 
 const routes: Routes = [
-  {path: 'booking/list', component: BookingTicketListComponent},
-  {path: 'canceled/list', component: CanceledTicketListComponent},
+  {path: 'history/booking', component: BookingTicketListComponent},
+  {path: 'history/canceled', component: CanceledTicketListComponent},
   {path: 'history/point', component: HistoryPointListComponent}
 ];
 

@@ -15,8 +15,8 @@ QUẢN LÝ TÀI KHOẢN</span></h3>
                  width="200" class="m-3">
           </div>
           <div style="background-color: #f2f2f2">
-            <h3>{{customerName}}</h3>
-            <p>
+            <h3 style="color: black">{{customerName}}</h3>
+            <p style="color: black">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                    class="bi bi-award-fill" viewBox="0 0 16 16">
                 <path
@@ -38,11 +38,11 @@ QUẢN LÝ TÀI KHOẢN</span></h3>
               <span class="text-dark">Lịch sử điểm</span>
             </a>
             <hr>
-            <a routerLink="/ticket/booking/list">
+            <a routerLink="/ticket/history/booking/">
               <span class="text-dark">Vé đã đặt</span>
             </a>
             <hr>
-            <a routerLink="/ticket/canceled/list">
+            <a routerLink="/ticket/history/canceled">
               <span class="text-dark">Vé đã hủy</span>
             </a>
             <hr>
@@ -96,6 +96,7 @@ QUẢN LÝ TÀI KHOẢN</span></h3>
             <tr class="bg-warning">
               <th scope="col">STT</th>
               <th scope="col">Ngày</th>
+              <th scope="col">Tên</th>
               <th scope="col">Điểm</th>
             </tr>
             </thead>
@@ -104,6 +105,7 @@ QUẢN LÝ TÀI KHOẢN</span></h3>
             <tr *ngFor="let ticket of (ticketDto$ | async); index as i">
               <td>{{i + 1 + (page - 1) * pageSize  }}</td>
               <td>{{ticket.bookingTime | date:"dd/MM/yyyy HH:mm"}}</td>
+              <td>{{ticket.movieName}}</td>
               <td class="text-success" *ngIf="ticket.point > 0">+{{ticket.point}}</td>
               <td class="text-danger" *ngIf="ticket.point < 0">{{ticket.point}}</td>
               <!--                        <td class="text-success" *ngIf="ticket.isDelete ==1">-{{ticket.point}}</td>-->
@@ -112,23 +114,23 @@ QUẢN LÝ TÀI KHOẢN</span></h3>
             </tbody>
           </table>
           <div class="row">
-            <div class="col-lg-8">
+            <div class="col-lg-6">
               <div *ngIf="action">
-                <span class="fw-bold text-light mx-1">Hiển thị</span>
+                <span class="fw-bold text-light "> </span>
                 <select class="form-control-sm" style="width: auto" [(ngModel)]="pageSize"
                         (ngModelChange)="getAllSearch()">
-                  <option [ngValue]="5"> 5 trên trang</option>
-                  <option [ngValue]="10">10 trên trang</option>
-                  <option [ngValue]="15">15 trên trang</option>
-                  <option [ngValue]="20">20 trên trang</option>
-                  <option [ngValue]="25">25 trên trang</option>
+                  <option [ngValue]="5"> Hiển thị 5 trên dòng</option>
+                  <option [ngValue]="10"> Hiển thị 10 trên dòng</option>
+                  <option [ngValue]="15">Hiển thị 15 trên dòng</option>
+                  <option [ngValue]="20">Hiển thị 20 trên dòng</option>
+                  <option [ngValue]="25">Hiển thị 25 trên dòng</option>
                 </select>
               </div>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-6">
 
-              <div class="text-center">
-                <div class='pagination-container'>
+              <div class="text-center ">
+                <div class='pagination-container ms-5'>
                   <div class="row" *ngIf="action">
                     <ngb-pagination
                       [collectionSize]="(total$ | async)!"

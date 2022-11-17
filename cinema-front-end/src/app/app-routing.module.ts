@@ -7,9 +7,9 @@ import {PromotionModule} from './component/promotion/promotion.module';
 import {RegisterModule} from './component/register/register.module';
 import {RoomModule} from './component/room/room.module';
 import {TicketModule} from './component/ticket/ticket.module';
-import {DecentralizationModule} from './component/decentralization/decentralization.module';
 import {CustomerModule} from './component/customer/customer.module';
-import {AuthGuard} from './component/decentralization/auth.guard';
+import {AuthGuard} from "./component/decentralization/decentralization/auth.guard";
+import {DecentralizationModule} from "./component/decentralization/decentralization/decentralization.module";
 
 
 /*không được xóa canActivate*/
@@ -65,6 +65,7 @@ const routes: Routes = [
   {
     path: 'ticket', loadChildren: () => TicketModule,
     /*không được xóa canActivate*/
+
     // canActivate: [AuthGuard]
   },
   {

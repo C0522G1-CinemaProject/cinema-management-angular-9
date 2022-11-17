@@ -31,13 +31,13 @@ export class TicketService {
 
   showListBookingTicket(page: number, pageSize: number): Observable<any> {
     return this.httpClient.get<any>(this.URL_API_BACKEND +
-      'booking?page=' + (page - 1) + '&size=' + pageSize, this.httpOptions);
+      'history/booking?page=' + (page - 1) + '&size=' + pageSize, this.httpOptions);
   }
 
 
   showListCanceledTicket(page: number, pageSize: number): Observable<any> {
     return this.httpClient.get<any>(this.URL_API_BACKEND +
-      'canceled?page=' + (page - 1) + '&size=' + pageSize, this.httpOptions);
+      'history/canceled?page=' + (page - 1) + '&size=' + pageSize, this.httpOptions);
   }
 
   showListHistoryPoint(page: number, pageSize: number, startTime: string, endTime: string)

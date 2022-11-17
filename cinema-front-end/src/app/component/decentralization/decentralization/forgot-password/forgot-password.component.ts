@@ -1,10 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
-
 import {Router} from '@angular/router';
 import Swal from 'sweetalert2';
-import {AuthService} from '../../../service/auth.service';
+import {AuthService} from "../../../../service/auth.service";
 
 @Component({
   selector: 'app-reset-password',
@@ -28,11 +27,14 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // this.formGroup = this.formBuilder.group({
+    //   username: ['']
+    // });
     this.formForgotPass = this.formBuilder.group({
       email: ['', [Validators.email, Validators.required]]
     });
   }
- forgotPassword() {
+  forgotPassword() {
     if (this.formForgotPass.valid) {
       this.authService.forgotPassword(this.formForgotPass.get('email').value).subscribe(
         data => {

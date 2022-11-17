@@ -2,9 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AuthService} from '../../../service/auth.service';
-import {IResetPassRequest} from '../../../model/i-reset-pass-request';
 import Swal from 'sweetalert2';
+import {AuthService} from "../../../../service/auth.service";
+import {IResetPassRequest} from "../../../../model/i-reset-pass-request";
 
 
 @Component({
