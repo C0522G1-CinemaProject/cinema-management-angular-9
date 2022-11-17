@@ -10,48 +10,50 @@ import {RoomModule} from './component/room/room.module';
 import {TicketModule} from './component/ticket/ticket.module';
 
 import {DecentralizationModule} from './component/decentralization/decentralization.module';
+import {NavbarComponent} from './navbar/navbar.component';
+import {SidebarComponent} from './component/home/sidebar/sidebar.component';
 
 /*không được xóa canActivate*/
 const routes: Routes = [
   {
     path: 'home', loadChildren: () => HomeModule,
     /*không được xóa canActivate*/
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     data: {
       roles: ['ROLE_Employee', 'ROLE_Admin', 'ROLE_Customer', '']
     }
   },
-  {
-    path: 'employee', loadChildren: () => EmployeeModule,
-    /*không được xóa canActivate*/
-    // canActivate: [AuthGuard],
-    data: {
-      roles: ['ROLE_Employee', 'ROLE_Admin']
-    }
-  },
-  {
-    path: 'movie', loadChildren: () => MovieModule,
-    /*không được xóa canActivate*/
-    // canActivate: [AuthGuard],
-    data: {
-      roles: ['ROLE_Employee', 'ROLE_Admin', 'ROLE_Customer']
-    }
-  },
-  {
-    path: 'promotion', loadChildren: () => PromotionModule,
-    /*không được xóa canActivate*/
-    // canActivate: [AuthGuard]
-  },
-  {
-    path: 'register', loadChildren: () => RegisterModule,
-    /*không được xóa canActivate*/
-    // canActivate: [AuthGuard]
-  },
-  {
-    path: 'room', loadChildren: () => RoomModule,
-    /*không được xóa canActivate*/
-    // canActivate: [AuthGuard]
-  },
+  // {
+  //   path: 'employee', loadChildren: () => EmployeeModule,
+  //   /*không được xóa canActivate*/
+  //   // canActivate: [AuthGuard],
+  //   data: {
+  //     roles: ['ROLE_Employee', 'ROLE_Admin']
+  //   }
+  // },
+  // {
+  //   path: 'movie', loadChildren: () => MovieModule,
+  //   /*không được xóa canActivate*/
+  //   // canActivate: [AuthGuard],
+  //   data: {
+  //     roles: ['ROLE_Employee', 'ROLE_Admin', 'ROLE_Customer']
+  //   }
+  // },
+  // {
+  //   path: 'promotion', loadChildren: () => PromotionModule,
+  //   /*không được xóa canActivate*/
+  //   // canActivate: [AuthGuard]
+  // },
+  // {
+  //   path: 'register', loadChildren: () => RegisterModule,
+  //   /*không được xóa canActivate*/
+  //   // canActivate: [AuthGuard]
+  // },
+  // {
+  //   path: 'room', loadChildren: () => RoomModule,
+  //   /*không được xóa canActivate*/
+  //   // canActivate: [AuthGuard]
+  // },
   {
     path: 'ticket', loadChildren: () => TicketModule,
     /*không được xóa canActivate*/
@@ -63,7 +65,8 @@ const routes: Routes = [
 
   {
     path: 'login', loadChildren: () => DecentralizationModule
-  }
+  },
+  {path: 'home', loadChildren: () => HomeModule}
 ];
 
 @NgModule({
