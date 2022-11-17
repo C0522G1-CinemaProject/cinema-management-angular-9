@@ -1,7 +1,7 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 
-import { AppComponent } from './app.component';
+import {AppComponent} from './app.component';
 import {AppRoutingModule} from './app-routing.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {DecentralizationModule} from './component/decentralization/decentralization.module';
@@ -13,7 +13,13 @@ import {RegisterModule} from './component/register/register.module';
 import {RoomModule} from './component/room/room.module';
 import {TicketModule} from './component/ticket/ticket.module';
 import {FormsModule} from '@angular/forms';
-import {StatementManagementModule} from './component/statement-management/statement-management.module';
+import {GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule} from 'angularx-social-login';
+
+
+const googleLoginOptions = {
+  scope: 'profile email',
+  plugin_name: 'login'
+};
 
 @NgModule({
   declarations: [
@@ -32,9 +38,27 @@ import {StatementManagementModule} from './component/statement-management/statem
     RoomModule,
     TicketModule,
     FormsModule,
-    StatementManagementModule
+    SocialLoginModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              '612774287153-uthnsrl25on17doe8413il68ebv9c969.apps.googleusercontent.com',
+              googleLoginOptions
+            )
+          },
+        ]
+      } as SocialAuthServiceConfig,
+    }
+  ],
+  exports: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
