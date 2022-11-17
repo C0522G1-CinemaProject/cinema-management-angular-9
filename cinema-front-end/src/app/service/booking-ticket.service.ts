@@ -40,7 +40,6 @@ export class BookingTicketService {
   }
 
   findAllMovieInNext7Days(): Observable<any> {
-    console.log(this.httpOptions);
     return this.httpClient.get<IMovieBookingDto[]>(API_URL + '/ticket/movie', this.httpOptions);
   }
 
@@ -48,12 +47,14 @@ export class BookingTicketService {
     return this.httpClient.get<IShowDateBookingDto[]>(API_URL + '/ticket/show-date/' + idMovie, this.httpOptions);
   }
 
-  findAllShowTimeByShowDate(showDate: string): Observable<any> {
-    return this.httpClient.get<IShowtimesBookingDto[]>(API_URL + '/ticket/showtime/' + showDate, this.httpOptions);
+  findAllShowTimeByShowDate(showDate: string, idMovie: number): Observable<any> {
+    return this.httpClient.get<IShowtimesBookingDto[]>(API_URL + '/ticket/showtime/' + showDate + '&' + idMovie,
+      this.httpOptions);
   }
 
   findAllSeatByShowTime(idShowTime: number): Observable<any> {
-    return this.httpClient.get<ISeatDetailBookingDto[]>(API_URL + '/ticket/seat-detail/' + idShowTime, this.httpOptions);
+    return this.httpClient.get<ISeatDetailBookingDto[]>(API_URL + '/ticket/seat-detail/' + idShowTime,
+      this.httpOptions);
   }
 
   changeData(movie: IMovieBookingDto, showDate: IShowDateBookingDto, showTime: IShowtimesBookingDto): void {
@@ -80,7 +81,6 @@ export class BookingTicketService {
   }
 
   updateStatusTicketByUserName(): Observable<any> {
-    // @ts-ignore
     return this.httpClient.put<void>(API_URL + '/ticket/update-ticket', this.httpOptions);
   }
 }
