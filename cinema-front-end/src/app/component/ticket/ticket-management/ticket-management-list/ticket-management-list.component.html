@@ -1,23 +1,6 @@
-<!--<div class="container container-lg container-md container-sm container-xl">-->
-<!--&lt;!&ndash;  nav-bar&ndash;&gt;-->
-<!--  <div class="row">-->
-<!--    <div class="topnav" id="myTopnav">-->
-<!--      <a href="#home" class="active"><img src="assets/picture/rum.png" style="height: 30px; width: 80px"></a>-->
-<!--      <a href="#news"><i class="fa-solid fa-film"></i>    Phim</a>-->
-<!--      <a href="#contact"><i class="fa fa-ticket"></i>    Đặt vé</a>-->
-<!--      <a href="#about"><i class="fa fa-user"></i>   Nhân viên</a>-->
-<!--      <a href="#about"><i class="fa fa-user-secret"></i>   Thành viên</a>-->
-<!--      <a href="#about"><i class="fa fa-percent"></i>   Khuyến mãi</a>-->
-<!--      <a href="#about"><i class="fa fa-video"></i>   Phòng</a>-->
-<!--      <a href="#about"><i class="fa fa-chart-simple"></i>-->
-<!--        Thống kê</a>-->
-<!--      <a href="javascript:void(0);" class="icon" onclick="myResize()">-->
-<!--        <i class="fa-solid fa-bars"></i>-->
-<!--      </a>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--&lt;!&ndash;  end-nav-bar&ndash;&gt;-->
-<!--  Body-->
+<div class="container container-lg container-md container-sm container-xl">
+
+  <!--  Body-->
   <div class="row" id="bodyTicket">
     <div class="col-lg-12 col-md-12 col-sm-12 pt-2">
       <h2 class="text-light text-center">DANH SÁCH ĐẶT VÉ</h2>
@@ -34,17 +17,18 @@
               Thêm mới
             </button>
           </div>
-          <div class="col-lg-10 ms-0 p-1">
+          <div class="col-lg-4"></div>
+          <div class="col-lg-6 ms-0 p-1">
             <div class="d-flex my-1">
-              <input class="form-control me-2" type="number" placeholder="Tìm theo mã đặt vé..."
-                     aria-label="Search" [(ngModel)]="ticketIdSearch">
-              <input class="form-control me-2" type="number" placeholder="Tìm theo mã thành viên..."
-                     aria-label="Search" [(ngModel)]="customerIdSearch">
+<!--              <input class="form-control me-2" type="number" placeholder="Tìm theo mã đặt vé..."-->
+<!--                     aria-label="Search" [(ngModel)]="ticketIdSearch">-->
+<!--              <input class="form-control me-2" type="number" placeholder="Tìm theo mã thành viên..."-->
+<!--                     aria-label="Search" [(ngModel)]="customerIdSearch">-->
               <input class="form-control me-2" type="search" placeholder="Tìm theo cmnd..."
                      aria-label="Search" [(ngModel)]="idCardSearch">
               <input class="form-control me-2" type="search" placeholder="Tìm theo số điện thoại..."
                      aria-label="Search" [(ngModel)]="phoneNumberSearch">
-              <button class="button btnGreen" style="height: 38px; width: 50%" type="submit"
+              <button class="button btnGreen" style="height: 38px; width: 30%" type="submit"
                       (click)="paginate()">
                 Tìm
               </button>
@@ -85,7 +69,8 @@
               <td data-tittle="Trạng thái" *ngIf="item.statusTicket == 2" style="color: red"><b>Đã nhận</b></td>
               <td>
                 <div class="text-center wrapCss">
-                  <button *ngIf="item.statusTicket == 1" class="button btnYellow" data-bs-toggle="modal" data-bs-target="#ticketDetail"
+                  <button *ngIf="item.statusTicket == 1" class="button btnYellow" data-bs-toggle="modal"
+                          data-bs-target="#ticketDetail"
                           (click)="getInfoTicketDto(item.ticketId, item.customerId,
                           item.movieName, item.dateProjection, item.startTime,
                           item.roomName, item.seatName)"
@@ -95,7 +80,9 @@
               </td>
               <td>
                 <div class="text-center wrapCss">
-                  <button *ngIf="item.statusTicket == 1" class="button btnRed" routerLink="/ticket/delete-management">Hủy vé</button>
+                  <button *ngIf="item.statusTicket == 1" class="button btnRed" (click)="modalDelete()" >
+                    Hủy vé
+                  </button>
                 </div>
               </td>
             </tr>
@@ -169,7 +156,7 @@
           </div>
           <div class="col-lg-4"></div>
           <div class="col-lg-3"></div>
-          <div class="col-lg-3 col-sm-6 ms-0 p-1">
+          <div class="col-lg-3 col-sm-6 ms-0 p-0 ">
             <div class='pagination-container'>
               <div class="row">
                 <ngb-pagination
@@ -190,4 +177,4 @@
       </div>
     </div>
   </div>
-<!--</div>-->
+</div>

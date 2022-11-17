@@ -6,7 +6,7 @@ import {ITicketManagerDto} from '../../../../dto/i-ticket-manager-dto';
 import html2canvas from 'html2canvas';
 import {jsPDF} from 'jspdf';
 import {ITicket} from '../../../../model/i-ticket';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {FormControl, FormGroup} from '@angular/forms';
 import Swal from 'sweetalert2';
 
@@ -45,7 +45,8 @@ export class TicketManagementListComponent implements OnInit {
 
   constructor(private ticketService: TicketService,
               private title: Title,
-              private activatedRoute: ActivatedRoute) {
+              private activatedRoute: ActivatedRoute,
+              private router: Router) {
     this.title.setTitle('Quản lý đặt vé');
   }
 
@@ -116,6 +117,23 @@ export class TicketManagementListComponent implements OnInit {
       pdf.addImage(imgData, 'PNG', 0, 0, pdfw, pdfh);
       pdf.save('ticket-pill.pdf');
       this.editTicketManager();
+    });
+  }
+
+  modalDelete() {
+    Swal.fire({
+      title: 'Bạn có muốn xóa ?',
+      text: 'Tác vụ này không thể hoàn tác !',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Đồng Ý',
+      cancelButtonText: 'Hủy Bỏ',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.router.navigateByUrl('/ticket/delete-management');
+      }
     });
   }
 }

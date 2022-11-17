@@ -15,14 +15,14 @@ import {SidebarComponent} from './component/home/sidebar/sidebar.component';
 
 /*không được xóa canActivate*/
 const routes: Routes = [
-  // {
-  //   path: 'home', loadChildren: () => HomeModule,
-  //   /*không được xóa canActivate*/
-  //   canActivate: [AuthGuard],
-  //   data: {
-  //     roles: ['ROLE_Employee', 'ROLE_Admin', 'ROLE_Customer', '']
-  //   }
-  // },
+  {
+    path: 'home', loadChildren: () => HomeModule,
+    /*không được xóa canActivate*/
+    canActivate: [AuthGuard],
+    data: {
+      roles: ['ROLE_Employee', 'ROLE_Admin', 'ROLE_Customer', '']
+    }
+  },
   // {
   //   path: 'employee', loadChildren: () => EmployeeModule,
   //   /*không được xóa canActivate*/
@@ -58,11 +58,14 @@ const routes: Routes = [
     path: 'ticket', loadChildren: () => TicketModule,
     /*không được xóa canActivate*/
     // canActivate: [AuthGuard]
+    // data: {
+    //   roles: ['ROLE_Employee', 'ROLE_Admin', 'ROLE_Customer']
+    // }
   },
 
-  // {
-  //   // path: 'login', loadChildren: () => DecentralizationModule
-  // },
+  {
+    path: 'login', loadChildren: () => DecentralizationModule
+  },
   {path: 'home', loadChildren: () => HomeModule}
 ];
 

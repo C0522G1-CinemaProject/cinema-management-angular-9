@@ -1,7 +1,7 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 
-import { AppComponent } from './app.component';
+import {AppComponent} from './app.component';
 import {AppRoutingModule} from './app-routing.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {DecentralizationModule} from './component/decentralization/decentralization.module';
@@ -14,12 +14,12 @@ import {RoomModule} from './component/room/room.module';
 import {TicketModule} from './component/ticket/ticket.module';
 import {FormsModule} from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import {HomeComponent} from './component/home/home/home.component';
+import {HttpClientModule} from '@angular/common/http';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,10 +34,11 @@ import {HomeComponent} from './component/home/home/home.component';
     RoomModule,
     TicketModule,
     FormsModule,
-    NgbModule
-
+    NgbModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
