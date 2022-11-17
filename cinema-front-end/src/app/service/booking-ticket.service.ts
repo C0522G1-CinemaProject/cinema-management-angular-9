@@ -41,19 +41,19 @@ export class BookingTicketService {
 
   findAllMovieInNext7Days(): Observable<any> {
     console.log(this.httpOptions);
-    return this.httpClient.get<IMovieBookingDto[]>(API_URL + '/booking-ticket/movie', this.httpOptions);
+    return this.httpClient.get<IMovieBookingDto[]>(API_URL + '/ticket/movie', this.httpOptions);
   }
 
   findAllShowDateByMovie(idMovie: number): Observable<any> {
-    return this.httpClient.get<IShowDateBookingDto[]>(API_URL + '/booking-ticket/show-date/' + idMovie, this.httpOptions);
+    return this.httpClient.get<IShowDateBookingDto[]>(API_URL + '/ticket/show-date/' + idMovie, this.httpOptions);
   }
 
   findAllShowTimeByShowDate(showDate: string): Observable<any> {
-    return this.httpClient.get<IShowtimesBookingDto[]>(API_URL + '/booking-ticket/showtime/' + showDate, this.httpOptions);
+    return this.httpClient.get<IShowtimesBookingDto[]>(API_URL + '/ticket/showtime/' + showDate, this.httpOptions);
   }
 
   findAllSeatByShowTime(idShowTime: number): Observable<any> {
-    return this.httpClient.get<ISeatDetailBookingDto[]>(API_URL + '/booking-ticket/seat-detail/' + idShowTime, this.httpOptions);
+    return this.httpClient.get<ISeatDetailBookingDto[]>(API_URL + '/ticket/seat-detail/' + idShowTime, this.httpOptions);
   }
 
   changeData(movie: IMovieBookingDto, showDate: IShowDateBookingDto, showTime: IShowtimesBookingDto): void {
@@ -63,24 +63,24 @@ export class BookingTicketService {
   }
 
   addPendingTicket(ticket: ITicket): Observable<any> {
-    return this.httpClient.post<ITicket>(API_URL + '/booking-ticket/add-pending-ticket', ticket, this.httpOptions);
+    return this.httpClient.post<ITicket>(API_URL + '/ticket/add-pending-ticket', ticket, this.httpOptions);
   }
 
   getCustomerByUsername(): Observable<any> {
-    return this.httpClient.get<ICustomer>(API_URL + '/booking-ticket/get-customer', this.httpOptions);
+    return this.httpClient.get<ICustomer>(API_URL + '/ticket/get-customer', this.httpOptions);
   }
 
   getSeatDetailById(id: number): Observable<any> {
-    return this.httpClient.get<ISeatDetail>(API_URL + '/booking-ticket/seat/' + id, this.httpOptions);
+    return this.httpClient.get<ISeatDetail>(API_URL + '/ticket/seat/' + id, this.httpOptions);
   }
 
   getTicketByuserName(): Observable<any> {
     console.log(this.httpOptions);
-    return this.httpClient.get<ITicketDto>(API_URL + '/booking-ticket/list-ticket', this.httpOptions);
+    return this.httpClient.get<ITicketDto>(API_URL + '/ticket/list-ticket', this.httpOptions);
   }
 
-  updateStatusTicketByUserName(userName): Observable<any> {
+  updateStatusTicketByUserName(): Observable<any> {
     // @ts-ignore
-    return this.httpClient.put<void>(API_URL + '/booking-ticket/update-ticket/' + userName, this.httpOptions);
+    return this.httpClient.put<void>(API_URL + '/ticket/update-ticket', this.httpOptions);
   }
 }

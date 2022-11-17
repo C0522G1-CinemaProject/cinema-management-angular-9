@@ -1,13 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {ConfirmBookingTicketService} from '../../../service/confirm-booking-ticket.service';
 import {ITicketDto} from '../../../dto/i-ticket-dto';
 import {Title} from '@angular/platform-browser';
 import {BookingTicketService} from '../../../service/booking-ticket.service';
-import {ITicket} from '../../../model/i-ticket';
-import {BehaviorSubject, Observable} from 'rxjs';
-import {IShowDateBookingDto} from '../../../dto/i-show-date-booking-dto';
-import {IMovieBookingDto} from '../../../dto/i-movie-booking-dto';
 
 @Component({
   selector: 'app-confirm-booking-ticket',
@@ -32,10 +27,17 @@ export class ConfirmBookingTicketComponent implements OnInit {
   getTicket(): void {
     this.bookingTicketService.getTicketByuserName().subscribe(value => {
         this.arrayTicket = value;
+        console.log('hihi');
+        // console.log(value.price);
         // this.total += value.price;
+        // console.log(value[0].price);
+        // tslint:disable-next-line:forin
+        for (let index in value) {
+          // console.log(index); // prints indexes: 0, 1, 2, 3
+          this.total += value[index].price; // prints elements: 10, 20, 30, 40
+        }
         // console.log(this.total);
-        console.log('sfdsfsdf');
-        console.log(value);
+        // console.log(value);
       },
       error => {
         console.log(error);
