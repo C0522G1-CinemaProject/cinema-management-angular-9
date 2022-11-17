@@ -68,28 +68,44 @@ export class EmployeeEditComponent implements OnInit {
   }
 
   updateEmployee() {
-    const image = this.getCurrentDateTime() + this.selectedImage.name;
-    const fileRef = this.storage.ref(image);
-    this.storage.upload(image, this.selectedImage).snapshotChanges().pipe(
-      finalize(() => {
-        fileRef.getDownloadURL().subscribe((url) => {
-          this.employeeFormGroup.patchValue({image: url});
-          const employee = this.employeeFormGroup.value;
-          employee.user.password = this.employeeFormGroup.get('passwordGroup').get('passwordNew').value;
-          this.employeeService.updateEmployee(employee).subscribe(() => {
-            Swal.fire({
-              position: 'center',
-              icon: 'success',
-              text: 'Nhân viên: ' + employee.name,
-              title: 'Đã chỉnh sửa thành công',
-              showConfirmButton: false,
-              timer: 2700
+    this.employee = this.employeeFormGroup.value;
+    this.employee.user.password = this.employeeFormGroup.get('passwordGroup').get('passwordNew').value;
+    if (this.selectedImage) {
+      const image = this.getCurrentDateTime() + this.selectedImage.name;
+      const fileRef = this.storage.ref(image);
+      this.storage.upload(image, this.selectedImage).snapshotChanges().pipe(
+        finalize(() => {
+          fileRef.getDownloadURL().subscribe((url) => {
+            this.employeeFormGroup.patchValue({image: url});
+            this.employee.image = url;
+            this.employeeService.updateEmployee(this.employee).subscribe(() => {
+              Swal.fire({
+                position: 'center',
+                icon: 'success',
+                text: 'Nhân viên: ' + this.employee.name,
+                title: 'Đã chỉnh sửa thành công',
+                showConfirmButton: false,
+                timer: 2700
+              });
+              this.router.navigateByUrl('/employee/list');
             });
-            this.router.navigateByUrl('/employee/list');
           });
+        })
+      ).subscribe();
+    } else {
+      this.imgUrl = this.employee.image;
+      this.employeeService.updateEmployee(this.employee).subscribe(() => {
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          text: 'Nhân viên: ' + this.employee.name,
+          title: 'Đã chỉnh sửa thành công',
+          showConfirmButton: false,
+          timer: 2700
         });
-      })
-    ).subscribe();
+        this.router.navigateByUrl('/employee/list');
+      });
+    }
   }
 
 
@@ -103,10 +119,8 @@ export class EmployeeEditComponent implements OnInit {
 
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
-
       const reader = new FileReader();
       reader.onload = e => this.imgUrl = reader.result;
-
       reader.readAsDataURL(file);
     }
   }

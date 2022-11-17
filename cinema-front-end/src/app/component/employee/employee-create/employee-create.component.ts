@@ -89,10 +89,8 @@ export class EmployeeCreateComponent implements OnInit {
     this.selectedImage = event.target.files[0];
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
-
       const reader = new FileReader();
       reader.onload = e => this.imgUrl = reader.result;
-
       reader.readAsDataURL(file);
     }
   }

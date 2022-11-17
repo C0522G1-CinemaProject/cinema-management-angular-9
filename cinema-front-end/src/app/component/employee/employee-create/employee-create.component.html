@@ -8,10 +8,6 @@
                       employeeFormGroup.controls.username.touched" class="mx-1">
         Vui lòng nhập tài khoản!</span>
 
-      <span *ngIf="employeeFormGroup.controls.username.hasError('checkUsername') &&
-                      employeeFormGroup.controls.username.touched" class="mx-1">
-        Tài khoản đã tồn tại!</span>
-
       <span *ngIf="employeeFormGroup.controls.username.hasError('minlength') &&
                             employeeFormGroup.controls.username.touched" class="mx-1">
               Tài khoản tối thiểu 6 kí tự</span>
