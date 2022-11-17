@@ -10,13 +10,15 @@ import {RoomModule} from './component/room/room.module';
 import {TicketModule} from './component/ticket/ticket.module';
 
 import {DecentralizationModule} from './component/decentralization/decentralization.module';
+import {NavbarComponent} from './navbar/navbar.component';
+import {SidebarComponent} from './component/home/sidebar/sidebar.component';
 
 /*không được xóa canActivate*/
 const routes: Routes = [
   {
     path: 'home', loadChildren: () => HomeModule,
     /*không được xóa canActivate*/
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     data: {
       roles: ['ROLE_Employee', 'ROLE_Admin', 'ROLE_Customer', '']
     }
@@ -55,15 +57,16 @@ const routes: Routes = [
   {
     path: 'ticket', loadChildren: () => TicketModule,
     /*không được xóa canActivate*/
-    // canActivate: [AuthGuard]
-    // data: {
-    //   roles: ['ROLE_Employee', 'ROLE_Admin', 'ROLE_Customer']
-    // }
+    canActivate: [AuthGuard],
+    data: {
+      roles: ['ROLE_EMPLOYEE', 'ROLE_ADMIN', 'ROLE_CUSTOMER']
+    }
   },
 
   {
     path: 'login', loadChildren: () => DecentralizationModule
-  }
+  },
+  {path: 'home', loadChildren: () => HomeModule}
 ];
 
 @NgModule({

@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {BookingTicketService} from "../../../service/booking-ticket.service";
-import {BehaviorSubject, Observable} from "rxjs";
-import {IMovieBookingDto} from "../../../dto/i-movie-booking-dto";
-import {IShowtimesBookingDto} from "../../../dto/i-showtimes-booking-dto";
-import {IShowDateBookingDto} from "../../../dto/i-show-date-booking-dto";
+import {IMovieBookingDto} from '../../../dto/i-movie-booking-dto';
+import {IShowDateBookingDto} from '../../../dto/i-show-date-booking-dto';
+import {IShowtimesBookingDto} from '../../../dto/i-showtimes-booking-dto';
+import {BookingTicketService} from '../../../service/booking-ticket.service';
+import {BehaviorSubject, Observable} from 'rxjs';
+
 
 @Component({
   selector: 'app-booking-ticket',
