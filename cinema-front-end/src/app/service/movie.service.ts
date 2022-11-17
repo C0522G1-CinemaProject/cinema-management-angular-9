@@ -8,6 +8,7 @@ import {PageResult} from '../model/page-result';
 import {MovieDto} from '../dto/movie-dto';
 import {TokenStorageService} from './token-storage.service';
 import {IMovie} from '../model/i-movie';
+// @ts-ignore
 import {Page} from '../page';
 
 

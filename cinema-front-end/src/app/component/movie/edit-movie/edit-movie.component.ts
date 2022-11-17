@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {IRoom} from '../../../model/i-room';
 import {ITimes} from '../../../model/i-times';
 import {BehaviorSubject, Observable} from 'rxjs';
@@ -37,6 +37,8 @@ export class EditMovieComponent implements OnInit {
   submitted = false;
   selectedImage: any = null;
   id: number;
+  imgUrl: string | ArrayBuffer;
+  curDate = new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate();
 
 
   constructor(private fb: FormBuilder,
@@ -57,7 +59,9 @@ export class EditMovieComponent implements OnInit {
       this.showTime = val.showTimeDto;
       this.id = val.id;
       this.formEditMovie.patchValue(this.movieDto);
-      this.formEditMovie.get('image').setValue(this.movieDto.image);
+      this.formEditMovie.get('dateGroup').get('startDay').setValue(this.movieDto.startDay);
+      this.formEditMovie.get('dateGroup').get('endDay').setValue(this.movieDto.endDay);
+      // this.formEditMovie.get('image').setValue(this.movieDto.image);
       console.log(this.showTime);
 
       this.formEditMovie.get('showTimeDto').get('room').setValue(this.showTime[0].room);
@@ -67,24 +71,27 @@ export class EditMovieComponent implements OnInit {
     });
     this.formEditMovie = this.fb.group({
       id: [],
-      name: [],
+      // employee: [],
+      name: ['', [Validators.required, Validators.maxLength(50)]],
       image: [],
-      startDay: [],
-      endDay: [],
-      director: [],
-      filmTime: [],
-      trailer: [],
+      dateGroup: new FormGroup({
+        startDay: new FormControl('', this.checkStartDate),
+        endDay: new FormControl('')
+      }, this.checkEndDate),
+      director: ['', [Validators.required, Validators.maxLength(40), Validators.pattern('^([A-Z][^0-9@*&%#!<>]+[ ][^0-9@*&%#!<>]+)$')]],
+      filmTime: ['', [Validators.required, Validators.max(120), Validators.pattern('^([0-9]+)')]],
+      trailer: ['', [Validators.required]],
       content: [],
-      filmStudio: [],
-      actor: [],
-      version: [],
+      filmStudio: ['', [Validators.required, Validators.maxLength(40)]],
+      actor: ['', [Validators.required, Validators.maxLength(40), Validators.pattern('^([A-Z][^0-9@*&%#!<>]+[ ][^0-9@*&%#!<>]+)$')]],
+      version: ['', [Validators.required]],
       movieTypeDto: this.fb.array([]),
       showTimeDto:
-        this.fb.group({
-          movie: [],
-          room: [],
-          // dateProjection: [],
-          times: []
+        new FormGroup({
+          movie: new FormControl(),
+          room: new FormControl('', [Validators.required]),
+          dateProjection: new FormControl(),
+          times: new FormControl('', [Validators.required])
         })
     });
   }
@@ -117,7 +124,6 @@ export class EditMovieComponent implements OnInit {
 
   onCheckboxChange(movieType: IMovieType, event) {
     this.movieTypeDto = this.formEditMovie.controls.movieType as FormArray;
-    // this.movieType = this.formAddMovie.get('movieType') as FormArray;
     const name = movieType.name;
     const isChecked = event.target.checked;
     if (isChecked) {
@@ -131,18 +137,21 @@ export class EditMovieComponent implements OnInit {
 
   editMovie() {
     this.submitted = true;
+    this.showTimeDto.value.dateProjection = this.movieDto.endDay;
     const image = this.getCurrentDateTime() + this.selectedImage.name;
-    const fileRef = this.storage.ref(image);
+    const destinationFilename = 'Movie/' + image;
+    const fileRef = this.storage.ref(destinationFilename);
     this.storage.upload(image, this.selectedImage).snapshotChanges().pipe(
       finalize(() => {
         fileRef.getDownloadURL().subscribe((url) => {
           this.formEditMovie.patchValue({image: url});
 
           // Call API to create vaccine
-          // this.promotionService.createPromotion(this.promotionFormGroup.value).subscribe(() => {
-          //   this.router.navigateByUrl('/list');
-          //   console.log('Thêm mới khuyến mãi thành công!');
-          // });
+          this.movieDto = this.formEditMovie.value;
+          this.movieDto.startDay = this.formEditMovie.get('dateGroup').get('startDay').value;
+          this.movieDto.endDay = this.formEditMovie.get('dateGroup').get('endDay').value;
+          this.movieDto.image = url;
+          this.imgUrl = this.movieDto.image;
           this.movieService.saveMovie(this.formEditMovie.value).subscribe(() => {
             Swal.fire({
               icon: 'success',
@@ -171,6 +180,15 @@ export class EditMovieComponent implements OnInit {
 
   showPreview(event: any) {
     this.selectedImage = event.target.files[0];
+
+    if (event.target.files && event.target.files[0]) {
+      const file = event.target.files[0];
+
+      const reader = new FileReader();
+      reader.onload = e => this.imgUrl = reader.result;
+
+      reader.readAsDataURL(file);
+    }
   }
 
   getCurrentDateTime(): string {
@@ -181,5 +199,61 @@ export class EditMovieComponent implements OnInit {
     return item1 && item2 && item1.id === item2.id;
   }
 
-
+  compareWithIdTime(item1, item2) {
+    return item1 && item2 && item1.id === item2.id;
   }
+
+  checkStartDate(abstractControl: AbstractControl): any {
+    const formYear = Number(new Date(abstractControl.value).getFullYear());
+    const formMonth = Number(new Date(abstractControl.value).getMonth() + 1);
+    const formDay = Number(new Date(abstractControl.value).getDate());
+    if (formYear > new Date().getFullYear()) {
+      return null;
+    }
+
+    if (formYear < new Date().getFullYear()) {
+      return {invalidStartDate: true};
+    }
+
+    if (formMonth > new Date().getMonth() + 1) {
+      return null;
+    }
+
+    if (formMonth < new Date().getMonth() + 1) {
+      return {invalidStartDate: true};
+    }
+
+    return (formDay >= new Date().getDate()) ? null : {invalidStartDate: true};
+  }
+
+  checkEndDate(abstractControl: AbstractControl): any {
+    console.log(new Date(abstractControl.value.startDay));
+    const formStartYear = new Date(abstractControl.value.startDay).getFullYear();
+    const formStartMonth = new Date(abstractControl.value.startDay).getMonth() + 1;
+    const formStartDay = new Date(abstractControl.value.startDay).getDate();
+    console.log(formStartDay + '-' + formStartMonth + '-' + formStartYear);
+    console.log(formStartDay);
+    const formEndYear = new Date(abstractControl.value.endDay).getFullYear();
+    const formEndMonth = new Date(abstractControl.value.endDay).getMonth() + 1;
+    const formEndDay = new Date(abstractControl.value.endDay).getDate();
+
+    if (formEndYear > formStartYear) {
+      return null;
+    }
+
+    if (formEndYear < formStartYear) {
+      return {invalidEndDate: true};
+    }
+
+    if (formEndMonth > formStartMonth) {
+      return null;
+    }
+
+    if (formEndMonth < formStartMonth) {
+      return {invalidEndDate: true};
+    }
+
+    return (formEndDay >= formStartDay) ? null : {invalidEndDate: true};
+  }
+
+}

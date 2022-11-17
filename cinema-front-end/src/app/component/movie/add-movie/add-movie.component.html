@@ -68,34 +68,36 @@
       <input formControlName="trailer" type="text" id="filmTrailer">
     </div>
   </div>
+
   <div class="row" formGroupName="dateGroup">
     <div class="col-lg-6">
-      <label for="dateFrom"><b>Từ Ngày</b><span>*</span>
+      <label for="startDay"><b>Từ</b><span>*</span>
         <span style="color: red; font-size: 12px" class="ps-3"
               *ngIf="formAddMovie.get('dateGroup').hasError('invalidStartDate', 'startDay')
-             && formAddMovie.get('dateGroup').get('startDay').touched">Phải lớn hơn hoặc bằng ngày hiện tại</span>
+             && formAddMovie.get('dateGroup').get('startDay').touched">Ngày phải lớn hơn hoặc bằng ngày hiện tại</span>
       </label>
-      <input formControlName="startDay" type="date" id="dateFrom">
+      <input type="date" id="startDay" class="form-control" formControlName="startDay" [min]="curDate"/>
     </div>
 
     <div class="col-lg-6">
-      <label for="dateTo"><b>Đến Ngày</b><span>*</span>
+      <label for="endDay"><b>Đến</b><span>*</span>
         <span style="color: red; font-size: 12px" class="ps-3"
               *ngIf="formAddMovie.controls.dateGroup.hasError('invalidEndDate')
-         && formAddMovie.controls.dateGroup.touched">Phải lớn hơn hoặc bằng ngày bắt đầu!</span>
+         && formAddMovie.controls.dateGroup.touched">Ngày phải lớn hơn thời gian bắt đầu!</span>
       </label>
-      <input formControlName="endDay" type="date" id="dateTo">
+      <input type="date" id="endDay" class="form-control" formControlName="endDay" [min]="curDate"/>
     </div>
   </div>
+
   <div formGroupName="showTimeDto">
         <div class="row">
           <div class="col-lg-6">
             <label for="filmRoom"><b>Phòng Chiếu</b><span>*</span>
               <span style="color: red; font-size: 12px" class="ps-3"
                     *ngIf="formAddMovie.get('showTimeDto').hasError('required')
-             && formAddMovie.get('showTimeDto').get('room').dirty">Vui lòng n=chọn phòng chiếu</span>
+             && formAddMovie.get('showTimeDto').get('room').dirty">Vui lòng chọn phòng chiếu</span>
             </label>
-            <select (change)="getInfo()" formControlName="room" id="filmRoom" class="form-select">
+            <select (click)="getInfo()" formControlName="room" id="filmRoom" class="form-select">
               <option value="null">Chọn phòng chiếu</option>
               <option *ngFor="let room1 of roomList" [ngValue]="room1">{{room1.name}}</option>
             </select>
@@ -125,6 +127,11 @@
             3D
           </label>
         </div>
+<!--        <div>-->
+<!--          <label for="endDay" class="mt-2"><b>Mã nhân viên</b>-->
+<!--          </label>-->
+<!--          <input readonly class="form-control" formControlName="employee" />-->
+<!--        </div>-->
       </div>
     </div>
     <div class="col-lg-6">
@@ -153,9 +160,8 @@
   </div>
   <div class="row text-center wrapCss">
     <button class="button btnGreen mx-2" (click)="addMovie()">Lưu</button>
-    <button class="button btnYellow mx-2">Quay lại</button>
+    <button class="button btnYellow mx-2" routerLink="/movie/list">Quay lại</button>
   </div>
 </form>
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 </body>
 

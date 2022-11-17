@@ -31,8 +31,6 @@ export class AddMovieComponent implements OnInit {
   roomList: IRoom[] = [];
   timeList: ITimes[] = [];
   movieTypeList$: Observable<IMovieType[]>;
-  dateProjection: string;
-  k = 0;
   submitted = false;
   selectedImage: any = null;
   imgUrl: string | ArrayBuffer;
@@ -49,12 +47,14 @@ export class AddMovieComponent implements OnInit {
     this.getAllMovieType();
     this.getAllRoom();
     this.formAddMovie = this.fb.group({
+      // employee: [],
       name: ['', [Validators.required, Validators.maxLength(50)]],
       image: [],
-      dateGroup: this.fb.group({
-        startDay: ['', this.checkStartDate],
-        endDay: []
+      dateGroup: new FormGroup({
+        startDay: new FormControl('', this.checkStartDate),
+        endDay: new FormControl('')
       }, this.checkEndDate),
+
       director: ['', [Validators.required, Validators.maxLength(40), Validators.pattern('^([A-Z][^0-9@*&%#!<>]+[ ][^0-9@*&%#!<>]+)$')]],
       filmTime: ['', [Validators.required, Validators.max(120), Validators.pattern('^([0-9]+)')]],
       trailer: ['', [Validators.required]],
@@ -64,11 +64,11 @@ export class AddMovieComponent implements OnInit {
       version: ['', [Validators.required]],
       movieTypeDto: this.fb.array([]),
       showTimeDto:
-        this.fb.group({
-          movie: [],
-          room: ['', [Validators.required]],
-          dateProjection: [],
-          times: ['', [Validators.required]]
+        new FormGroup({
+          movie: new FormControl(),
+          room: new FormControl('', [Validators.required]),
+          dateProjection: new FormControl(),
+          times: new FormControl ('', [Validators.required])
         })
     });
   }
@@ -101,7 +101,6 @@ export class AddMovieComponent implements OnInit {
 
   onCheckboxChange(movieTypeDto: IMovieType, event) {
     this.movieTypeDto = this.formAddMovie.controls.movieTypeDto as FormArray;
-    // this.movieType = this.formAddMovie.get('movieType') as FormArray;
     const name = movieTypeDto.name;
     const isChecked = event.target.checked;
     if (isChecked) {
@@ -113,18 +112,10 @@ export class AddMovieComponent implements OnInit {
     }
   }
 
-  // addMovie() {
-  //   this.submitted = true;
-  //
-  //   this.movieService.saveMovie(this.formAddMovie.getRawValue()).subscribe(() => {
-  //     this.formAddMovie.reset();
-  //   });
-  //
-  // }
-
   addMovie() {
-    this.movie = this.formAddMovie.value;
     this.submitted = true;
+    this.movie = this.formAddMovie.value;
+    this.showTimeDto.value.dateProjection = this.movie.endDay;
     const image = this.getCurrentDateTime() + this.selectedImage.name;
     const destinationFilename = 'Movie/' + image;
     const fileRef = this.storage.ref(destinationFilename);
@@ -134,11 +125,9 @@ export class AddMovieComponent implements OnInit {
           this.formAddMovie.patchValue({image: url});
 
           // Call API to create vaccine
-          // this.promotionService.createPromotion(this.promotionFormGroup.value).subscribe(() => {
-          //   this.router.navigateByUrl('/list');
-          //   console.log('Thêm mới khuyến mãi thành công!');
-          // });
-
+          this.movie = this.formAddMovie.value;
+          this.movie.startDay = this.formAddMovie.get('dateGroup').get('startDay').value;
+          this.movie.endDay = this.formAddMovie.get('dateGroup').get('endDay').value;
           this.movie.image = url;
           this.imgUrl = this.movie.image;
           this.movieService.saveMovie(this.formAddMovie.value).subscribe(() => {
