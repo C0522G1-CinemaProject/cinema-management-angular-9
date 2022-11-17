@@ -1,4 +1,4 @@
-<div *ngIf="arrayTicket != undefined && arrayTicket != null; else noContent">
+<div *ngIf="arrayTicket != undefined || arrayTicket != null; else noContent" class="bodyc">
   <div class="container-fluid d-flex" style="color: white">
     <div class="container">
       <div class="row">
@@ -24,10 +24,13 @@
                         <br>
                         <li><span>Giờ chiếu:</span> {{arrayTicket[0].startTime}}</li>
                         <br>
-                        <li><span>Ghế:</span>
+                        <li>
                           <table>
                             <tr>
-                              <td *ngFor="let item of arrayTicket" class="pe-1">
+                              <td>
+                                <span>Ghế:</span>
+                              </td>
+                              <td *ngFor="let item of arrayTicket" class="pe-1" >
                                 {{item.nameSeat}}
                               </td>
                             </tr>
@@ -46,12 +49,13 @@
                             </tr>
                             <tr *ngFor="let item of arrayTicket;" style="transform: translateY(-22px)">
                               <td></td>
-                              <td>&nbsp;{{item.nameSeat}}: {{item.price| currency:' '}} VNĐ</td>
+                              <td>&nbsp;{{item.nameSeat}}: {{item.price}} VNĐ</td>
                             </tr>
                           </table>
                         </li>
                         <hr>
-                        <li><span>Tổng cộng:</span> {{total| currency:' '}} VNĐ</li>
+                        <li><span>Tổng cộng:</span> {{total}} VNĐ
+                        </li>
                         <br>
                       </ul>
 

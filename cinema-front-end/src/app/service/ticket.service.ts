@@ -17,16 +17,16 @@ export class TicketService {
 
   paginate(page: number, limit: number, ticketId: string, customerId: string, idCard: string,
            phoneNumber: string): Observable<SearchResult<ITicketManagerDto>> {
-    return this.http.get<SearchResult<ITicketManagerDto>>(this.API_TICKET + '/booking-ticket/list-ticket-manager?page='
+    return this.http.get<SearchResult<ITicketManagerDto>>(this.API_TICKET + '/ticket/list-ticket-manager?page='
       + (page - 1) + '&size=' + limit + '&ticketId=' + ticketId + '&customerId=' + customerId + '&idCard='
       + idCard + '&phoneNumber=' + phoneNumber);
   }
 
   getTicketManagerById(id: number): Observable<ITicketManagerDto> {
-    return this.http.get<ITicketManagerDto>(this.API_TICKET + '/booking-ticket/find-ticket-by/{id}' + id);
+    return this.http.get<ITicketManagerDto>(this.API_TICKET + '/ticket/find-ticket-by/{id}' + id);
   }
 
   editStatusTicketBy2(iTicket: ITicket): Observable<void> {
-    return this.http.patch<void>(this.API_TICKET + '/booking-ticket/edit-ticket-by/' + iTicket.id, iTicket);
+    return this.http.patch<void>(this.API_TICKET + '/ticket/edit-ticket-by/' + iTicket.id, iTicket);
   }
 }
