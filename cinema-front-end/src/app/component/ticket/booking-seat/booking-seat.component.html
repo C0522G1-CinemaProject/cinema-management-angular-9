@@ -642,6 +642,6 @@
   <div class="text-center">
     <button class="button btnYellow me-2" routerLink="/booking-ticket">Quay lại</button>
     <button class="button btnBlue" [hidden]="seatBookings === undefined || seatBookings.length === 0"
-            (click)="nextConfirm()">Tiếp tục</button>
+            (click)="nextConfirm()" routerLink="/confirm-ticket">Tiếp tục</button>
   </div>
 </div>

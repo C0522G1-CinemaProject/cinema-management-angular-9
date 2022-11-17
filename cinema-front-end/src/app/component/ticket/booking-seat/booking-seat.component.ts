@@ -1,11 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {BookingTicketService} from "../../../service/booking-ticket.service";
-import {ISeatDetailBookingDto} from "../../../dto/i-seat-detail-booking-dto";
-import {IMovieBookingDto} from "../../../dto/i-movie-booking-dto";
-import {IShowDateBookingDto} from "../../../dto/i-show-date-booking-dto";
-import {IShowtimesBookingDto} from "../../../dto/i-showtimes-booking-dto";
-import {ICustomer} from "../../../model/i-customer";
-import {ITicket} from "../../../model/i-ticket";
+import {ISeatDetailBookingDto} from '../../../dto/i-seat-detail-booking-dto';
+import {IMovieBookingDto} from '../../../dto/i-movie-booking-dto';
+import {IShowDateBookingDto} from '../../../dto/i-show-date-booking-dto';
+import {IShowtimesBookingDto} from '../../../dto/i-showtimes-booking-dto';
+import {BookingTicketService} from '../../../service/booking-ticket.service';
+import {ITicket} from '../../../model/i-ticket';
+import {ICustomer} from '../../../model/i-customer';
+
 
 @Component({
   selector: 'app-booking-seat',
@@ -35,7 +36,6 @@ export class BookingSeatComponent implements OnInit {
   customer: ICustomer;
 
   ticketBooking: ITicket;
-  ticketBookings: ITicket[] = [];
 
   constructor(private bookingTicketService: BookingTicketService) {
   }
@@ -85,6 +85,7 @@ export class BookingSeatComponent implements OnInit {
 
   nextConfirm() {
     for (let item of this.seatBookings) {
+      console.log(item);
       this.bookingTicketService.getSeatDetailById(item.id).subscribe(value => {
           this.ticketBooking = {
             statusTicket: 0,
@@ -92,10 +93,9 @@ export class BookingSeatComponent implements OnInit {
             customer: this.customer,
             ticketBookingTime: new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate()
               + ' ' + new Date().getHours() + ':' + new Date().getMinutes() + ':' + new Date().getSeconds()
-          }
+          };
 
           this.bookingTicketService.addPendingTicket(this.ticketBooking).subscribe(() => {
-            this.ticketBookings.push(this.ticketBooking);
           }, error => {
             console.log(error);
           });
@@ -104,6 +104,5 @@ export class BookingSeatComponent implements OnInit {
           console.log(error);
         });
     }
-    console.log(this.ticketBookings);
   }
 }
