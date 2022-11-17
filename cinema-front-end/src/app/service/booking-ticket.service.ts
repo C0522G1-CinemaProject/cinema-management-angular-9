@@ -1,14 +1,16 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {BehaviorSubject, Observable} from "rxjs";
-import {IMovieBookingDto} from "../dto/i-movie-booking-dto";
-import {IShowtimesBookingDto} from "../dto/i-showtimes-booking-dto";
-import {IShowDateBookingDto} from "../dto/i-show-date-booking-dto";
-import {ISeatDetailBookingDto} from "../dto/i-seat-detail-booking-dto";
-import {ITicket} from "../model/i-ticket";
-import {ICustomer} from "../model/i-customer";
-import {ISeatDetail} from "../model/i-seat-detail";
-import {TokenStorageService} from "./token-storage.service";
+import {BehaviorSubject, Observable} from 'rxjs';
+import {IMovieBookingDto} from '../dto/i-movie-booking-dto';
+import {IShowDateBookingDto} from '../dto/i-show-date-booking-dto';
+import {IShowtimesBookingDto} from '../dto/i-showtimes-booking-dto';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {TokenStorageService} from './token-storage.service';
+import {ISeatDetailBookingDto} from '../dto/i-seat-detail-booking-dto';
+import {ITicket} from '../model/i-ticket';
+import {ICustomer} from '../model/i-customer';
+import {ISeatDetail} from '../model/i-seat-detail';
+import {ITicketDto} from '../dto/i-ticket-dto';
+
 
 // const API_URL = `${environment.api_url}`;
 const API_URL = 'http://localhost:8080/api';
@@ -38,7 +40,7 @@ export class BookingTicketService {
   }
 
   findAllMovieInNext7Days(): Observable<any> {
-    console.log(this.httpOptions)
+    console.log(this.httpOptions);
     return this.httpClient.get<IMovieBookingDto[]>(API_URL + '/booking-ticket/movie', this.httpOptions);
   }
 
@@ -70,5 +72,15 @@ export class BookingTicketService {
 
   getSeatDetailById(id: number): Observable<any> {
     return this.httpClient.get<ISeatDetail>(API_URL + '/booking-ticket/seat/' + id, this.httpOptions);
+  }
+
+  getTicketByuserName(): Observable<any> {
+    console.log(this.httpOptions);
+    return this.httpClient.get<ITicketDto>(API_URL + '/booking-ticket/list-ticket', this.httpOptions);
+  }
+
+  updateStatusTicketByUserName(userName): Observable<any> {
+    // @ts-ignore
+    return this.httpClient.put<void>(API_URL + '/booking-ticket/update-ticket/' + userName, this.httpOptions);
   }
 }
