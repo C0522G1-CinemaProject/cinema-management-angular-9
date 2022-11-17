@@ -45,7 +45,8 @@ export class BookingTicketComponent implements OnInit {
   }
 
   getShowTimeByShowDate(): void {
-    this.bookingTicketService.findAllShowTimeByShowDate(this.showDateChoose.showDate).subscribe(value => {
+    this.bookingTicketService.findAllShowTimeByShowDate(this.showDateChoose.showDate, this.movieChoose.id)
+      .subscribe(value => {
         this.showTimes$ = new BehaviorSubject<IShowtimesBookingDto[]>(value);
       },
       error => {
