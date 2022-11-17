@@ -28,11 +28,11 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     this.formForgotPass = this.formBuilder.group({
       email: ['', [Validators.email, Validators.required]]
     });
   }
-
   forgotPassword() {
     if (this.formForgotPass.valid) {
       this.authService.forgotPassword(this.formForgotPass.get('email').value).subscribe(

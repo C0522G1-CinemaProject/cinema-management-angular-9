@@ -7,7 +7,6 @@ import { BookingTicketComponent } from './booking-ticket/booking-ticket.componen
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 
-
 @NgModule({
   declarations: [BookingSeatComponent, BookingTicketComponent],
     imports: [

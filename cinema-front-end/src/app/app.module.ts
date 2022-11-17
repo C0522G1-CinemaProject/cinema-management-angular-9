@@ -13,9 +13,8 @@ import {RegisterModule} from './component/register/register.module';
 import {RoomModule} from './component/room/room.module';
 import {TicketModule} from './component/ticket/ticket.module';
 import {FormsModule} from '@angular/forms';
+
 import {GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule} from 'angularx-social-login';
-
-
 const googleLoginOptions = {
   scope: 'profile email',
   plugin_name: 'login'
@@ -39,6 +38,7 @@ const googleLoginOptions = {
     TicketModule,
     FormsModule,
     SocialLoginModule,
+
   ],
   providers: [
     {

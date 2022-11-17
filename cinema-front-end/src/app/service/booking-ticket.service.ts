@@ -1,14 +1,17 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {BehaviorSubject, Observable} from 'rxjs';
 import {IMovieBookingDto} from '../dto/i-movie-booking-dto';
-import {IShowtimesBookingDto} from '../dto/i-showtimes-booking-dto';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {IShowDateBookingDto} from '../dto/i-show-date-booking-dto';
+import {IShowtimesBookingDto} from '../dto/i-showtimes-booking-dto';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {TokenStorageService} from './token-storage.service';
 import {ISeatDetailBookingDto} from '../dto/i-seat-detail-booking-dto';
 import {ITicket} from '../model/i-ticket';
 import {ICustomer} from '../model/i-customer';
 import {ISeatDetail} from '../model/i-seat-detail';
-import {TokenStorageService} from './token-storage.service';
+
+
+
 
 // const API_URL = `${environment.api_url}`;
 const API_URL = 'http://localhost:8080/api';
@@ -61,6 +64,7 @@ export class BookingTicketService {
   }
 
   addPendingTicket(ticket: ITicket): Observable<any> {
+
     return this.httpClient.post<ITicket>(API_URL + '/ticket/add-pending-ticket', ticket, this.httpOptions);
   }
 
